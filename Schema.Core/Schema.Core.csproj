@@ -40,9 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\DataProvider.cs" />
+    <Compile Include="Enums\Rule.cs" />
     <Compile Include="Models\Column.cs" />
     <Compile Include="Models\ColumnModel.cs" />
     <Compile Include="Models\DatabaseModel.cs" />
+    <Compile Include="Models\Index.cs" />
+    <Compile Include="Models\Key.cs" />
+    <Compile Include="Models\Triger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
