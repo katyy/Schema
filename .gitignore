@@ -10,3 +10,6 @@
 /Schema.DataAccess/obj
 /Schema.DataAccess/bin
 /Schema.Core/obj
+
+/Schema.Core/obj
+/Shema.CLI/obj
