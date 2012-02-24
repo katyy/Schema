@@ -1,6 +1,6 @@
 /_ReSharper.Schema
 /Schema.5.1.ReSharper.user
-/Schema.Core/bin/
-/Schema.Core/obj/
-/Schema.DataAccess/bin/
-/Schema.DataAccess/obj/
+/Schema.Core/bin
+/Schema.Core/obj
+/Schema.DataAccess/bin
+/Schema.DataAccess/obj
