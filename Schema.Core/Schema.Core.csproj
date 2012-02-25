@@ -42,17 +42,16 @@
   <ItemGroup>
     <Compile Include="Enums\DataProvider.cs" />
     <Compile Include="Enums\Rule.cs" />
+    <Compile Include="Helpers\ModelHelper.cs" />
     <Compile Include="Models\Column.cs" />
     <Compile Include="Models\ColumnModel.cs" />
     <Compile Include="Models\DatabaseModel.cs" />
-    <Compile Include="Models\Index.cs" />
-    <Compile Include="Models\Key.cs" />
-    <Compile Include="Models\Triger.cs" />
+    <Compile Include="Models\IndexModel.cs" />
+    <Compile Include="Models\KeyModel.cs" />
+    <Compile Include="Models\TrigerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
