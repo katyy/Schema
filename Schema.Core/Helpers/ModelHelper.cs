@@ -8,13 +8,13 @@ namespace Schema.Core.Helpers
 {
     public class ModelHelper
     {
-        public static DatabaseModel GetColumn(DataSet dataSet, string cnString, string TableName)
+        public static List<ColumnModel> GetColumn(DataSet dataSet, string cnString, string TableName)
         {
-            var model = new DatabaseModel();
+          
             var columns = new List<ColumnModel>();
             var dAdapter =
                 new SqlDataAdapter(
-                    "SELECT t.name,c.name,ty.name, c.max_length, c.is_nullable,c.is_identity FROM sys.columns c,sys.tables t,sys.types ty  WHERE c.object_id=t.object_id  and ty.user_type_id=c.system_type_id;",
+                    "SELECT t.name,c.name,ty.name, c.max_length, c.is_nullable,c.is_identity  FROM sys.types ty ,sys.tables t,sys.columns c WHERE c.object_id=t.object_id  and ty.user_type_id=c.system_type_id;",
                     cnString);
             dAdapter.Fill(dataSet, TableName);
             var column = new List<Column>();
@@ -31,7 +31,8 @@ namespace Schema.Core.Helpers
                                        TypeName = dt.Rows[i].ItemArray[2].ToString(),
                                        MaxLength = Convert.ToInt32(dt.Rows[i].ItemArray[3].ToString()),
                                        AllowNull = (bool)dt.Rows[i].ItemArray[4],
-                                       IsUnique = (bool)dt.Rows[i].ItemArray[5]
+                                       IsIdenty = (bool)dt.Rows[i].ItemArray[5]
+                                     
                                    });
 
                 }
@@ -46,10 +47,9 @@ namespace Schema.Core.Helpers
                 }
                 name = tableName;
             }
-            model.Tables = columns;
-
-            return model;
+          return columns;
         }
+
         public static List<KeyModel> GetKeys(DataSet dataSet, string cnString, string TableName)
         {
             var keyModel = new List<KeyModel>();
@@ -59,7 +59,7 @@ namespace Schema.Core.Helpers
                     "SELECT t.name,c.name, k.type,k.name,k.type_desc FROM sys.key_constraints k,  sys.all_columns c,sys.tables t where c.object_id=k.parent_object_id and c.column_id=k.unique_index_id and k.parent_object_id=t.object_id;",
                     cnString);
             dAdapter.Fill(dataSet, TableName);
-            var dt = dataSet.Tables["Keys"];
+            var dt = dataSet.Tables[TableName];
 
 
 
@@ -78,6 +78,35 @@ namespace Schema.Core.Helpers
                          // UpdateRule = dt.Rows[i].ItemArray[1].ToString()
 
                      });
+
+            }
+            return keyModel;
+        }
+
+        public static List<KeyModel> GetForigenKey(DataSet dataSet, string cnString,string TableName)
+        {
+            var keyModel = new List<KeyModel>();
+            var dataAdapter =
+                new SqlDataAdapter(
+                    "select  t.name, c.name,fk.type,fk.name,fk.type_desc,fk.delete_referential_action_desc,fk.update_referential_action_desc from sys.foreign_keys fk,sys.tables t,sys.all_columns c,sys.foreign_key_columns fc where t.object_id=fk.parent_object_id and c.column_id=fc.constraint_column_id and  c.object_id=fc.parent_object_id and fc.constraint_object_id=fk.object_id;",
+                    cnString);
+            dataAdapter.Fill(dataSet, TableName);
+            var dt = dataSet.Tables[TableName];
+            for (var i = 0; i < dt.Rows.Count; i++)
+            {
+                keyModel.Add(new KeyModel
+                {
+                    TableName = dt.Rows[i].ItemArray[0].ToString(),
+                    ColumnName = dt.Rows[i].ItemArray[1].ToString(),
+                    Type = dt.Rows[i].ItemArray[2].ToString(),
+                    Name = dt.Rows[i].ItemArray[3].ToString(),
+                    TypeDescription = dt.Rows[i].ItemArray[4].ToString(),
+                    //  IsIdenty = dt.Rows[i].ItemArray[1].ToString(),
+                    //IdentyIncriment = dt.Rows[i].ItemArray[1].ToString(),
+                     DeletRule = dt.Rows[i].ItemArray[5].ToString(),
+                     UpdateRule = dt.Rows[i].ItemArray[6].ToString()
+
+                });
 
             }
             return keyModel;

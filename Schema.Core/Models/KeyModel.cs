@@ -10,10 +10,9 @@ namespace Schema.Core.Models
        public string Name { get; set; }
        public string TypeDescription { get; set; }
       
-       public bool IsIdenty { get; set; }
-       public int IdentyIncriment { get; set; }
-       public Rule DeletRule { get; set; }
-       public Rule UpdateRule { get; set; }
-     //  public bool IsPrimaryKey { get; set; }
+      
+       public string DeletRule { get; set; }
+       public string UpdateRule { get; set; }
+  //refferences
     }
 }
