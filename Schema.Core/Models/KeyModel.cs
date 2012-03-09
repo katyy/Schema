@@ -13,6 +13,6 @@
        public string UpdateRule { get; set; }
        public string ReferanceTable { get; set; }
        public string ReferanceColumn { get; set; }
-  //refferences
+
     }
 }

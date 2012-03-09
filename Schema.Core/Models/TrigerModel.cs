@@ -7,6 +7,5 @@
       public string Event { get; set; }
       public string Type { get; set; }
       public string TypeDescription { get; set; }
-     // public string Script { get; set; }
     }
 }
