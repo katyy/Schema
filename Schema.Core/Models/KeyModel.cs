@@ -1,6 +1,4 @@
-﻿using Schema.Core.Enums;
-
-namespace Schema.Core.Models
+﻿namespace Schema.Core.Models
 {
    public class KeyModel
     {
@@ -13,6 +11,8 @@ namespace Schema.Core.Models
       
        public string DeletRule { get; set; }
        public string UpdateRule { get; set; }
+       public string ReferanceTable { get; set; }
+       public string ReferanceColumn { get; set; }
   //refferences
     }
 }
