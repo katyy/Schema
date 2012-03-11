@@ -7,14 +7,11 @@ namespace Shema.CLI
     {
         static void Main(string[] args)
         {
-            const string cnString = @"Data Source=.\LOCALHOST;AttachDbFilename=d:\App_data\Cars\Cars.UserInterface\App_Data\Parking.mdf;Integrated Security=True";
+            const string dbName = @"d:\App_data\Cars\Cars.UserInterface\App_Data\Parking.mdf";
+            const string cnString = @"Data Source=.\LOCALHOST;AttachDbFilename=" + dbName + ";Integrated Security=True";
             var dataSet = new DataSet("dbDataSet");
-            var model = ModelHelper.GetColumn(dataSet, cnString,"Tables");
-            var keyModel = ModelHelper.GetKeys(dataSet, cnString, "Keys");
-            var forigenKey = ModelHelper.GetForigenKey(dataSet, cnString, "ForigenKey");
-            var trigers = ModelHelper.GetTrigers(dataSet, cnString, "Trigers");
-            var indexes = ModelHelper.GetIndexes(dataSet, cnString, "Indexes");
-        }
+            var db = Insert.GetModel(dataSet, cnString);
 
+        }
     }
 }

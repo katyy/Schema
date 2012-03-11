@@ -7,8 +7,6 @@
        public string Type { get; set; }
        public string Name { get; set; }
        public string TypeDescription { get; set; }
-      
-      
        public string DeletRule { get; set; }
        public string UpdateRule { get; set; }
        public string ReferanceTable { get; set; }

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\DataProvider.cs" />
+    <Compile Include="Helpers\Insert.cs" />
     <Compile Include="Helpers\ModelHelper.cs" />
     <Compile Include="Models\Column.cs" />
     <Compile Include="Models\ColumnModel.cs" />
