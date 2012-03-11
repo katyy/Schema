@@ -38,12 +38,12 @@ namespace Schema.Core.Helpers
                 }
                 else
                 {
-                    columns.Add(new ColumnModel { TableName = name, Columns = column });
+                    columns.Add(new ColumnModel { Name = name, Columns = column });
                     column = new List<Column> { new Column { ColumnName = dt.Rows[i].ItemArray[1].ToString() } };
                 }
                 if (i == dt.Rows.Count - 1)
                 {
-                    columns.Add(new ColumnModel { TableName = name, Columns = column });
+                    columns.Add(new ColumnModel { Name = name, Columns = column });
                 }
                 name = tableName;
             }
@@ -72,11 +72,6 @@ namespace Schema.Core.Helpers
                          Type = dt.Rows[i].ItemArray[2].ToString(),
                          Name = dt.Rows[i].ItemArray[3].ToString(),
                          TypeDescription = dt.Rows[i].ItemArray[4].ToString(),
-                         //  IsIdenty = dt.Rows[i].ItemArray[1].ToString(),
-                         //IdentyIncriment = dt.Rows[i].ItemArray[1].ToString(),
-                         //  DeletRule = dt.Rows[i].ItemArray[1].ToString(),
-                         // UpdateRule = dt.Rows[i].ItemArray[1].ToString()
-
                      });
 
             }
@@ -89,7 +84,6 @@ namespace Schema.Core.Helpers
             var dataAdapter =
                 new SqlDataAdapter(
                     "select foriegen.parent_table,parent_column,f.type,name,f.type_desc,f.delete_referential_action_desc,f.update_referential_action_desc, foriegen.referance_table, foriegen.referance_column from sys.foreign_keys f  LEFT OUTER JOIN (select p.parent_table , p.parent_column,r.referance_table,r.referance_column,r.id from (select t.name referance_table,c.name referance_column,fc.constraint_object_id id from sys.foreign_key_columns fc, sys.tables t,sys.all_columns c where fc.referenced_object_id=t.object_id and fc.referenced_column_id=c.column_id and fc.referenced_object_id=c.object_id) r LEFT OUTER JOIN (select t.name parent_table,c.name parent_column,fc.constraint_object_id id from sys.foreign_key_columns fc, sys.tables t,sys.all_columns c where fc.parent_object_id=t.object_id and fc.parent_column_id=c.column_id and fc.parent_object_id=c.object_id) p ON p.id=r.id) foriegen on foriegen.id=f.object_id;",
-                  //  "select  t.name, c.name,fk.type,fk.name,fk.type_desc,fk.delete_referential_action_desc,fk.update_referential_action_desc from sys.foreign_keys fk,sys.tables t,sys.all_columns c,sys.foreign_key_columns fc where t.object_id=fk.parent_object_id and c.column_id=fc.constraint_column_id and  c.object_id=fc.parent_object_id and fc.constraint_object_id=fk.object_id;",
                     cnString);
             dataAdapter.Fill(dataSet, TableName);
             var dt = dataSet.Tables[TableName];
@@ -102,10 +96,8 @@ namespace Schema.Core.Helpers
                     Type = dt.Rows[i].ItemArray[2].ToString(),
                     Name = dt.Rows[i].ItemArray[3].ToString(),
                     TypeDescription = dt.Rows[i].ItemArray[4].ToString(),
-                    //  IsIdenty = dt.Rows[i].ItemArray[1].ToString(),
-                    //IdentyIncriment = dt.Rows[i].ItemArray[1].ToString(),
-                     DeletRule = dt.Rows[i].ItemArray[5].ToString(),
-                     UpdateRule = dt.Rows[i].ItemArray[6].ToString(),
+                    DeletRule = dt.Rows[i].ItemArray[5].ToString(),
+                    UpdateRule = dt.Rows[i].ItemArray[6].ToString(),
                     ReferanceTable = dt.Rows[i].ItemArray[7].ToString(),
                     ReferanceColumn = dt.Rows[i].ItemArray[8].ToString()
 
@@ -140,5 +132,32 @@ namespace Schema.Core.Helpers
             }
             return trigerModel;
         }
+        public static List<IndexModel> GetIndexes(DataSet dataSet, string cnString, string TableName)
+        {
+            var indexModel = new List<IndexModel>();
+            var dataAdapter =
+                new SqlDataAdapter(
+                    "SELECT index_table.table_name, c.name column_name,index_table.name,index_table.type_desc,index_table.is_unique,index_table.is_descending_key FROM(SELECT t.name table_name,indexes.* FROM (SELECT i.object_id,i.name,i.type_desc,i.is_unique,ic.index_column_id,ic.column_id,ic.is_descending_key  FROM sys.indexes i,sys.index_columns ic WHERE i.object_id=ic.object_id and i.index_id=ic.index_id) indexes LEFT JOIN sys.tables t ON t.object_id=indexes.object_id WHERE t.name IS NOT NULL) index_table LEFT JOIN sys.columns c  ON c.column_id=index_table.column_id and c.object_id=index_table.object_id ;",
+                cnString);
+            dataAdapter.Fill(dataSet, TableName);
+            var dt = dataSet.Tables[TableName];
+            for (var i = 0; i < dt.Rows.Count; i++)
+            {
+                indexModel.Add(new IndexModel
+                {
+                   TableName = dt.Rows[i].ItemArray[0].ToString(),
+                  ColumnName = dt.Rows[i].ItemArray[1].ToString(),
+                    Name = dt.Rows[i].ItemArray[2].ToString(),
+                    TypeDescription = dt.Rows[i].ItemArray[3].ToString(),
+                    Isunique = Convert.ToBoolean(dt.Rows[i].ItemArray[4].ToString()),
+                   IsDescending = Convert.ToBoolean(dt.Rows[i].ItemArray[5].ToString())
+
+
+                });
+
+            }
+            return indexModel;
+        }
+
     }
 }

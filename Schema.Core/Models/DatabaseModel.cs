@@ -6,7 +6,7 @@ namespace Schema.Core.Models
  {
      public List<ColumnModel> Tables { get;set; }
   // public List<ColumnModel> Diagrams { get; set; }
-    // public List<ColumnModel> Views { get; set; }
+    public List<ViewModel> Views { get; set; }
 
 
  }

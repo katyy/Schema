@@ -2,10 +2,11 @@
 {
    public class IndexModel
     {
+       public string TableName { get; set; }
+       public string ColumnName { get; set; }
        public string Name { get; set; }
-       public string DataType { get; set; }
-       public int Size { get; set; }
-       public bool Identy { get; set; }
-       public bool AllowNulls { get; set; }
+       public string TypeDescription { get; set; }
+       public bool Isunique { get; set; }
+       public bool IsDescending { get; set; }
     }
 }
