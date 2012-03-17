@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-
-namespace Schema.Core.Models
+﻿namespace Schema.Core.Models
 {
-   public class ViewModel
+    public class ViewModel
     {
-       public string Name { get; set; }
-       public string TypeDescription { get; set; }
-     //  public List<Column> Columns { get; set; }
-       //public List<TrigerModel> Trigers { get; set; }
-       //public List<IndexModel> Indexes { get; set; }
+        public string Name { get; set; }
+        public string TypeDescription { get; set; }
+        //public List<ColumnModel> Columns { get; set; }
+        //public List<TrigerModel> Trigers { get; set; }
+        //public List<IndexModel> Indexes { get; set; }
     }
 }

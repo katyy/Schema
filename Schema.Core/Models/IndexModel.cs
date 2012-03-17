@@ -6,7 +6,7 @@
        public string ColumnName { get; set; }
        public string Name { get; set; }
        public string TypeDescription { get; set; }
-       public bool Isunique { get; set; }
+       public bool IsUnique { get; set; }
        public bool IsDescending { get; set; }
     }
 }

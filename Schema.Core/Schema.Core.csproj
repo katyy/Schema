@@ -40,17 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\DataProvider.cs" />
-    <Compile Include="Helpers\Insert.cs" />
-    <Compile Include="Helpers\ModelHelper.cs" />
-    <Compile Include="Models\Column.cs" />
+    <Compile Include="Helpers\ModelFiller.cs" />
+    <Compile Include="Helpers\ModelsGetter.cs" />
     <Compile Include="Models\ColumnModel.cs" />
+    <Compile Include="Models\TableModel.cs" />
     <Compile Include="Models\DatabaseModel.cs" />
     <Compile Include="Models\IndexModel.cs" />
     <Compile Include="Models\KeyModel.cs" />
     <Compile Include="Models\TrigerModel.cs" />
     <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQL.cs" />
+    <Compile Include="TableNames.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

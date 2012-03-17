@@ -1,4 +1,4 @@
-﻿namespace Schema.Core.Enums
+﻿namespace Schema.DataAccess.Enums
 {
     enum DataProvider
     {

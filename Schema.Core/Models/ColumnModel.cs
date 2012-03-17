@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-
-namespace Schema.Core.Models
+﻿namespace Schema.Core.Models
 {
-    public class ColumnModel//:ViewModel
+    public class ColumnModel
     {
-        public string Name { get; set; }
-        public List<Column> Columns { get; set; }
-        public List<KeyModel> Keys { get; set; }
-        public List<TrigerModel> Trigers { get; set; }
-        public List<IndexModel> Indexes { get; set; }
+        public string ColumnName { get; set; }
+        public string TypeName { get; set; }
+        public int MaxLength { get; set; }
+        public bool AllowNull { get; set; }
+        public bool IsIdenty { get; set; }
+        public int? IdentyIncriment { get; set; }
     }
 }
