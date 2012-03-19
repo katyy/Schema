@@ -8,5 +8,6 @@
         public const string Trigers = "Trigers";
         public const string Indexes = "Indexes";
         public const string Views = "Views";
+        public const string Procedures = "Procedures";
      }
 }

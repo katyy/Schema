@@ -43,10 +43,13 @@
     <Compile Include="Helpers\ModelFiller.cs" />
     <Compile Include="Helpers\ModelsGetter.cs" />
     <Compile Include="Models\ColumnModel.cs" />
+    <Compile Include="Models\ProcedureColumnModel.cs" />
+    <Compile Include="Models\ProcedureModel.cs" />
     <Compile Include="Models\TableModel.cs" />
     <Compile Include="Models\DatabaseModel.cs" />
     <Compile Include="Models\IndexModel.cs" />
     <Compile Include="Models\KeyModel.cs" />
+    <Compile Include="Models\ITable.cs" />
     <Compile Include="Models\TrigerModel.cs" />
     <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

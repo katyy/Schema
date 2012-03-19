@@ -8,14 +8,16 @@ namespace Schema.Core.Helpers
     {
         public static DatabaseModel GetModel(DataSet dataSet, string cnString)
         {
-            var columnModels = ModelsGetter.GetColumn(dataSet, cnString, TableNames.Tables);
+          //  var columnModels = ModelsGetter.GetColumn(dataSet, cnString, TableNames.Tables);
+            var columnModels =ModelsGetter.GetColumns(dataSet, cnString, TableNames.Tables, SQL.SelectColumn);
             var keyModel = ModelsGetter.GetKeys(dataSet, cnString, TableNames.Keys);
             var forigenKey = ModelsGetter.GetForigenKey(dataSet, cnString, TableNames.ForigenKey);
             var trigers = ModelsGetter.GetTrigers(dataSet, cnString, TableNames.Trigers);
             var indexes = ModelsGetter.GetIndexes(dataSet, cnString, TableNames.Indexes);
             var views = ModelsGetter.GetViews(dataSet, cnString, TableNames.Views);
+            var procedures = ModelsGetter.GetProcedures(dataSet, cnString, TableNames.Procedures);
 
-            InsertModels(columnModels, keyModel, forigenKey, trigers, indexes);
+            InsertModels( columnModels, keyModel, forigenKey, trigers, indexes);
             return new DatabaseModel
              {
                  Tables = columnModels,

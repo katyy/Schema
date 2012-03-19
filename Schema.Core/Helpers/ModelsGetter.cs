@@ -8,6 +8,37 @@ namespace Schema.Core.Helpers
 {
     public class ModelsGetter
     {
+        public static List<ITable> GetColumns(DataSet dataSet, string cnString, string TableName,string sql)
+        {
+            var columns = new List<ITable>();
+            var dAdapter = new SqlDataAdapter(sql, cnString);
+            dAdapter.Fill(dataSet, TableName);
+            var column = new List<ColumnModel>();
+            var dt = dataSet.Tables[TableName];
+            string name = null;
+            for (var i = 0; i < dt.Rows.Count; i++)
+            {
+                var tableName = dt.Rows[i].ItemArray[0].ToString();
+                if (name == tableName || name == null)
+                {
+                    column = AddColumn(column, i, dt);
+                }
+                else
+                {
+                    columns.Add(new TableModel { Name = name, Columns = column});
+                    column = new List<ColumnModel>();
+                    column = AddColumn(column, i, dt);
+                }
+                if (i == dt.Rows.Count - 1)
+                {
+                    columns.Add(new TableModel { Name = name, Columns = column});
+                }
+                name = tableName;
+            }
+
+            return columns;
+        }
+
         public static List<TableModel> GetColumn(DataSet dataSet, string cnString, string TableName)
         {
             var columns = new List<TableModel>();
@@ -21,28 +52,14 @@ namespace Schema.Core.Helpers
                 var tableName = dt.Rows[i].ItemArray[0].ToString();
                 if (name == tableName || name == null)
                 {
-                   int? identy = null;
-                   var identyValue = dt.Rows[i].ItemArray[6];
-                   if (identyValue != DBNull.Value)
-                    {
-                        identy = (int?) dt.Rows[i].ItemArray[6];
-                    }
-                    
-                    column.Add(new ColumnModel
-                                   {
-                                       ColumnName = dt.Rows[i].ItemArray[1].ToString(),
-                                       TypeName = dt.Rows[i].ItemArray[2].ToString(),
-                                       MaxLength = Convert.ToInt32(dt.Rows[i].ItemArray[3].ToString()),
-                                       AllowNull = (bool)dt.Rows[i].ItemArray[4],
-                                       IsIdenty = (bool)dt.Rows[i].ItemArray[5],
-                                       IdentyIncriment =identy
-                                   });
+                    column = AddColumn(column, i, dt);
                 }
                 else
                 {
                     columns.Add(new TableModel { Name = name, Columns = column, Indexes = new List<IndexModel>(), Keys = new List<KeyModel>(), Trigers = new List<TrigerModel>() });
-                    column = new List<ColumnModel> { new ColumnModel { ColumnName = dt.Rows[i].ItemArray[1].ToString() } };
-                }
+                    column = new List<ColumnModel>();
+                    column = AddColumn(column, i, dt);
+                 }
                 if (i == dt.Rows.Count - 1)
                 {
                     columns.Add(new TableModel { Name = name, Columns = column, Indexes = new List<IndexModel>(), Keys = new List<KeyModel>(), Trigers = new List<TrigerModel>() });
@@ -51,6 +68,21 @@ namespace Schema.Core.Helpers
             }
 
             return columns;
+        }
+
+        private static List<ColumnModel> AddColumn(List<ColumnModel> column, int i, DataTable dt)
+        {
+            var identy = Converter(dt.Rows[i].ItemArray[6]);
+            column.Add(new ColumnModel
+            {
+                ColumnName = dt.Rows[i].ItemArray[1].ToString(),
+                TypeName = dt.Rows[i].ItemArray[2].ToString(),
+                MaxLength = Convert.ToInt32(dt.Rows[i].ItemArray[3].ToString()),
+                AllowNull = (bool)dt.Rows[i].ItemArray[4],
+                IsIdenty = (bool)dt.Rows[i].ItemArray[5],
+                IdentyIncriment = identy
+            });
+            return column;
         }
 
         public static List<KeyModel> GetKeys(DataSet dataSet, string cnString, string tableName)
@@ -157,6 +189,68 @@ namespace Schema.Core.Helpers
                 });
             }
             return viewModel;
+        }
+
+        public static List<ProcedureModel> GetProcedures(DataSet dataSet, string cnString, string tableName)
+        {
+            var procedures = new List<ProcedureModel>();
+            var dAdapter = new SqlDataAdapter(SQL.SelectProcedure, cnString);
+            dAdapter.Fill(dataSet, tableName);
+            var columns = new List<ProcedureColumnModel>();
+            var dt = dataSet.Tables[tableName];
+            string name = null;
+            for (var i = 0; i < dt.Rows.Count; i++)
+            {
+                var procedureName = dt.Rows[i].ItemArray[0].ToString();
+                if (name == procedureName || name == null)
+                {
+                   columns= AddProcedureColumn(columns, i, dt);
+                }
+                else
+                {
+                    procedures.Add(new ProcedureModel { Name = name, ProcedureColumn = columns });
+                    columns = new List<ProcedureColumnModel>();
+                    columns = AddProcedureColumn(columns, i, dt);
+                
+                }
+                if (i == dt.Rows.Count - 1)
+                {
+                    procedures.Add(new ProcedureModel { Name = name, ProcedureColumn = columns });
+                }
+                name = procedureName;
+            }
+
+            return procedures;
+        }
+
+        private static List<ProcedureColumnModel> AddProcedureColumn(List<ProcedureColumnModel> columns, int i, DataTable dt)
+        {
+            var maxLength = Converter(dt.Rows[i].ItemArray[5]);
+            var precesion = Converter(dt.Rows[i].ItemArray[6]);
+            var scale = Converter(dt.Rows[i].ItemArray[7]);
+            columns.Add(new ProcedureColumnModel
+            {
+                ColumnName = dt.Rows[i].ItemArray[1].ToString(),
+                Type = dt.Rows[i].ItemArray[2].ToString(),
+                TypeDescription = dt.Rows[i].ItemArray[3].ToString(),
+                DataType = dt.Rows[i].ItemArray[4].ToString(),
+                MaxLength = maxLength,
+                Precision = precesion,
+                Scale = scale
+            });
+            return columns;
+        }
+
+        private static int? Converter(object intValue)
+        {
+            int? value = null;
+
+            if (intValue != DBNull.Value)
+            {
+                value = Convert.ToInt32(intValue);
+            }
+            return value;
+
         }
     }
 }
