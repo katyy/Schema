@@ -104,5 +104,19 @@
                   LEFT JOIN sys.columns c  
                   ON c.column_id=index_table.column_id 
                     and c.object_id=index_table.object_id ;";
+
+        public const string SelectFunction =
+                @"SELECT fun.function_name,fun.parametr_name,fun.type,fun.type_desc,ty.name,fun.max_length,fun.precision,fun.scale
+                  FROM
+                  (SELECT f.object_id, f.function_name,f.type ,f.type_desc, param.name parametr_name,param.system_type_id,param.max_length,param.precision,param.scale
+                  FROM
+                  (SELECT o.object_id, o.name function_name,o.type ,o.type_desc 
+                   FROM sys.objects o
+                   WHERE type_desc like '%fun%') f
+                    LEFT JOIN sys.parameters param
+                    ON param.object_id=f.object_id)fun
+                    LEFT JOIN  sys.types ty 
+                    ON ty.system_type_id=fun.system_type_id
+                    WHERE fun.parametr_name!='';";
     }
 }

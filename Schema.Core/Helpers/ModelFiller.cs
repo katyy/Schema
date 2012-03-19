@@ -13,8 +13,9 @@ namespace Schema.Core.Helpers
             var forigenKey = ModelsGetter.GetForigenKey(dataSet, cnString, TableNames.ForigenKey);
             var trigers = ModelsGetter.GetTriggers(dataSet, cnString, TableNames.Triggers, SQL.SelectTrigger);
             var indexes = ModelsGetter.GetIndexes(dataSet, cnString, TableNames.Indexes, SQL.SelectIndex);
-            var procedures = ModelsGetter.GetProcedures(dataSet, cnString, TableNames.Procedures);
-
+            var procedures = ModelsGetter.GetProcedures(dataSet, cnString, TableNames.Procedures, SQL.SelectProcedure);
+            var functions = ModelsGetter.GetProcedures(dataSet, cnString, TableNames.Functions, SQL.SelectFunction);
+            
             var views = ModelsGetter.GetColumn(dataSet, cnString, new List<ViewModel>(), TableNames.Views, SQL.SelectView);
             var viewTriggers = ModelsGetter.GetTriggers(dataSet, cnString, TableNames.ViewTriggers, SQL.SelectViewTriggers);
             var viewIndexes = ModelsGetter.GetIndexes(dataSet, cnString, TableNames.ViewIndexes, SQL.SelectViewIndexes);
@@ -25,7 +26,9 @@ namespace Schema.Core.Helpers
              {
                  Tables = columnModels,
                  Views = views,
-                 Procedures = procedures
+                 Procedures = procedures,
+                 Functions = functions
+
              };
 
         }

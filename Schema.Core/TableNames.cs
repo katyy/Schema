@@ -11,5 +11,6 @@
         public const string Procedures = "Procedures";
         public const string ViewTriggers = "ViewTriggers";
         public const string ViewIndexes = "ViewIndexes";
-     }
+        public const string Functions = "Functions";
+    }
 }

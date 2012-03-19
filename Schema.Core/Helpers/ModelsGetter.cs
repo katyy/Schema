@@ -143,10 +143,10 @@ namespace Schema.Core.Helpers
             return indexModel;
         }
         
-        public static List<ProcedureModel> GetProcedures(DataSet dataSet, string cnString, string tableName)
+        public static List<ProcedureModel> GetProcedures(DataSet dataSet, string cnString, string tableName,string sql)
         {
             var procedures = new List<ProcedureModel>();
-            var dAdapter = new SqlDataAdapter(SQL.SelectProcedure, cnString);
+            var dAdapter = new SqlDataAdapter(sql, cnString);
             dAdapter.Fill(dataSet, tableName);
             var columns = new List<ProcedureColumnModel>();
             var dt = dataSet.Tables[tableName];
