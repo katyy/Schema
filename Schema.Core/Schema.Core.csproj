@@ -50,7 +50,7 @@
     <Compile Include="Models\IndexModel.cs" />
     <Compile Include="Models\KeyModel.cs" />
     <Compile Include="Models\ITable.cs" />
-    <Compile Include="Models\TrigerModel.cs" />
+    <Compile Include="Models\TriggerModel.cs" />
     <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQL.cs" />

@@ -6,7 +6,7 @@ namespace Schema.Core.Models
     {
          string Name { get; set; }
          List<ColumnModel> Columns { get; set; }
-         List<TrigerModel> Trigers { get; set; }
+         List<TriggerModel> Trigers { get; set; }
          List<IndexModel> Indexes { get; set; }
     }
 }

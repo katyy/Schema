@@ -8,9 +8,9 @@ namespace Schema.Core.Helpers
 {
     public class ModelsGetter
     {
-        public static List<ITable> GetColumns(DataSet dataSet, string cnString, string TableName,string sql)
+        public static List<T> GetColumn<T>(DataSet dataSet, string cnString,List<T> columns, string TableName,string sql) 
+            where T:ITable, new()
         {
-            var columns = new List<ITable>();
             var dAdapter = new SqlDataAdapter(sql, cnString);
             dAdapter.Fill(dataSet, TableName);
             var column = new List<ColumnModel>();
@@ -25,51 +25,20 @@ namespace Schema.Core.Helpers
                 }
                 else
                 {
-                    columns.Add(new TableModel { Name = name, Columns = column});
+                    columns.Add(new T { Name = name, Columns = column});
                     column = new List<ColumnModel>();
                     column = AddColumn(column, i, dt);
                 }
                 if (i == dt.Rows.Count - 1)
                 {
-                    columns.Add(new TableModel { Name = name, Columns = column});
+                    columns.Add(new T{ Name = name, Columns = column});
                 }
                 name = tableName;
             }
 
             return columns;
         }
-
-        public static List<TableModel> GetColumn(DataSet dataSet, string cnString, string TableName)
-        {
-            var columns = new List<TableModel>();
-            var dAdapter = new SqlDataAdapter(SQL.SelectColumn, cnString);
-            dAdapter.Fill(dataSet, TableName);
-            var column = new List<ColumnModel>();
-            var dt = dataSet.Tables[TableName];
-            string name = null;
-            for (var i = 0; i < dt.Rows.Count; i++)
-            {
-                var tableName = dt.Rows[i].ItemArray[0].ToString();
-                if (name == tableName || name == null)
-                {
-                    column = AddColumn(column, i, dt);
-                }
-                else
-                {
-                    columns.Add(new TableModel { Name = name, Columns = column, Indexes = new List<IndexModel>(), Keys = new List<KeyModel>(), Trigers = new List<TrigerModel>() });
-                    column = new List<ColumnModel>();
-                    column = AddColumn(column, i, dt);
-                 }
-                if (i == dt.Rows.Count - 1)
-                {
-                    columns.Add(new TableModel { Name = name, Columns = column, Indexes = new List<IndexModel>(), Keys = new List<KeyModel>(), Trigers = new List<TrigerModel>() });
-                }
-                name = tableName;
-            }
-
-            return columns;
-        }
-
+        
         private static List<ColumnModel> AddColumn(List<ColumnModel> column, int i, DataTable dt)
         {
             var identy = Converter(dt.Rows[i].ItemArray[6]);
@@ -132,15 +101,15 @@ namespace Schema.Core.Helpers
             return keyModel;
         }
 
-        public static List<TrigerModel> GetTrigers(DataSet dataSet, string cnString, string tableName)
+        public static List<TriggerModel> GetTriggers(DataSet dataSet, string cnString, string tableName,string sql)
         {
-            var trigerModel = new List<TrigerModel>();
-            var dataAdapter =new SqlDataAdapter(SQL.SelectTriger, cnString);
+            var trigerModel = new List<TriggerModel>();
+            var dataAdapter = new SqlDataAdapter(sql, cnString);
             dataAdapter.Fill(dataSet, tableName);
             var dt = dataSet.Tables[tableName];
             for (var i = 0; i < dt.Rows.Count; i++)
             {
-                trigerModel.Add(new TrigerModel
+                trigerModel.Add(new TriggerModel
                 {
                     TableName = dt.Rows[i].ItemArray[0].ToString(),
                     TrigerName = dt.Rows[i].ItemArray[1].ToString(),
@@ -151,12 +120,12 @@ namespace Schema.Core.Helpers
             }
             return trigerModel;
         }
-
-        public static List<IndexModel> GetIndexes(DataSet dataSet, string cnString, string tableName)
+      
+        public static List<IndexModel> GetIndexes(DataSet dataSet, string cnString, string tableName,string sql)
         {
             var indexModel = new List<IndexModel>();
             var dataAdapter =
-                new SqlDataAdapter(SQL.SelectIndex, cnString);
+                new SqlDataAdapter(sql, cnString);
             dataAdapter.Fill(dataSet, tableName);
             var dt = dataSet.Tables[tableName];
             for (var i = 0; i < dt.Rows.Count; i++)
@@ -173,24 +142,7 @@ namespace Schema.Core.Helpers
             }
             return indexModel;
         }
-
-        public static List<ViewModel> GetViews(DataSet dataSet, string cnString, string tableName)
-        {
-            var viewModel = new List<ViewModel>();
-            var dataAdapter = new SqlDataAdapter(SQL.SelectView, cnString);
-            dataAdapter.Fill(dataSet, tableName);
-            var dt = dataSet.Tables[tableName];
-            for (var i = 0; i < dt.Rows.Count; i++)
-            {
-                viewModel.Add(new ViewModel
-                {
-                    Name = dt.Rows[i].ItemArray[0].ToString(),
-                    TypeDescription = dt.Rows[i].ItemArray[1].ToString()
-                });
-            }
-            return viewModel;
-        }
-
+        
         public static List<ProcedureModel> GetProcedures(DataSet dataSet, string cnString, string tableName)
         {
             var procedures = new List<ProcedureModel>();

@@ -8,37 +8,55 @@ namespace Schema.Core.Helpers
     {
         public static DatabaseModel GetModel(DataSet dataSet, string cnString)
         {
-          //  var columnModels = ModelsGetter.GetColumn(dataSet, cnString, TableNames.Tables);
-            var columnModels =ModelsGetter.GetColumns(dataSet, cnString, TableNames.Tables, SQL.SelectColumn);
+            var columnModels = ModelsGetter.GetColumn(dataSet, cnString, new List<TableModel>(), TableNames.Tables, SQL.SelectColumn);
             var keyModel = ModelsGetter.GetKeys(dataSet, cnString, TableNames.Keys);
             var forigenKey = ModelsGetter.GetForigenKey(dataSet, cnString, TableNames.ForigenKey);
-            var trigers = ModelsGetter.GetTrigers(dataSet, cnString, TableNames.Trigers);
-            var indexes = ModelsGetter.GetIndexes(dataSet, cnString, TableNames.Indexes);
-            var views = ModelsGetter.GetViews(dataSet, cnString, TableNames.Views);
+            var trigers = ModelsGetter.GetTriggers(dataSet, cnString, TableNames.Triggers, SQL.SelectTrigger);
+            var indexes = ModelsGetter.GetIndexes(dataSet, cnString, TableNames.Indexes, SQL.SelectIndex);
             var procedures = ModelsGetter.GetProcedures(dataSet, cnString, TableNames.Procedures);
 
-            InsertModels( columnModels, keyModel, forigenKey, trigers, indexes);
+            var views = ModelsGetter.GetColumn(dataSet, cnString, new List<ViewModel>(), TableNames.Views, SQL.SelectView);
+            var viewTriggers = ModelsGetter.GetTriggers(dataSet, cnString, TableNames.ViewTriggers, SQL.SelectViewTriggers);
+            var viewIndexes = ModelsGetter.GetIndexes(dataSet, cnString, TableNames.ViewIndexes, SQL.SelectViewIndexes);
+            InsertModels(views, viewTriggers, viewIndexes);
+
+            InsertModels(columnModels, keyModel, forigenKey, trigers, indexes);
             return new DatabaseModel
              {
                  Tables = columnModels,
-                 Views = views
+                 Views = views,
+                 Procedures = procedures
              };
 
         }
+        private static void InsertModels<T>(IEnumerable<T> columnModel, IList<TriggerModel> triggerModel, IList<IndexModel> indexModel) where T : ITable
+        {
+            foreach (var column in columnModel)
+            {
+                Trigger(triggerModel, column);
+                Index(indexModel, column);
+            }
+        }
 
-        private static void InsertModels(IEnumerable<TableModel> columnModel, IList<KeyModel> keyModel, IList<KeyModel> forigenKey, IList<TrigerModel> trigerModel, IList<IndexModel> indexModel)
+
+        private static void InsertModels(IEnumerable<TableModel> columnModel, IList<KeyModel> keyModel, IList<KeyModel> forigenKey, IList<TriggerModel> triggerModel, IList<IndexModel> indexModel)
         {
             foreach (var column in columnModel)
             {
                 Key(keyModel, column);
                 Key(forigenKey, column);
-                Triger(trigerModel, column);
+                Trigger(triggerModel, column);
                 Index(indexModel, column);
             }
         }
 
+        
         private static void Key(IList<KeyModel> keyModel, TableModel table)
         {
+            if (table.Keys == null)
+            {
+                table.Keys = new List<KeyModel>();
+            }
             for (var i = 0; i < keyModel.Count; i++)
             {
                 var key = keyModel[i];
@@ -48,8 +66,12 @@ namespace Schema.Core.Helpers
             }
         }
 
-        private static void Triger(IList<TrigerModel> trigerModel, TableModel table)
+        private static void Trigger(IList<TriggerModel> trigerModel, ITable table)
         {
+            if (table.Trigers == null)
+            {
+                table.Trigers = new List<TriggerModel>();
+            }
             for (var i = 0; i < trigerModel.Count; i++)
             {
                 var triger = trigerModel[i];
@@ -59,8 +81,12 @@ namespace Schema.Core.Helpers
             }
         }
 
-        private static void Index(IList<IndexModel> indexModel, TableModel table)
+        private static void Index(IList<IndexModel> indexModel, ITable table)
         {
+            if (table.Indexes == null)
+            {
+                table.Indexes = new List<IndexModel>();
+            }
             for (var i = 0; i < indexModel.Count; i++)
             {
                 var index = indexModel[i];
