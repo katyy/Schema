@@ -1,24 +1,41 @@
-﻿namespace Schema.Core
+﻿namespace Schema.Core.SqlQueries
 {
-    public class SQL
+    public class MsSqlQueries : ISqlQueries
     {
-        public const string SelectColumn =
-            @"SELECT col.table_name,col.column_name,col.type_name, col.max_length, col.is_nullable,col.is_identity, identy.increment_value 
+        public string SelectColumn
+        {
+            get
+            {
+                return
+              @"SELECT col.table_name,col.column_name,col.type_name, col.max_length, col.is_nullable,col.is_identity, identy.increment_value 
               FROM(SELECT t.object_id,c.column_id, t.name table_name,c.name column_name,ty.name type_name, c.max_length, c.is_nullable,c.is_identity 
                    FROM sys.types ty ,sys.tables t,sys.columns c 
                    WHERE c.object_id=t.object_id  and ty.user_type_id=c.system_type_id) col 
               LEFT JOIN  sys.identity_columns identy 
-              ON identy.object_id=col.object_id and identy.column_id=col.column_id;";
-        
-        public const string SelectPk =
-            @"SELECT t.name,c.name, k.type,k.name,k.type_desc 
+              ON identy.object_id=col.object_id and identy.column_id=col.column_id;"
+                                               ;
+            }
+        }
+
+        public string SelectPk
+        {
+            get
+            {
+                return
+                    @"SELECT t.name,c.name, k.type,k.name,k.type_desc 
               FROM sys.key_constraints k, sys.all_columns c,sys.tables t 
               WHERE c.object_id=k.parent_object_id 
                    and c.column_id=k.unique_index_id 
                    and k.parent_object_id=t.object_id;";
+            }
+        }
 
-        public const string SelectFk =
-            @"SELECT foriegen.parent_table,parent_column,f.type,name,f.type_desc,f.delete_referential_action_desc,f.update_referential_action_desc, foriegen.referance_table, foriegen.referance_column
+        public string SelectFk
+        {
+            get
+            {
+                return
+                    @"SELECT foriegen.parent_table,parent_column,f.type,name,f.type_desc,f.delete_referential_action_desc,f.update_referential_action_desc, foriegen.referance_table, foriegen.referance_column
               FROM sys.foreign_keys f  
               LEFT OUTER JOIN 
                (SELECT p.parent_table , p.parent_column,r.referance_table,r.referance_column,r.id 
@@ -36,18 +53,30 @@
                           and fc.parent_object_id=c.object_id) p 
                  ON p.id=r.id) foriegen 
               ON foriegen.id=f.object_id;";
+            }
+        }
 
-        public const string SelectTrigger =
-            @"SELECT t.name table_name,triger.triger_name,triger.triger_event,triger.type,triger.type_desc 
+        public string SelectTrigger
+        {
+            get
+            {
+                return
+                    @"SELECT t.name table_name,triger.triger_name,triger.triger_event,triger.type,triger.type_desc 
               FROM 
                  (SELECT te.type_desc triger_event,tr.name triger_name, tr.parent_id,tr.type,tr.type_desc 
                   FROM sys.triggers tr 
                   LEFT OUTER JOIN sys.trigger_events te 
                   ON te.object_id=tr.object_id) triger ,sys.tables t 
             WHERE t.object_id=triger.parent_id;";
+            }
+        }
 
-        public const string SelectIndex = 
-            @"SELECT index_table.table_name, c.name column_name,index_table.name,index_table.type_desc,index_table.is_unique,index_table.is_descending_key 
+        public string SelectIndex
+        {
+            get
+            {
+                return
+                    @"SELECT index_table.table_name, c.name column_name,index_table.name,index_table.type_desc,index_table.is_unique,index_table.is_descending_key 
               FROM
                  (SELECT t.name table_name,indexes.* 
                   FROM 
@@ -61,17 +90,29 @@
                   LEFT JOIN sys.columns c  
                   ON c.column_id=index_table.column_id 
                     and c.object_id=index_table.object_id ;";
+            }
+        }
 
-        public const string SelectView =
-            @"SELECT col.table_name,col.column_name,col.type_name, col.max_length, col.is_nullable,col.is_identity, identy.increment_value 
+        public string SelectView
+        {
+            get
+            {
+                return
+                    @"SELECT col.table_name,col.column_name,col.type_name, col.max_length, col.is_nullable,col.is_identity, identy.increment_value 
               FROM(SELECT t.object_id,c.column_id, t.name table_name,c.name column_name,ty.name type_name, c.max_length, c.is_nullable,c.is_identity 
                    FROM sys.types ty ,sys.views t,sys.columns c 
                    WHERE c.object_id=t.object_id  and ty.user_type_id=c.system_type_id) col 
               LEFT JOIN  sys.identity_columns identy 
               ON identy.object_id=col.object_id and identy.column_id=col.column_id;";
-           
-        public const string SelectProcedure =
-            @"SELECT pr.procedure_name,pr.parametr_name,pr.type,pr.type_desc,ty.name,pr.max_length,pr.precision,pr.scale
+            }
+        }
+
+        public string SelectProcedure
+        {
+            get
+            {
+                return
+                    @"SELECT pr.procedure_name,pr.parametr_name,pr.type,pr.type_desc,ty.name,pr.max_length,pr.precision,pr.scale
               FROM
                   (SELECT p.name procedure_name,p.type ,p.type_desc, param.name parametr_name,param.system_type_id,param.max_length,param.precision,param.scale
                    FROM sys.procedures p
@@ -79,18 +120,30 @@
                    ON param.object_id=p.object_id) pr
                LEFT OUTER JOIN sys.types ty 
                ON ty.system_type_id=pr.system_type_id;";
+            }
+        }
 
-        public const string SelectViewTriggers =
-            @"SELECT t.name table_name,triger.triger_name,triger.triger_event,triger.type,triger.type_desc 
+        public string SelectViewTriggers
+        {
+            get
+            {
+                return
+                    @"SELECT t.name table_name,triger.triger_name,triger.triger_event,triger.type,triger.type_desc 
               FROM 
                  (SELECT te.type_desc triger_event,tr.name triger_name, tr.parent_id,tr.type,tr.type_desc 
                   FROM sys.triggers tr 
                   LEFT OUTER JOIN sys.trigger_events te 
                   ON te.object_id=tr.object_id) triger ,sys.views t 
             WHERE t.object_id=triger.parent_id;";
+            }
+        }
 
-        public const string SelectViewIndexes =
-               @"SELECT index_table.table_name, c.name column_name,index_table.name,index_table.type_desc,index_table.is_unique,index_table.is_descending_key 
+        public string SelectViewIndexes
+        {
+            get
+            {
+                return
+                    @"SELECT index_table.table_name, c.name column_name,index_table.name,index_table.type_desc,index_table.is_unique,index_table.is_descending_key 
                  FROM
                  (SELECT t.name table_name,indexes.* 
                   FROM 
@@ -104,9 +157,15 @@
                   LEFT JOIN sys.columns c  
                   ON c.column_id=index_table.column_id 
                     and c.object_id=index_table.object_id ;";
+            }
+        }
 
-        public const string SelectFunction =
-                @"SELECT fun.function_name,fun.parametr_name,fun.type,fun.type_desc,ty.name,fun.max_length,fun.precision,fun.scale
+        public string SelectFunction
+        {
+            get
+            {
+                return
+                    @"SELECT fun.function_name,fun.parametr_name,fun.type,fun.type_desc,ty.name,fun.max_length,fun.precision,fun.scale
                   FROM
                   (SELECT f.object_id, f.function_name,f.type ,f.type_desc, param.name parametr_name,param.system_type_id,param.max_length,param.precision,param.scale
                   FROM
@@ -118,5 +177,7 @@
                     LEFT JOIN  sys.types ty 
                     ON ty.system_type_id=fun.system_type_id
                     WHERE fun.parametr_name!='';";
+            }
+        }
     }
 }

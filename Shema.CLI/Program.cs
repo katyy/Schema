@@ -1,5 +1,10 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
+using Schema.Core;
 using Schema.Core.Helpers;
+using Schema.Core.Models;
+using Schema.Core.Reader;
+
 
 namespace Shema.CLI
 {
@@ -7,10 +12,18 @@ namespace Shema.CLI
     {
         static void Main(string[] args)
         {
-            const string dbName = @"|DataDirectory|Parking.mdf";
-            const string cnString = @"Data Source=.\LOCALHOST;AttachDbFilename=" + dbName + ";Integrated Security=True";
+
             var dataSet = new DataSet("dbDataSet");
-            var db = ModelFiller.GetModel(dataSet, cnString);
+
+           //const string dbName = @"|DataDirectory|Parking.mdf";
+           //var mssqlReader = new MsSqlReader {DbName = dbName};
+           //var db = ModelFiller.GetModel(mssqlReader, dataSet);
+
+
+            const string mySqlDbName = @"blog";
+            var mySqlReader = new MySqlReader {DbName = mySqlDbName};
+
+            var column = ModelsGetter.GetColumn(mySqlReader, dataSet, new List<TableModel>(), TableNames.Tables);
 
         }
     }

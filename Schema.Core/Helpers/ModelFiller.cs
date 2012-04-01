@@ -1,24 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using Schema.Core.Models;
+using Schema.Core.Reader;
 
 namespace Schema.Core.Helpers
 {
     public class ModelFiller
     {
-        public static DatabaseModel GetModel(DataSet dataSet, string cnString)
+        public static DatabaseModel GetModel(IReader reader,DataSet dataSet)
         {
-            var columnModels = ModelsGetter.GetColumn(dataSet, cnString, new List<TableModel>(), TableNames.Tables, SQL.SelectColumn);
-            var keyModel = ModelsGetter.GetKeys(dataSet, cnString, TableNames.Keys);
-            var forigenKey = ModelsGetter.GetForigenKey(dataSet, cnString, TableNames.ForigenKey);
-            var trigers = ModelsGetter.GetTriggers(dataSet, cnString, TableNames.Triggers, SQL.SelectTrigger);
-            var indexes = ModelsGetter.GetIndexes(dataSet, cnString, TableNames.Indexes, SQL.SelectIndex);
-            var procedures = ModelsGetter.GetProcedures(dataSet, cnString, TableNames.Procedures, SQL.SelectProcedure);
-            var functions = ModelsGetter.GetProcedures(dataSet, cnString, TableNames.Functions, SQL.SelectFunction);
+            var columnModels = ModelsGetter.GetColumn(reader,dataSet,new List<TableModel>(), TableNames.Tables);
+            var keyModel = ModelsGetter.GetKeys(reader,dataSet,TableNames.Keys);
+            var forigenKey = ModelsGetter.GetForigenKey(reader,dataSet, TableNames.ForigenKey);
+            var trigers = ModelsGetter.GetTriggers(reader, dataSet, TableNames.Triggers);
+            var indexes = ModelsGetter.GetIndexes(reader,dataSet,  TableNames.Indexes);
+            var procedures = ModelsGetter.GetProcedures(reader,dataSet,  TableNames.Procedures);
+            var functions = ModelsGetter.GetProcedures(reader,dataSet,TableNames.Functions);
             
-            var views = ModelsGetter.GetColumn(dataSet, cnString, new List<ViewModel>(), TableNames.Views, SQL.SelectView);
-            var viewTriggers = ModelsGetter.GetTriggers(dataSet, cnString, TableNames.ViewTriggers, SQL.SelectViewTriggers);
-            var viewIndexes = ModelsGetter.GetIndexes(dataSet, cnString, TableNames.ViewIndexes, SQL.SelectViewIndexes);
+            var views = ModelsGetter.GetColumn(reader,dataSet, new List<ViewModel>(), TableNames.Views);
+            var viewTriggers = ModelsGetter.GetTriggers(reader,dataSet, TableNames.ViewTriggers);
+            var viewIndexes = ModelsGetter.GetIndexes(reader,dataSet, TableNames.ViewIndexes);
             InsertModels(views, viewTriggers, viewIndexes);
 
             InsertModels(columnModels, keyModel, forigenKey, trigers, indexes);
