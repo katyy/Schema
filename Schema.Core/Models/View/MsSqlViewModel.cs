@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Schema.Core.Models //todo delete
+namespace Schema.Core.Models.View
 {
-    public class ViewModel : ITable
+    class MsSqlViewModel : ITable, IViewModel
     {
         public string Name { get; set; }
         public List<ColumnModel> Columns { get; set; }

@@ -1,6 +1,6 @@
-﻿using System.Data;
-using System.Data.Common;
+﻿using System.Data.Common;
 using System.Data.SqlClient;
+using Schema.Core.Models.View;
 using Schema.Core.SqlQueries;
 
 namespace Schema.Core.Reader
@@ -34,6 +34,11 @@ namespace Schema.Core.Reader
         public ISqlQueries SqlQueries
         {
             get { return new MsSqlQueries(); }
+        }
+
+        public IViewModel ViewModel
+        {
+            get{return new MsSqlViewModel();}
         }
     }
 }

@@ -43,6 +43,9 @@
   <ItemGroup>
     <Compile Include="Helpers\ModelFiller.cs" />
     <Compile Include="Helpers\ModelsGetter.cs" />
+    <Compile Include="Models\View\IViewModel.cs" />
+    <Compile Include="Models\View\MsSqlViewModel.cs" />
+    <Compile Include="Models\View\MySqlViewModel.cs" />
     <Compile Include="Reader\IReader.cs" />
     <Compile Include="Models\ColumnModel.cs" />
     <Compile Include="Models\ProcedureColumnModel.cs" />

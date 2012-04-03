@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Data.Common;
 using MySql.Data.MySqlClient;
+using Schema.Core.Models.View;
 using Schema.Core.SqlQueries;
 
 namespace Schema.Core.Reader
 {
-    public class MySqlReader :IReader
+    public class MySqlReader : IReader
     {
-        public string DbName { get;set;}
+        public string DbName { get; set; }
 
         public string ConnectionString
         {
-            get { return @"Server=localhost;Port=3306;Database="+DbName+";User=root; "; }
+            get { return @"Server=localhost;Port=3306;Database=" + DbName + ";User=root; "; }
         }
 
         public DbDataAdapter DataAdapter
@@ -22,17 +23,23 @@ namespace Schema.Core.Reader
         public DbConnection Conection
         {
             get { return new MySqlConnection(ConnectionString); }
-           
+
         }
 
         public DbCommand Command
         {
-            get {return new MySqlCommand();}
+            get { return new MySqlCommand(); }
         }
 
         public ISqlQueries SqlQueries
         {
-            get {return new MySqlQueries();}
+            get { return new MySqlQueries { DbName = DbName }; }
         }
+
+        public IViewModel ViewModel
+        {
+            get { return new MySqlViewModel(); }
+        }
+
     }
 }

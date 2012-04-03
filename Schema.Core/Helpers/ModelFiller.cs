@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using Schema.Core.Models;
+using Schema.Core.Models.View;
 using Schema.Core.Reader;
 
 namespace Schema.Core.Helpers
@@ -16,8 +17,8 @@ namespace Schema.Core.Helpers
             var indexes = ModelsGetter.GetIndexes(reader,dataSet,  TableNames.Indexes);
             var procedures = ModelsGetter.GetProcedures(reader,dataSet,  TableNames.Procedures);
             var functions = ModelsGetter.GetProcedures(reader,dataSet,TableNames.Functions);
-            
-            var views = ModelsGetter.GetColumn(reader,dataSet, new List<ViewModel>(), TableNames.Views);
+
+            var views = ModelsGetter.GetColumn(reader, dataSet, new List<MsSqlViewModel>(), TableNames.Views);
             var viewTriggers = ModelsGetter.GetTriggers(reader,dataSet, TableNames.ViewTriggers);
             var viewIndexes = ModelsGetter.GetIndexes(reader,dataSet, TableNames.ViewIndexes);
             InsertModels(views, viewTriggers, viewIndexes);
@@ -26,7 +27,7 @@ namespace Schema.Core.Helpers
             return new DatabaseModel
              {
                  Tables = columnModels,
-                 Views = views,
+                 Views = new List<IViewModel>(views),
                  Procedures = procedures,
                  Functions = functions
 

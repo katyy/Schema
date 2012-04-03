@@ -1,4 +1,5 @@
 ﻿using System.Data.Common;
+using Schema.Core.Models.View;
 using Schema.Core.SqlQueries;
 
 namespace Schema.Core.Reader
@@ -11,6 +12,7 @@ namespace Schema.Core.Reader
         DbConnection Conection { get;}
         DbCommand Command { get; }
         ISqlQueries SqlQueries { get; }
+        IViewModel ViewModel { get; }
     }
     
 }
