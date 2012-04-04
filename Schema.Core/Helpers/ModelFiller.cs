@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using Schema.Core.Models;
+using Schema.Core.Models.ProcedureFunction;
+using Schema.Core.Models.ProcedureFunction.Column;
 using Schema.Core.Models.View;
 using Schema.Core.Reader;
 
@@ -8,43 +10,42 @@ namespace Schema.Core.Helpers
 {
     public class ModelFiller
     {
-        public static DatabaseModel GetModel(IReader reader,DataSet dataSet)
-        {
+        public static DatabaseModel GetModel(IReader reader,DataSet dataSet) 
+         {
             var columnModels = ModelsGetter.GetColumn(reader,dataSet,new List<TableModel>(), TableNames.Tables);
             var keyModel = ModelsGetter.GetKeys(reader,dataSet,TableNames.Keys);
             var forigenKey = ModelsGetter.GetForigenKey(reader,dataSet, TableNames.ForigenKey);
             var trigers = ModelsGetter.GetTriggers(reader, dataSet, TableNames.Triggers);
             var indexes = ModelsGetter.GetIndexes(reader,dataSet,  TableNames.Indexes);
-            var procedures = ModelsGetter.GetProcedures(reader,dataSet,  TableNames.Procedures);
-            var functions = ModelsGetter.GetProcedures(reader,dataSet,TableNames.Functions);
+            var procedures = reader.ProcedureFunctionMethod.GetProcedureFunction(reader, dataSet, TableNames.Procedures);// ModelsGetter.GetProcedures(reader,dataSet,  TableNames.Procedures);
+            //var functions =reader.ProcedureFunctionMethod.GetProcedureFunction<>()// ModelsGetter.GetProcedures(reader,dataSet,TableNames.Functions);
 
-            var views = ModelsGetter.GetColumn(reader, dataSet, new List<MsSqlViewModel>(), TableNames.Views);
-            var viewTriggers = ModelsGetter.GetTriggers(reader,dataSet, TableNames.ViewTriggers);
-            var viewIndexes = ModelsGetter.GetIndexes(reader,dataSet, TableNames.ViewIndexes);
-            InsertModels(views, viewTriggers, viewIndexes);
+            var views = reader.ViewMethod.GetView(reader, dataSet, TableNames.Views); //ModelsGetter.GetColumn(reader, dataSet, new List<IViewModel>(), TableNames.Views);
+           
 
             InsertModels(columnModels, keyModel, forigenKey, trigers, indexes);
             return new DatabaseModel
              {
                  Tables = columnModels,
-                 Views = new List<IViewModel>(views),
-                 Procedures = procedures,
-                 Functions = functions
+                 Views = views,
+                 Procedures =new  List<IProcedureFunctionModel<IProcedureFunctionColumnModel>>((IEnumerable<IProcedureFunctionModel<IProcedureFunctionColumnModel>>) procedures),
+               //  Functions = functions
 
              };
 
         }
-        private static void InsertModels<T>(IEnumerable<T> columnModel, IList<TriggerModel> triggerModel, IList<IndexModel> indexModel) where T : ITable
+
+        public static void InsertModels<T>(IEnumerable<T> columnModel, IList<TriggerModel> triggerModel, IList<IndexModel> indexModel)
         {
             foreach (var column in columnModel)
             {
-                Trigger(triggerModel, column);
-                Index(indexModel, column);
+                Trigger(triggerModel, (ITable) column);
+                Index(indexModel, (ITable) column);
             }
         }
 
 
-        private static void InsertModels(IEnumerable<TableModel> columnModel, IList<KeyModel> keyModel, IList<KeyModel> forigenKey, IList<TriggerModel> triggerModel, IList<IndexModel> indexModel)
+        public static void InsertModels(IEnumerable<TableModel> columnModel, IList<KeyModel> keyModel, IList<KeyModel> forigenKey, IList<TriggerModel> triggerModel, IList<IndexModel> indexModel)
         {
             foreach (var column in columnModel)
             {
@@ -100,5 +101,7 @@ namespace Schema.Core.Helpers
                 indexModel.Remove(index);
             }
         }
+
+      
     }
 }

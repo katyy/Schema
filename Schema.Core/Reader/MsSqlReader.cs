@@ -1,5 +1,7 @@
 ﻿using System.Data.Common;
 using System.Data.SqlClient;
+using Schema.Core.Helpers.ProcedureFunction;
+using Schema.Core.Helpers.View;
 using Schema.Core.Models.View;
 using Schema.Core.SqlQueries;
 
@@ -39,6 +41,16 @@ namespace Schema.Core.Reader
         public IViewModel ViewModel
         {
             get{return new MsSqlViewModel();}
+        }
+
+        public IViewGetter ViewMethod
+        {
+            get {return  new MsSqlViewGetter(); }
+        }
+
+        public IProcedureFunctionGetter ProcedureFunctionMethod
+        {
+            get { return new MsSqlProcedureFunctionGetter(); }
         }
     }
 }

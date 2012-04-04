@@ -2,7 +2,7 @@
 
 namespace Schema.Core.Models.View
 {
-    class MsSqlViewModel : ITable, IViewModel
+    public class MsSqlViewModel : ITable, IViewModel
     {
         public string Name { get; set; }
         public List<ColumnModel> Columns { get; set; }

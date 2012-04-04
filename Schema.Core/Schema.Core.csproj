@@ -41,8 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Converters.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Helpers\ModelFiller.cs" />
     <Compile Include="Helpers\ModelsGetter.cs" />
+    <Compile Include="Helpers\ProcedureFunction\IProcedureFunctionGetter.cs" />
+    <Compile Include="Helpers\ProcedureFunction\MsSqlProcedureFunctionGetter.cs" />
+    <Compile Include="Helpers\ProcedureFunction\MySqlProcedureFunctionGetter.cs" />
+    <Compile Include="Helpers\View\IViewGetter.cs" />
+    <Compile Include="Helpers\View\MsSqlViewGetter.cs" />
+    <Compile Include="Helpers\View\MySqlViewGetter.cs" />
+    <Compile Include="Models\ProcedureFunction\Column\IProcedureFunctionColumnModel.cs" />
+    <Compile Include="Models\ProcedureFunction\Column\MySqlProcedureFunctionColumnModel.cs" />
+    <Compile Include="Models\ProcedureFunction\IProcedureFunctionModel.cs" />
+    <Compile Include="Models\ProcedureFunction\Column\MsSqlProcedureFunctionColumnModel.cs" />
+    <Compile Include="Models\ProcedureFunction\MsSqlProcedureFunctionModel.cs" />
+    <Compile Include="Models\ProcedureFunction\MySqlProcedureFunctionModel.cs" />
     <Compile Include="Models\View\IViewModel.cs" />
     <Compile Include="Models\View\MsSqlViewModel.cs" />
     <Compile Include="Models\View\MySqlViewModel.cs" />

@@ -52,10 +52,10 @@ namespace Schema.Core.Helpers
              {
                  ColumnName = dt.Rows[i].ItemArray[1].ToString(),
                  TypeName = dt.Rows[i].ItemArray[2].ToString(),
-                 MaxLength = ToInt(dt.Rows[i].ItemArray[3]),
-                 AllowNull = ToBool(dt.Rows[i].ItemArray[4]),
+                 MaxLength = Converters.ToInt(dt.Rows[i].ItemArray[3]),
+                 AllowNull = Converters.ToBool(dt.Rows[i].ItemArray[4]),
                  IsIdenty = string.IsNullOrEmpty(isIdenty) ? false.ToString(CultureInfo.InvariantCulture) : isIdenty,
-                 IdentyIncriment = ToInt(dt.Rows[i].ItemArray[6])
+                 IdentyIncriment = Converters.ToInt(dt.Rows[i].ItemArray[6])
              });
             return column;
         }
@@ -155,97 +155,61 @@ namespace Schema.Core.Helpers
                     Name = dt.Rows[i].ItemArray[2].ToString(),
                     TypeDescription = dt.Rows[i].ItemArray[3].ToString(),
                     IsUnique = Convert.ToBoolean(dt.Rows[i].ItemArray[4]),
-                    IsDescending = AscDescToBool(dt.Rows[i].ItemArray[5])
+                    IsDescending = Converters.AscDescToBool(dt.Rows[i].ItemArray[5])
                 });
             }
             return indexModel;
         }
 
-        public static List<ProcedureModel> GetProcedures(IReader reader, DataSet dataSet, string tableName)
-        {
-            var procedures = new List<ProcedureModel>();
-            var dAdapter = reader.DataAdapter;
-            dAdapter.SelectCommand = new SqlCommand(reader.SqlQueries.SelectProcedure, new SqlConnection(reader.ConnectionString));
-            dAdapter.Fill(dataSet, tableName);
-            var columns = new List<ProcedureColumnModel>();
-            var dt = dataSet.Tables[tableName];
-            string name = null;
-            for (var i = 0; i < dt.Rows.Count; i++)
-            {
-                var procedureName = dt.Rows[i].ItemArray[0].ToString();
-                if (name == procedureName || name == null)
-                {
-                    columns = AddProcedureColumn(columns, i, dt);
-                }
-                else
-                {
-                    procedures.Add(new ProcedureModel { Name = name, ProcedureColumn = columns });
-                    columns = new List<ProcedureColumnModel>();
-                    columns = AddProcedureColumn(columns, i, dt);
+        //public static List<ProcedureModel> GetProcedures(IReader reader, DataSet dataSet, string tableName)
+        //{
+        //    var procedures = new List<ProcedureModel>();
+        //    var dAdapter = reader.DataAdapter;
+        //    dAdapter.SelectCommand = new SqlCommand(reader.SqlQueries.SelectProcedure, new SqlConnection(reader.ConnectionString));
+        //    dAdapter.Fill(dataSet, tableName);
+        //    var columns = new List<ProcedureColumnModel>();
+        //    var dt = dataSet.Tables[tableName];
+        //    string name = null;
+        //    for (var i = 0; i < dt.Rows.Count; i++)
+        //    {
+        //        var procedureName = dt.Rows[i].ItemArray[0].ToString();
+        //        if (name == procedureName || name == null)
+        //        {
+        //            columns = AddProcedureColumn(columns, i, dt);
+        //        }
+        //        else
+        //        {
+        //            procedures.Add(new ProcedureModel { Name = name, ProcedureColumn = columns });
+        //            columns = new List<ProcedureColumnModel>();
+        //            columns = AddProcedureColumn(columns, i, dt);
 
-                }
-                if (i == dt.Rows.Count - 1)
-                {
-                    procedures.Add(new ProcedureModel { Name = name, ProcedureColumn = columns });
-                }
-                name = procedureName;
-            }
+        //        }
+        //        if (i == dt.Rows.Count - 1)
+        //        {
+        //            procedures.Add(new ProcedureModel { Name = name, ProcedureColumn = columns });
+        //        }
+        //        name = procedureName;
+        //    }
 
-            return procedures;
-        }
+        //    return procedures;
+        //}
 
-        private static List<ProcedureColumnModel> AddProcedureColumn(List<ProcedureColumnModel> columns, int i, DataTable dt)
-        {
-            var maxLength = ToInt(dt.Rows[i].ItemArray[5]);
-            var precesion = ToInt(dt.Rows[i].ItemArray[6]);
-            var scale = ToInt(dt.Rows[i].ItemArray[7]);
-            columns.Add(new ProcedureColumnModel
-            {
-                ColumnName = dt.Rows[i].ItemArray[1].ToString(),
-                Type = dt.Rows[i].ItemArray[2].ToString(),
-                TypeDescription = dt.Rows[i].ItemArray[3].ToString(),
-                DataType = dt.Rows[i].ItemArray[4].ToString(),
-                MaxLength = maxLength,
-                Precision = precesion,
-                Scale = scale
-            });
-            return columns;
-        }
-
-        private static int? ToInt(object intValue)
-        {
-            int? value = null;
-
-            if (intValue != DBNull.Value)
-            {
-                value = Convert.ToInt32(intValue);
-            }
-            return value;
-
-        }
-
-        private static bool ToBool(object boolValue)
-        {
-            switch (boolValue.ToString().ToUpper())
-            {
-                case "YES":
-                    return true;
-                case "NO":
-                    return false;
-            }
-            return (bool)boolValue;
-        }
-
-        private static bool AscDescToBool(object val)
-        {
-            switch (val.ToString().ToUpper())
-            {
-                case "A":
-                    return false;
-                case "D":
-                    return true;
-            }
-            return (bool)val;
-        }
+        //private static List<ProcedureColumnModel> AddProcedureColumn(List<ProcedureColumnModel> columns, int i, DataTable dt)
+        //{
+        //    var maxLength = Converters.ToInt(dt.Rows[i].ItemArray[5]);
+        //    var precesion = Converters.ToInt(dt.Rows[i].ItemArray[6]);
+        //    var scale = Converters.ToInt(dt.Rows[i].ItemArray[7]);
+        //    columns.Add(new ProcedureColumnModel
+        //    {
+        //        ColumnName = dt.Rows[i].ItemArray[1].ToString(),
+        //        Type = dt.Rows[i].ItemArray[2].ToString(),
+        //        TypeDescription = dt.Rows[i].ItemArray[3].ToString(),
+        //        DataType = dt.Rows[i].ItemArray[4].ToString(),
+        //        MaxLength = maxLength,
+        //        Precision = precesion,
+        //        Scale = scale
+        //    });
+        //    return columns;
+        //}
     }
 }

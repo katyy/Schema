@@ -1,4 +1,6 @@
 ﻿using System.Data.Common;
+using Schema.Core.Helpers.ProcedureFunction;
+using Schema.Core.Helpers.View;
 using Schema.Core.Models.View;
 using Schema.Core.SqlQueries;
 
@@ -13,6 +15,9 @@ namespace Schema.Core.Reader
         DbCommand Command { get; }
         ISqlQueries SqlQueries { get; }
         IViewModel ViewModel { get; }
+        IViewGetter ViewMethod { get; }
+        IProcedureFunctionGetter ProcedureFunctionMethod { get; }
+
     }
     
 }

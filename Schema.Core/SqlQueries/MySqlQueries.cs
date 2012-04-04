@@ -94,7 +94,7 @@
             }
         }
 
-        public string SelectView//todo ?
+        public string SelectView
         {
             get { return
                         @"SELECT `v`.TABLE_NAME,`v`.VIEW_DEFINITION,`v`.IS_UPDATABLE,`v`.SECURITY_TYPE,`v`.COLLATION_CONNECTION
@@ -110,7 +110,7 @@
                 return
                         @"SELECT `r`.SPECIFIC_NAME ,`r`.ROUTINE_NAME,`r`.ROUTINE_TYPE,`r`.DTD_IDENTIFIER,`r`.ROUTINE_BODY,`r`.ROUTINE_DEFINITION,`r`.IS_DETERMINISTIC
                     FROM INFORMATION_SCHEMA.ROUTINES r
-                    WHERE `r`.ROUTINE_SCHEMA=''" + DbName + @"' and  `r`.ROUTINE_TYPE like '%proc%';";
+                    WHERE `r`.ROUTINE_SCHEMA='" + DbName + @"' and  `r`.ROUTINE_TYPE like '%proc%';";
             }
         }
 
@@ -122,7 +122,7 @@
                 return 
                     @"SELECT `r`.SPECIFIC_NAME ,`r`.ROUTINE_NAME,`r`.ROUTINE_TYPE,`r`.DTD_IDENTIFIER,`r`.ROUTINE_BODY,`r`.ROUTINE_DEFINITION,`r`.IS_DETERMINISTIC
                     FROM INFORMATION_SCHEMA.ROUTINES r
-                    WHERE `r`.ROUTINE_SCHEMA=''" + DbName + @"' and  `r`.ROUTINE_TYPE like '%fun%';";
+                    WHERE `r`.ROUTINE_SCHEMA='" + DbName + @"' and  `r`.ROUTINE_TYPE like '%fun%';";
             }
         }
 
