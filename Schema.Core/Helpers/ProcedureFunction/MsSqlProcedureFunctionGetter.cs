@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using Schema.Core.Models.ProcedureFunction;
 using Schema.Core.Models.ProcedureFunction.Column;
 using Schema.Core.Reader;
 
 namespace Schema.Core.Helpers.ProcedureFunction
 {
-    public class MsSqlProcedureFunctionGetter: IProcedureFunctionGetter
+    public class MsSqlProcedureFunctionGetter : IProcedureFunctionGetter
     {
-        public List<IProcedureFunctionModel<IProcedureFunctionColumnModel>> GetProcedureFunction(IReader reader, DataSet dataSet, string tableName)
-        {
-            var procedures = new List<MsSqlProcedureFunctionModel>();
-            List<IProcedureFunctionModel<IProcedureFunctionColumnModel>> test = procedures;
+        public List<IProcedureFunctionModel<MsSqlProcedureFunctionColumnModel>> GetProcedureFunction(IReader reader, DataSet dataSet, string tableName) 
+         {
+            var procedures = new List<IProcedureFunctionModel<MsSqlProcedureFunctionColumnModel>>();
             var dAdapter = reader.DataAdapter;
             dAdapter.SelectCommand = new SqlCommand(reader.SqlQueries.SelectProcedure, new SqlConnection(reader.ConnectionString));
             dAdapter.Fill(dataSet, tableName);
@@ -35,13 +35,12 @@ namespace Schema.Core.Helpers.ProcedureFunction
                 }
                 if (i == dt.Rows.Count - 1)
                 {
-                    procedures.Add(new MsSqlProcedureFunctionModel { Name = name, ProcedureFunctionColumn = columns});
+                    procedures.Add( new MsSqlProcedureFunctionModel { Name = name, ProcedureFunctionColumn = columns });
                 }
                 name = procedureName;
             }
 
-         
-            return  new List<IProcedureFunctionModel<IProcedureFunctionColumnModel>>((IEnumerable<IProcedureFunctionModel<IProcedureFunctionColumnModel>>) procedures);
+          return  procedures;
         }
 
 
@@ -64,6 +63,6 @@ namespace Schema.Core.Helpers.ProcedureFunction
         }
 
 
-      
+       
     }
 }

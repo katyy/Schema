@@ -1,4 +1,4 @@
-﻿namespace Schema.Core.Models
+﻿namespace Schema.Core.Models.Procedure
 {
    public  class ProcedureColumnModel
     {

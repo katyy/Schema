@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using Schema.Core.Models;
-using Schema.Core.Models.ProcedureFunction;
-using Schema.Core.Models.ProcedureFunction.Column;
-using Schema.Core.Models.View;
 using Schema.Core.Reader;
 
 namespace Schema.Core.Helpers
@@ -17,8 +14,8 @@ namespace Schema.Core.Helpers
             var forigenKey = ModelsGetter.GetForigenKey(reader,dataSet, TableNames.ForigenKey);
             var trigers = ModelsGetter.GetTriggers(reader, dataSet, TableNames.Triggers);
             var indexes = ModelsGetter.GetIndexes(reader,dataSet,  TableNames.Indexes);
-            var procedures = reader.ProcedureFunctionMethod.GetProcedureFunction(reader, dataSet, TableNames.Procedures);// ModelsGetter.GetProcedures(reader,dataSet,  TableNames.Procedures);
-            //var functions =reader.ProcedureFunctionMethod.GetProcedureFunction<>()// ModelsGetter.GetProcedures(reader,dataSet,TableNames.Functions);
+            var procedures = reader.ProcedureFunctionMethod.GetProcedure(reader, dataSet, reader.SqlQueries.SelectProcedure, TableNames.Procedures);// ModelsGetter.GetProcedures(reader,dataSet,  TableNames.Procedures);
+            var functions = reader.ProcedureFunctionMethod.GetProcedure(reader, dataSet, reader.SqlQueries.SelectFunction, TableNames.Functions);// ModelsGetter.GetProcedures(reader,dataSet,TableNames.Functions);
 
             var views = reader.ViewMethod.GetView(reader, dataSet, TableNames.Views); //ModelsGetter.GetColumn(reader, dataSet, new List<IViewModel>(), TableNames.Views);
            
@@ -28,8 +25,8 @@ namespace Schema.Core.Helpers
              {
                  Tables = columnModels,
                  Views = views,
-                 Procedures =new  List<IProcedureFunctionModel<IProcedureFunctionColumnModel>>((IEnumerable<IProcedureFunctionModel<IProcedureFunctionColumnModel>>) procedures),
-               //  Functions = functions
+                 Procedures =procedures,
+               Functions = functions
 
              };
 

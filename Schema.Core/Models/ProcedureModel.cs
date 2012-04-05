@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Schema.Core.Models.Procedure;
 
 namespace Schema.Core.Models
 {

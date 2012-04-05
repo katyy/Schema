@@ -7,7 +7,7 @@ namespace Schema.Core.Helpers.View
 {
     public class MsSqlViewGetter : IViewGetter
     {
-        public List<IViewModel> GetView(IReader reader, DataSet dataSet, string tableName)
+        public List<IViewModel> GetView(IReader reader, DataSet dataSet, string tableName) 
         {
             var views = ModelsGetter.GetColumn(reader, dataSet, new List<MsSqlViewModel>(), TableNames.Views);
             var viewTriggers = ModelsGetter.GetTriggers(reader, dataSet, TableNames.ViewTriggers);
@@ -16,5 +16,7 @@ namespace Schema.Core.Helpers.View
             return new List<IViewModel>(views);
         }
 
+
+        
     }
 }

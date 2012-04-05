@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using Schema.Core.Models.ProcedureFunction;
-using Schema.Core.Models.ProcedureFunction.Column;
+using Schema.Core.Models.Procedure;
 using Schema.Core.Models.View;
 
 namespace Schema.Core.Models
@@ -9,7 +8,7 @@ namespace Schema.Core.Models
     {
         public List<TableModel> Tables { get; set; }
         public List<IViewModel> Views { get; set; }
-        public List<IProcedureFunctionModel<IProcedureFunctionColumnModel>>Procedures { get; set; }
-        public List<IProcedureFunctionModel<IProcedureFunctionColumnModel>> Functions { get; set; }
+        public List<IProcedureModel>Procedures { get; set; }
+        public List<IProcedureModel> Functions { get; set; }
     }
 }

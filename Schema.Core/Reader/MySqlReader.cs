@@ -1,8 +1,9 @@
-﻿using System;
-using System.Data.Common;
+﻿using System.Data.Common;
 using MySql.Data.MySqlClient;
-using Schema.Core.Helpers.ProcedureFunction;
+using Schema.Core.Helpers.Procedure;
+
 using Schema.Core.Helpers.View;
+
 using Schema.Core.Models.View;
 using Schema.Core.SqlQueries;
 
@@ -48,9 +49,9 @@ namespace Schema.Core.Reader
             get { return new MySqlViewGetter(); }
         }
 
-        public IProcedureFunctionGetter ProcedureFunctionMethod
+        public IProcedureGetter ProcedureFunctionMethod
         {
-            get { return new MySqlProcedureFunctionGetter(); }
+            get { return  new MySqlProcedureGetter(); }
         }
     }
 }

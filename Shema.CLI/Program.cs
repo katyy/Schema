@@ -1,10 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using Schema.Core;
+﻿using System.Data;
 using Schema.Core.Helpers;
-using Schema.Core.Models;
-using Schema.Core.Models.ProcedureFunction;
-using Schema.Core.Models.ProcedureFunction.Column;
 using Schema.Core.Reader;
 
 

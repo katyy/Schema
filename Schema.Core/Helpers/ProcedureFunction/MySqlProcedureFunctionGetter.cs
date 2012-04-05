@@ -6,22 +6,12 @@ using Schema.Core.Reader;
 
 namespace Schema.Core.Helpers.ProcedureFunction
 {
-    public class MySqlProcedureFunctionGetter:IProcedureFunctionGetter
+    public class MySqlProcedureFunctionGetter : IProcedureFunctionGetter
     {
-        public List<T> GetProcedureFunction<T, TK>(IReader reader, DataSet dataSet, string tableName) 
-            where T : IProcedureFunctionModel<TK>, new() 
-            where TK : IProcedureFunctionColumnModel
-        {
-            return null;
-        }
+      
 
 
-        public List<IProcedureFunctionModel<IProcedureFunctionColumnModel>> GetProcedureFunction(IReader reader, DataSet dataSet, string tableName)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public List<T> GetProcedureFunction<T>(IReader reader, DataSet dataSet, string tableName) where T : IProcedureFunctionModel<IProcedureFunctionColumnModel>
+        public List<IProcedureFunctionModel<T>> GetProcedureFunction<T>(IReader reader, DataSet dataSet, string tableName) where T : IProcedureFunctionColumnModel
         {
             throw new System.NotImplementedException();
         }
