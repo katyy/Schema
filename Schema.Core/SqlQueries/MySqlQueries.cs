@@ -4,7 +4,7 @@
     {
         public string DbName { get; set; }
 
-        public string SelectColumn
+        public string SelectColumn//todo remove view
         {
             get
             {
@@ -15,7 +15,7 @@
             }
         }
 
-        public string SelectFk //all key
+        public string SelectKey 
         {
             get
             {
@@ -39,45 +39,16 @@
                                )KU 
                     ON `KU`.TABLE_NAME=`RT`.TABLE_NAME and `KU`.CONSTRAINT_NAME=`RT`.CONSTRAINT_NAME  
                     WHERE `RT`.CONSTRAINT_SCHEMA='" + DbName + "';";
-              
-              
-
-
-            }
+           }
         }
 
-        public string SelectPk//fk
-        {
-            get
-            {
-
-                return "";
-
-                //                    @"  SELECT `KU`.TABLE_NAME,`KU`.COLUMN_NAME,`t`.CONSTRAINT_TYPE,`fk`.CONSTRAINT_NAME,`fk`.UNIQUE_CONSTRAINT_NAME,`fk`.DELETE_RULE,`fk`.UPDATE_RULE,`KU`.REFERENCED_TABLE_NAME,`KU`.REFERENCED_COLUMN_NAME
-                // FROM(
-                //SELECT `RC`.CONSTRAINT_NAME, `RC`.UNIQUE_CONSTRAINT_NAME, `RC`.UPDATE_RULE, `RC`.DELETE_RULE, `RC`.TABLE_NAME, `RC`.REFERENCED_TABLE_NAME 
-                //FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS RC
-                //) fk
-                //LEFT JOIN (
-                //SELECT `TC`.TABLE_SCHEMA, `TC`.CONSTRAINT_NAME,`TC`.TABLE_NAME ,`TC`.CONSTRAINT_TYPE
-                //FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS TC
-                //) t 
-                //ON  `t`.TABLE_NAME=`fk`.TABLE_NAME and `t`.CONSTRAINT_NAME=`fk`.CONSTRAINT_NAME
-                //LEFT JOIN (SELECT `key_usage`.CONSTRAINT_NAME,`key_usage`.TABLE_NAME,`key_usage`.COLUMN_NAME,`key_usage`.REFERENCED_TABLE_NAME,`key_usage`.REFERENCED_COLUMN_NAME
-                //FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE key_usage
-                //)KU 
-                // ON `KU`.TABLE_NAME=`fk`.TABLE_NAME and `KU`.CONSTRAINT_NAME=`fk`.CONSTRAINT_NAME
-                // WHERE `t`.TABLE_SCHEMA LIKE '" +  DbName + @"%';";
-
-            }
-        }
 
         public string SelectTrigger
         {
             get
             {
                 return
-                    @"SELECT `tr`.EVENT_OBJECT_TABLE ,`tr`.TRIGGER_NAME,`tr`.EVENT_MANIPULATION,`tr`.ACTION_ORIENTATION,`tr`.ACTION_TIMING
+                    @"SELECT `tr`.EVENT_OBJECT_TABLE ,`tr`.TRIGGER_NAME,`tr`.EVENT_MANIPULATION,`tr`.ACTION_ORIENTATION,`tr`.ACTION_TIMING,`tr`.ACTION_STATEMENT
                     FROM INFORMATION_SCHEMA.TRIGGERS `tr`
                     WHERE `tr`.TRIGGER_SCHEMA='" + DbName + "';";
             }
@@ -94,12 +65,29 @@
             }
         }
 
-        public string SelectView
+        public string SelectView// todo 
         {
-            get { return
-                        @"SELECT `v`.TABLE_NAME,`v`.VIEW_DEFINITION,`v`.IS_UPDATABLE,`v`.SECURITY_TYPE,`v`.COLLATION_CONNECTION
-                        FROM INFORMATION_SCHEMA.VIEWS v
-                        WHERE `v`.TABLE_SCHEMA='" + DbName + "';";
+            get
+            {
+                return
+                    @"SELECT c.TABLE_NAME,c.COLUMN_NAME,c.COLUMN_TYPE,c.CHARACTER_MAXIMUM_LENGTH , c.IS_NULLABLE,c.EXTRA,NULL,`view`.IS_UPDATABLE,`view`.SECURITY_TYPE,`view`.COLLATION_CONNECTION
+                            FROM INFORMATION_SCHEMA.COLUMNS c
+                            RIGHT JOIN
+                                      (SELECT `v`.TABLE_NAME,`v`.VIEW_DEFINITION,`v`.IS_UPDATABLE,`v`.SECURITY_TYPE,`v`.COLLATION_CONNECTION
+                                       FROM INFORMATION_SCHEMA.VIEWS v) view 
+                            ON `c`.TABLE_NAME=`view`.TABLE_NAME
+                            WHERE `c`.TABLE_SCHEMA='" + DbName + "';";
+//                        @"SELECT `v`.TABLE_NAME,`v`.VIEW_DEFINITION,`v`.IS_UPDATABLE,`v`.SECURITY_TYPE,`v`.COLLATION_CONNECTION
+//                        FROM INFORMATION_SCHEMA.VIEWS v
+//                        WHERE `v`.TABLE_SCHEMA='" + DbName + "';"; todo old
+
+//SELECT c.TABLE_NAME,c.COLUMN_NAME,c.COLUMN_TYPE,c.CHARACTER_MAXIMUM_LENGTH , c.IS_NULLABLE,c.EXTRA,NULL,`view`.IS_UPDATABLE,`view`.SECURITY_TYPE,`view`.COLLATION_CONNECTION
+//FROM INFORMATION_SCHEMA.COLUMNS c
+//RIGHT JOIN
+//          (SELECT `v`.TABLE_NAME,`v`.VIEW_DEFINITION,`v`.IS_UPDATABLE,`v`.SECURITY_TYPE,`v`.COLLATION_CONNECTION
+//           FROM INFORMATION_SCHEMA.VIEWS v) view 
+//ON `c`.TABLE_NAME=`view`.TABLE_NAME
+//WHERE `c`.TABLE_SCHEMA='blog';
             }
         }
 
@@ -129,14 +117,6 @@
 
 
 
-        public string SelectViewTriggers//todo delete
-        {
-            get { throw new System.NotImplementedException(); }
-        }
-
-        public string SelectViewIndexes//todo delete
-        {
-            get { throw new System.NotImplementedException(); }
-        }
+        
     }
 }

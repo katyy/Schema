@@ -12,14 +12,14 @@ namespace Shema.CLI
 
             var dataSet = new DataSet("dbDataSet");
 
-            const string dbName = @"|DataDirectory|Parking.mdf";
-            var mssqlReader = new MsSqlReader { DbName = dbName };
-            var db = ModelFiller.GetModel(mssqlReader, dataSet);
+            //const string dbName = @"|DataDirectory|Parking.mdf";
+            //var mssqlReader = new MsSqlReader { DbName = dbName };
+            //var db = ModelFiller.GetModel(mssqlReader, dataSet);
 
 
-            //const string mySqlDbName = @"blog";
-            //var mySqlReader = new MySqlReader { DbName = mySqlDbName };
-            //var db = ModelFiller.GetModel(mySqlReader, dataSet);
+            const string mySqlDbName = @"blog";
+            var mySqlReader = new MySqlReader { DbName = mySqlDbName };
+            var db = ModelFiller.GetModel(mySqlReader, dataSet);
         }
 
         

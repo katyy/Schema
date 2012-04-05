@@ -10,7 +10,7 @@ namespace Schema.Core.Helpers.View
         public List<IViewModel> GetView(IReader reader, DataSet dataSet, string tableName) 
         {
             var views = ModelsGetter.GetColumn(reader, dataSet, new List<MsSqlViewModel>(), TableNames.Views);
-            var viewTriggers = ModelsGetter.GetTriggers(reader, dataSet, TableNames.ViewTriggers);
+            var viewTriggers =reader.TriggerMethod.GetTriggers(reader, dataSet, TableNames.ViewTriggers);
             var viewIndexes = ModelsGetter.GetIndexes(reader, dataSet, TableNames.ViewIndexes);
             ModelFiller.InsertModels(views, viewTriggers, viewIndexes);
             return new List<IViewModel>(views);

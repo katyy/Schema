@@ -1,6 +1,7 @@
 ﻿using System.Data.Common;
+using Schema.Core.Helpers.Key;
 using Schema.Core.Helpers.Procedure;
-
+using Schema.Core.Helpers.Trigger;
 using Schema.Core.Helpers.View;
 
 using Schema.Core.Models.View;
@@ -19,7 +20,9 @@ namespace Schema.Core.Reader
         IViewModel ViewModel { get; }
         IViewGetter ViewMethod { get; }
         IProcedureGetter ProcedureFunctionMethod { get; }
-     
+        ITriggerGetter TriggerMethod { get; }
+        KeyGetter KeyGetter { get; }
+
     }
     
 }

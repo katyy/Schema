@@ -16,25 +16,12 @@
             }
         }
 
-        public string SelectPk
+        public string SelectKey
         {
             get
             {
                 return
-                    @"SELECT t.name,c.name, k.type,k.name,k.type_desc 
-                      FROM sys.key_constraints k, sys.all_columns c,sys.tables t 
-                      WHERE c.object_id=k.parent_object_id 
-                      and c.column_id=k.unique_index_id 
-                      and k.parent_object_id=t.object_id;";
-            }
-        }
-
-        public string SelectFk
-        {
-            get
-            {
-                return
-                    @"SELECT foriegen.parent_table,parent_column,f.type,name,f.type_desc,f.delete_referential_action_desc,f.update_referential_action_desc, foriegen.referance_table, foriegen.referance_column
+                      @"SELECT foriegen.parent_table,parent_column,f.type,name,f.type_desc,f.delete_referential_action_desc,f.update_referential_action_desc, foriegen.referance_table, foriegen.referance_column
                       FROM sys.foreign_keys f  
                       LEFT OUTER JOIN 
                        (SELECT p.parent_table , p.parent_column,r.referance_table,r.referance_column,r.id 
@@ -51,7 +38,22 @@
                                   and fc.parent_column_id=c.column_id 
                                   and fc.parent_object_id=c.object_id) p 
                          ON p.id=r.id) foriegen 
-                      ON foriegen.id=f.object_id;";
+                        ON foriegen.id=f.object_id;";
+                   
+            }
+        }
+
+        public string SelectPk
+        {
+            get
+            {
+                return
+                     @"SELECT t.name,c.name, k.type,k.name,k.type_desc 
+                      FROM sys.key_constraints k, sys.all_columns c,sys.tables t 
+                      WHERE c.object_id=k.parent_object_id 
+                      and c.column_id=k.unique_index_id 
+                      and k.parent_object_id=t.object_id;";
+
             }
         }
 

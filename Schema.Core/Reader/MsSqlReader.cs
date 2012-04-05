@@ -1,7 +1,8 @@
 ﻿using System.Data.Common;
 using System.Data.SqlClient;
+using Schema.Core.Helpers.Key;
 using Schema.Core.Helpers.Procedure;
-
+using Schema.Core.Helpers.Trigger;
 using Schema.Core.Helpers.View;
 using Schema.Core.Models.View;
 using Schema.Core.SqlQueries;
@@ -16,8 +17,8 @@ namespace Schema.Core.Reader
         {
             get
             {
-                return @"Data Source=SIRICHENKOE\SIRICHENKO;Initial Catalog=Petition;Integrated Security=True;"
-                    //@"Data Source=.\LOCALHOST;AttachDbFilename=" + DbName + ";Integrated Security=True"
+                return// @"Data Source=SIRICHENKOE\SIRICHENKO;Initial Catalog=Petition;Integrated Security=True;"
+                    @"Data Source=.\LOCALHOST;AttachDbFilename=" + DbName + ";Integrated Security=True"
                     ; }
         }
 
@@ -58,6 +59,14 @@ namespace Schema.Core.Reader
             get { return  new MsSqlProcedureGetter(); }
         }
 
-       
+        public ITriggerGetter TriggerMethod
+        {
+            get { return new MsSqlTriggerGetter(); }
+        }
+
+        public KeyGetter KeyGetter
+        {
+            get { return new MsSqlKeyGetter(); }
+        }
     }
 }

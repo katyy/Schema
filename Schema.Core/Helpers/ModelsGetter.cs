@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using Schema.Core.Models;
+using Schema.Core.Models.Table;
 using Schema.Core.Reader;
 
 namespace Schema.Core.Helpers
@@ -59,82 +60,82 @@ namespace Schema.Core.Helpers
             return column;
         }
 
-        public static List<KeyModel> GetKeys(IReader reader, DataSet dataSet, string tableName)
-        {
-            if (string.IsNullOrEmpty(reader.SqlQueries.SelectPk)) return new List<KeyModel>();
-            var keyModel = new List<KeyModel>();
-            var dAdapter = reader.DataAdapter;
-            dAdapter.SelectCommand = reader.Command;
-            dAdapter.SelectCommand.Connection = reader.Conection;
-            dAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectPk;
-            dAdapter.Fill(dataSet, tableName);
-            var dt = dataSet.Tables[tableName];
-            for (var i = 0; i < dt.Rows.Count; i++)
-            {
-                keyModel.Add(new KeyModel
-                {
-                    TableName = dt.Rows[i].ItemArray[0].ToString(),
-                    ColumnName = dt.Rows[i].ItemArray[1].ToString(),
-                    Type = dt.Rows[i].ItemArray[2].ToString(),
-                    Name = dt.Rows[i].ItemArray[3].ToString(),
-                    TypeDescription = dt.Rows[i].ItemArray[4].ToString()
-                });
-            }
+        //public static List<KeyModel> GetKeys(IReader reader, DataSet dataSet, string tableName)
+        //{
+        //    if (string.IsNullOrEmpty(reader.SqlQueries.SelectPk)) return new List<KeyModel>();
+        //    var keyModel = new List<KeyModel>();
+        //    var dAdapter = reader.DataAdapter;
+        //    dAdapter.SelectCommand = reader.Command;
+        //    dAdapter.SelectCommand.Connection = reader.Conection;
+        //    dAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectPk;
+        //    dAdapter.Fill(dataSet, tableName);
+        //    var dt = dataSet.Tables[tableName];
+        //    for (var i = 0; i < dt.Rows.Count; i++)
+        //    {
+        //        keyModel.Add(new KeyModel
+        //        {
+        //            TableName = dt.Rows[i].ItemArray[0].ToString(),
+        //            ColumnName = dt.Rows[i].ItemArray[1].ToString(),
+        //            Type = dt.Rows[i].ItemArray[2].ToString(),
+        //            Name = dt.Rows[i].ItemArray[3].ToString(),
+        //            TypeDescription = dt.Rows[i].ItemArray[4].ToString()
+        //        });
+        //    }
 
-            return keyModel;
-        }
+        //    return keyModel;
+        //}
 
-        public static List<KeyModel> GetForigenKey(IReader reader, DataSet dataSet, string tableName)
-        {
-            var keyModel = new List<KeyModel>();
+        //public static List<KeyModel> GetForigenKey(IReader reader, DataSet dataSet, string tableName)
+        //{
+        //    var keyModel = new List<KeyModel>();
 
-            var dAdapter = reader.DataAdapter;
-            dAdapter.SelectCommand = reader.Command;
-            dAdapter.SelectCommand.Connection = reader.Conection;
-            dAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectFk;
+        //    var dAdapter = reader.DataAdapter;
+        //    dAdapter.SelectCommand = reader.Command;
+        //    dAdapter.SelectCommand.Connection = reader.Conection;
+        //    dAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectFk;
 
-            dAdapter.Fill(dataSet, tableName);
-            var dt = dataSet.Tables[tableName];
-            for (var i = 0; i < dt.Rows.Count; i++)
-            {
-                keyModel.Add(new KeyModel
-                {
-                    TableName = dt.Rows[i].ItemArray[0].ToString(),
-                    ColumnName = dt.Rows[i].ItemArray[1].ToString(),
-                    Type = dt.Rows[i].ItemArray[2].ToString(),
-                    Name = dt.Rows[i].ItemArray[3].ToString(),
-                    TypeDescription = dt.Rows[i].ItemArray[4].ToString(),
-                    DeletRule = dt.Rows[i].ItemArray[5].ToString(),
-                    UpdateRule = dt.Rows[i].ItemArray[6].ToString(),
-                    ReferanceTable = dt.Rows[i].ItemArray[7].ToString(),
-                    ReferanceColumn = dt.Rows[i].ItemArray[8].ToString()
-                });
-            }
-            return keyModel;
-        }
+        //    dAdapter.Fill(dataSet, tableName);
+        //    var dt = dataSet.Tables[tableName];
+        //    for (var i = 0; i < dt.Rows.Count; i++)
+        //    {
+        //        keyModel.Add(new KeyModel
+        //        {
+        //            TableName = dt.Rows[i].ItemArray[0].ToString(),
+        //            ColumnName = dt.Rows[i].ItemArray[1].ToString(),
+        //            Type = dt.Rows[i].ItemArray[2].ToString(),
+        //            Name = dt.Rows[i].ItemArray[3].ToString(),
+        //            TypeDescription = dt.Rows[i].ItemArray[4].ToString(),
+        //            DeletRule = dt.Rows[i].ItemArray[5].ToString(),
+        //            UpdateRule = dt.Rows[i].ItemArray[6].ToString(),
+        //            ReferanceTable = dt.Rows[i].ItemArray[7].ToString(),
+        //            ReferanceColumn = dt.Rows[i].ItemArray[8].ToString()
+        //        });
+        //    }
+        //    return keyModel;
+        //}
 
-        public static List<TriggerModel> GetTriggers(IReader reader, DataSet dataSet, string tableName)
-        {
-            var trigerModel = new List<TriggerModel>();
-            var dAdapter = reader.DataAdapter;
-            dAdapter.SelectCommand = reader.Command;
-            dAdapter.SelectCommand.Connection = reader.Conection;
-            dAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectTrigger;
-            dAdapter.Fill(dataSet, tableName);
-            var dt = dataSet.Tables[tableName];
-            for (var i = 0; i < dt.Rows.Count; i++)
-            {
-                trigerModel.Add(new TriggerModel
-                {
-                    TableName = dt.Rows[i].ItemArray[0].ToString(),
-                    TrigerName = dt.Rows[i].ItemArray[1].ToString(),
-                    Event = dt.Rows[i].ItemArray[2].ToString(),
-                    Type = dt.Rows[i].ItemArray[3].ToString(),
-                    TypeDescription = dt.Rows[i].ItemArray[4].ToString()
-                });
-            }
-            return trigerModel;
-        }
+        //public static List<TriggerModel> GetTriggers(IReader reader, DataSet dataSet, string tableName)
+        //{
+        //    var trigerModel = new List<TriggerModel>();
+        //    var dAdapter = reader.DataAdapter;
+        //    dAdapter.SelectCommand = reader.Command;
+        //    dAdapter.SelectCommand.Connection = reader.Conection;
+        //    dAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectTrigger;
+        //    dAdapter.Fill(dataSet, tableName);
+        //    var dt = dataSet.Tables[tableName];
+        //    for (var i = 0; i < dt.Rows.Count; i++)
+        //    {
+        //        trigerModel.Add(new TriggerModel
+        //        {
+        //            TableName = dt.Rows[i].ItemArray[0].ToString(),
+        //            TrigerName = dt.Rows[i].ItemArray[1].ToString(),
+        //            Event = dt.Rows[i].ItemArray[2].ToString(),
+        //            Type = dt.Rows[i].ItemArray[3].ToString(),
+        //            TypeDescription = dt.Rows[i].ItemArray[4].ToString()
+        //        });
+        //    }
+        //    return trigerModel;
+        //}
 
         public static List<IndexModel> GetIndexes(IReader reader, DataSet dataSet, string tableName)
         {

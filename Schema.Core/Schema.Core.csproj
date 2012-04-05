@@ -31,7 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Version=6.5.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=5.1.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -41,17 +41,29 @@
     <Compile Include="Helpers\Converters.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helpers\Key\KeyGetter.cs" />
+    <Compile Include="Helpers\Key\MsSqlKeyGetter.cs" />
+    <Compile Include="Helpers\Key\MySqlKeyGetter.cs" />
     <Compile Include="Helpers\ModelFiller.cs" />
     <Compile Include="Helpers\ModelsGetter.cs" />
     <Compile Include="Helpers\Procedure\IProcedureGetter.cs" />
     <Compile Include="Helpers\Procedure\MsSqlProcedureGetter.cs" />
     <Compile Include="Helpers\Procedure\MySqlProcedureGetter.cs" />
+    <Compile Include="Helpers\Trigger\ITriggerGetter.cs" />
+    <Compile Include="Helpers\Trigger\MsSqlTriggerGetter.cs" />
+    <Compile Include="Helpers\Trigger\MySqlTriggerGetter.cs" />
     <Compile Include="Helpers\View\IViewGetter.cs" />
     <Compile Include="Helpers\View\MsSqlViewGetter.cs" />
     <Compile Include="Helpers\View\MySqlViewGetter.cs" />
+    <Compile Include="Models\Key\KeyModel.cs" />
+    <Compile Include="Models\Key\MsSqlKeyModel.cs" />
+    <Compile Include="Models\Key\MySqlKeyModel.cs" />
     <Compile Include="Models\Procedure\IProcedureModel.cs" />
     <Compile Include="Models\Procedure\MsSqlProcedureModel.cs" />
     <Compile Include="Models\Procedure\MySqlProcedureModel.cs" />
+    <Compile Include="Models\Trigger\ITriggerModel.cs" />
+    <Compile Include="Models\Trigger\MsSqlTriggerModel.cs" />
+    <Compile Include="Models\Trigger\MySqlTriggerModel.cs" />
     <Compile Include="Models\View\IViewModel.cs" />
     <Compile Include="Models\View\MsSqlViewModel.cs" />
     <Compile Include="Models\View\MySqlViewModel.cs" />
@@ -61,10 +73,7 @@
     <Compile Include="Models\TableModel.cs" />
     <Compile Include="Models\DatabaseModel.cs" />
     <Compile Include="Models\IndexModel.cs" />
-    <Compile Include="Models\KeyModel.cs" />
     <Compile Include="Models\ITable.cs" />
-    <Compile Include="Models\TriggerModel.cs" />
-    <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Reader\MsSqlReader.cs" />
     <Compile Include="Reader\MySqlReader.cs" />
     <Compile Include="SqlQueries\ISqlQueries.cs" />

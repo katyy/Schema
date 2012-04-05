@@ -1,7 +1,8 @@
 ﻿using System.Data.Common;
 using MySql.Data.MySqlClient;
+using Schema.Core.Helpers.Key;
 using Schema.Core.Helpers.Procedure;
-
+using Schema.Core.Helpers.Trigger;
 using Schema.Core.Helpers.View;
 
 using Schema.Core.Models.View;
@@ -52,6 +53,16 @@ namespace Schema.Core.Reader
         public IProcedureGetter ProcedureFunctionMethod
         {
             get { return  new MySqlProcedureGetter(); }
+        }
+
+        public ITriggerGetter TriggerMethod
+        {
+            get { return new MySqlTriggerGetter(); }
+        }
+
+        public KeyGetter KeyGetter
+        {
+            get {return new MySqlKeyGetter(); }
         }
     }
 }

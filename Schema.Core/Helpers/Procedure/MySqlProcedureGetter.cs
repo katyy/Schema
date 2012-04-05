@@ -14,7 +14,7 @@ namespace Schema.Core.Helpers.Procedure
             var dAdapter = reader.DataAdapter;
             dAdapter.SelectCommand = reader.Command;
             dAdapter.SelectCommand.Connection = reader.Conection;
-            dAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectView;
+            dAdapter.SelectCommand.CommandText = query;
             dAdapter.Fill(dataSet, tableName);
             var dt = dataSet.Tables[tableName];
             for (var i = 0; i < dt.Rows.Count; i++)
