@@ -1,11 +1,18 @@
-﻿namespace Schema.Core.Models.View
+﻿using System.Collections.Generic;
+using Schema.Core.Models.Column;
+using Schema.Core.Models.Table;
+using Schema.Core.Models.Trigger;
+
+namespace Schema.Core.Models.View
 {
-    public class MySqlViewModel : IViewModel
+    public class MySqlViewModel : IViewModel, ITable 
     {
         public string Name { get; set; }
-       // public string ViewDefinition { get; set; }
-        public bool IsUpdatable { get; set; }
-        public string CollacationConnection { get; set; }
-        public string SecurityType { get; set; }
+        public List<IColumnModel> Columns { get; set; }
+        public List<ITriggerModel> Trigers{get; set; }//todo delete
+        public List<IndexModel> Indexes{get; set; }//todo delete
+
+       
+       
     }
 }

@@ -24,6 +24,8 @@ namespace Schema.Core.Helpers
                    return true;
                case "NO":
                    return false;
+               case "":
+                   return false;
            }
            return (bool)boolValue;
        }

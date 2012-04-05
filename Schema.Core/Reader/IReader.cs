@@ -1,4 +1,5 @@
 ﻿using System.Data.Common;
+using Schema.Core.Helpers.Column;
 using Schema.Core.Helpers.Key;
 using Schema.Core.Helpers.Procedure;
 using Schema.Core.Helpers.Trigger;
@@ -21,7 +22,8 @@ namespace Schema.Core.Reader
         IViewGetter ViewMethod { get; }
         IProcedureGetter ProcedureFunctionMethod { get; }
         ITriggerGetter TriggerMethod { get; }
-        KeyGetter KeyGetter { get; }
+        KeyGetter KeyMethod { get; }
+        IColumnGetter ColumnMethod { get; }
 
     }
     

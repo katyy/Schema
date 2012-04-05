@@ -38,6 +38,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Column\IColumnGetter.cs" />
+    <Compile Include="Helpers\Column\MsSqlColumnGetter.cs" />
+    <Compile Include="Helpers\Column\MySqlColumnGetter.cs" />
     <Compile Include="Helpers\Converters.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -55,6 +58,9 @@
     <Compile Include="Helpers\View\IViewGetter.cs" />
     <Compile Include="Helpers\View\MsSqlViewGetter.cs" />
     <Compile Include="Helpers\View\MySqlViewGetter.cs" />
+    <Compile Include="Models\Column\IColumnModel.cs" />
+    <Compile Include="Models\Column\MsSqlColumnModel.cs" />
+    <Compile Include="Models\Column\MySqlColumnModel.cs" />
     <Compile Include="Models\Key\KeyModel.cs" />
     <Compile Include="Models\Key\MsSqlKeyModel.cs" />
     <Compile Include="Models\Key\MySqlKeyModel.cs" />
@@ -64,16 +70,16 @@
     <Compile Include="Models\Trigger\ITriggerModel.cs" />
     <Compile Include="Models\Trigger\MsSqlTriggerModel.cs" />
     <Compile Include="Models\Trigger\MySqlTriggerModel.cs" />
+    <Compile Include="Models\View\Column\MySqlViewColumnModel.cs" />
     <Compile Include="Models\View\IViewModel.cs" />
     <Compile Include="Models\View\MsSqlViewModel.cs" />
     <Compile Include="Models\View\MySqlViewModel.cs" />
     <Compile Include="Reader\IReader.cs" />
-    <Compile Include="Models\ColumnModel.cs" />
     <Compile Include="Models\Procedure\ProcedureColumnModel.cs" />
-    <Compile Include="Models\TableModel.cs" />
+    <Compile Include="Models\Table\TableModel.cs" />
     <Compile Include="Models\DatabaseModel.cs" />
     <Compile Include="Models\IndexModel.cs" />
-    <Compile Include="Models\ITable.cs" />
+    <Compile Include="Models\Table\ITable.cs" />
     <Compile Include="Reader\MsSqlReader.cs" />
     <Compile Include="Reader\MySqlReader.cs" />
     <Compile Include="SqlQueries\ISqlQueries.cs" />

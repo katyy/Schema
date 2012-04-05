@@ -1,11 +1,13 @@
 ﻿using System.Data.Common;
 using MySql.Data.MySqlClient;
+using Schema.Core.Helpers.Column;
 using Schema.Core.Helpers.Key;
 using Schema.Core.Helpers.Procedure;
 using Schema.Core.Helpers.Trigger;
 using Schema.Core.Helpers.View;
-
+using Schema.Core.Models.Column;
 using Schema.Core.Models.View;
+using Schema.Core.Models.View.Column;
 using Schema.Core.SqlQueries;
 
 namespace Schema.Core.Reader
@@ -47,7 +49,7 @@ namespace Schema.Core.Reader
 
         public IViewGetter ViewMethod
         {
-            get { return new MySqlViewGetter(); }
+            get { return new MySqlViewGetter<MySqlViewColumnModel>(); }
         }
 
         public IProcedureGetter ProcedureFunctionMethod
@@ -60,9 +62,14 @@ namespace Schema.Core.Reader
             get { return new MySqlTriggerGetter(); }
         }
 
-        public KeyGetter KeyGetter
+        public KeyGetter KeyMethod
         {
             get {return new MySqlKeyGetter(); }
+        }
+
+        public IColumnGetter ColumnMethod
+        {
+            get { return new MySqlColumnGetter<MySqlColumnModel>();}
         }
     }
 }

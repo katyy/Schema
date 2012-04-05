@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using Schema.Core.Models;
+using Schema.Core.Models.Column;
 using Schema.Core.Models.Table;
 using Schema.Core.Reader;
 
@@ -10,55 +11,55 @@ namespace Schema.Core.Helpers
 {
     public class ModelsGetter
     {
-        public static List<T> GetColumn<T>(IReader reader, DataSet dataSet, List<T> columns, string TableName)
-            where T : ITable, new()
-        {
-            var dAdapter = reader.DataAdapter;
-            dAdapter.SelectCommand = reader.Command;
-            dAdapter.SelectCommand.Connection = reader.Conection;
-            dAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectColumn;
-            dAdapter.Fill(dataSet, TableName);
-            var column = new List<ColumnModel>();
-            var dt = dataSet.Tables[TableName];
-            string name = null;
-            for (var i = 0; i < dt.Rows.Count; i++)
-            {
-                var tableName = dt.Rows[i].ItemArray[0].ToString();
-                if (name == tableName || name == null)
-                {
-                    column = AddColumn(column, i, dt);
-                }
-                else
-                {
-                    columns.Add(new T { Name = name, Columns = column });
-                    column = new List<ColumnModel>();
-                    column = AddColumn(column, i, dt);
-                }
-                if (i == dt.Rows.Count - 1)
-                {
-                    columns.Add(new T { Name = name, Columns = column });
-                }
-                name = tableName;
-            }
+        //public static List<T> GetView<T>(IReader reader, DataSet dataSet, List<T> columns, string TableName)
+        //    where T : ITable, new()
+        //{
+        //    var dAdapter = reader.DataAdapter;
+        //    dAdapter.SelectCommand = reader.Command;
+        //    dAdapter.SelectCommand.Connection = reader.Conection;
+        //    dAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectColumn;
+        //    dAdapter.Fill(dataSet, TableName);
+        //    var column = new List<IColumnModel>();
+        //    var dt = dataSet.Tables[TableName];
+        //    string name = null;
+        //    for (var i = 0; i < dt.Rows.Count; i++)
+        //    {
+        //        var tableName = dt.Rows[i].ItemArray[0].ToString();
+        //        if (name == tableName || name == null)
+        //        {
+        //            column = AddColumn(column, i, dt);
+        //        }
+        //        else
+        //        {
+        //            columns.Add(new T { Name = name, Columns = column });
+        //            column = new List<IColumnModel>();
+        //            column = AddColumn(column, i, dt);
+        //        }
+        //        if (i == dt.Rows.Count - 1)
+        //        {
+        //            columns.Add(new T { Name = name, Columns = column });
+        //        }
+        //        name = tableName;
+        //    }
 
-            return columns;
-        }
+        //    return columns;
+        //}
 
-        private static List<ColumnModel> AddColumn(List<ColumnModel> column, int i, DataTable dt)
-        {
-            var isIdenty = dt.Rows[i].ItemArray[5].ToString();
+        //private static List<IColumnModel> AddColumn(List<IColumnModel> column, int i, DataTable dt)
+        //{
+        //    var isIdenty = dt.Rows[i].ItemArray[5].ToString();
 
-            column.Add(new ColumnModel
-             {
-                 ColumnName = dt.Rows[i].ItemArray[1].ToString(),
-                 TypeName = dt.Rows[i].ItemArray[2].ToString(),
-                 MaxLength = Converters.ToInt(dt.Rows[i].ItemArray[3]),
-                 AllowNull = Converters.ToBool(dt.Rows[i].ItemArray[4]),
-                 IsIdenty = string.IsNullOrEmpty(isIdenty) ? false.ToString(CultureInfo.InvariantCulture) : isIdenty,
-                 IdentyIncriment = Converters.ToInt(dt.Rows[i].ItemArray[6])
-             });
-            return column;
-        }
+        //    column.Add(new ColumnModel
+        //     {
+        //         ColumnName = dt.Rows[i].ItemArray[1].ToString(),
+        //         TypeName = dt.Rows[i].ItemArray[2].ToString(),
+        //         MaxLength = Converters.ToInt(dt.Rows[i].ItemArray[3]),
+        //         AllowNull = Converters.ToBool(dt.Rows[i].ItemArray[4]),
+        //         IsIdenty = string.IsNullOrEmpty(isIdenty) ? false.ToString(CultureInfo.InvariantCulture) : isIdenty,
+        //         IdentyIncriment = Converters.ToInt(dt.Rows[i].ItemArray[6])
+        //     });
+        //    return column;
+        //}
 
         //public static List<KeyModel> GetKeys(IReader reader, DataSet dataSet, string tableName)
         //{

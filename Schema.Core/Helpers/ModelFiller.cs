@@ -2,6 +2,7 @@
 using System.Data;
 using Schema.Core.Models;
 using Schema.Core.Models.Key;
+using Schema.Core.Models.Table;
 using Schema.Core.Models.Trigger;
 using Schema.Core.Reader;
 
@@ -11,8 +12,8 @@ namespace Schema.Core.Helpers
     {
         public static DatabaseModel GetModel(IReader reader,DataSet dataSet) 
          {
-            var columnModels = ModelsGetter.GetColumn(reader,dataSet,new List<TableModel>(), TableNames.Tables);
-            var keyModel = reader.KeyGetter.GetKeys(reader, dataSet, TableNames.Keys);
+             var columnModels = reader.ColumnMethod.GetColumn(reader, dataSet, new List<TableModel>(), TableNames.Tables); //ModelsGetter.GetView(reader,dataSet,new List<TableModel>(), TableNames.Tables);
+            var keyModel = reader.KeyMethod.GetKeys(reader, dataSet, TableNames.Keys);
            // var keyModel = ModelsGetter.GetKeys(reader,dataSet,TableNames.Keys);
           //  var forigenKey = ModelsGetter.GetForigenKey(reader,dataSet, TableNames.ForigenKey);
             var trigers = reader.TriggerMethod.GetTriggers(reader, dataSet, TableNames.Triggers);//ModelsGetter.GetTriggers(reader, dataSet, TableNames.Triggers);
@@ -20,7 +21,7 @@ namespace Schema.Core.Helpers
             var procedures = reader.ProcedureFunctionMethod.GetProcedure(reader, dataSet, reader.SqlQueries.SelectProcedure, TableNames.Procedures);// ModelsGetter.GetProcedures(reader,dataSet,  TableNames.Procedures);
             var functions = reader.ProcedureFunctionMethod.GetProcedure(reader, dataSet, reader.SqlQueries.SelectFunction, TableNames.Functions);// ModelsGetter.GetProcedures(reader,dataSet,TableNames.Functions);
 
-            var views = reader.ViewMethod.GetView(reader, dataSet, TableNames.Views); //ModelsGetter.GetColumn(reader, dataSet, new List<IViewModel>(), TableNames.Views);
+            var views = reader.ViewMethod.GetView(reader, dataSet, TableNames.Views); //ModelsGetter.GetView(reader, dataSet, new List<IViewModel>(), TableNames.Views);
            
 
             InsertModels(columnModels, keyModel, trigers, indexes);
