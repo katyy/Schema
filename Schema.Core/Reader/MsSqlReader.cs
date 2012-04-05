@@ -1,6 +1,7 @@
 ﻿using System.Data.Common;
 using System.Data.SqlClient;
-using Schema.Core.Helpers.ProcedureFunction;
+using Schema.Core.Helpers.Procedure;
+
 using Schema.Core.Helpers.View;
 using Schema.Core.Models.View;
 using Schema.Core.SqlQueries;
@@ -13,7 +14,11 @@ namespace Schema.Core.Reader
 
         public string ConnectionString
         {
-            get { return @"Data Source=.\LOCALHOST;AttachDbFilename=" + DbName + ";Integrated Security=True"; }
+            get
+            {
+                return @"Data Source=SIRICHENKOE\SIRICHENKO;Initial Catalog=Petition;Integrated Security=True;"
+                    //@"Data Source=.\LOCALHOST;AttachDbFilename=" + DbName + ";Integrated Security=True"
+                    ; }
         }
 
         public DbDataAdapter DataAdapter
@@ -48,9 +53,11 @@ namespace Schema.Core.Reader
             get {return  new MsSqlViewGetter(); }
         }
 
-        public IProcedureFunctionGetter ProcedureFunctionMethod
+        public IProcedureGetter ProcedureFunctionMethod
         {
-            get { return new MsSqlProcedureFunctionGetter(); }
+            get { return  new MsSqlProcedureGetter(); }
         }
+
+       
     }
 }

@@ -8,9 +8,8 @@ namespace Schema.Core.Helpers.ProcedureFunction
 {
     public interface IProcedureFunctionGetter
     {
-        List<IProcedureFunctionModel<IProcedureFunctionColumnModel>> GetProcedureFunction(IReader reader,
-                                                                                          DataSet dataSet,
-                                                                                          string tableName);
+        /*List<IProcedureFunctionModel> GetProcedureFunction(IReader reader,
+                                                                 DataSet dataSet, string tableName) ;*/
 
 
     }

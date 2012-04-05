@@ -31,12 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Version=5.1.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.5.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -46,25 +43,21 @@
     </Compile>
     <Compile Include="Helpers\ModelFiller.cs" />
     <Compile Include="Helpers\ModelsGetter.cs" />
-    <Compile Include="Helpers\ProcedureFunction\IProcedureFunctionGetter.cs" />
-    <Compile Include="Helpers\ProcedureFunction\MsSqlProcedureFunctionGetter.cs" />
-    <Compile Include="Helpers\ProcedureFunction\MySqlProcedureFunctionGetter.cs" />
+    <Compile Include="Helpers\Procedure\IProcedureGetter.cs" />
+    <Compile Include="Helpers\Procedure\MsSqlProcedureGetter.cs" />
+    <Compile Include="Helpers\Procedure\MySqlProcedureGetter.cs" />
     <Compile Include="Helpers\View\IViewGetter.cs" />
     <Compile Include="Helpers\View\MsSqlViewGetter.cs" />
     <Compile Include="Helpers\View\MySqlViewGetter.cs" />
-    <Compile Include="Models\ProcedureFunction\Column\IProcedureFunctionColumnModel.cs" />
-    <Compile Include="Models\ProcedureFunction\Column\MySqlProcedureFunctionColumnModel.cs" />
-    <Compile Include="Models\ProcedureFunction\IProcedureFunctionModel.cs" />
-    <Compile Include="Models\ProcedureFunction\Column\MsSqlProcedureFunctionColumnModel.cs" />
-    <Compile Include="Models\ProcedureFunction\MsSqlProcedureFunctionModel.cs" />
-    <Compile Include="Models\ProcedureFunction\MySqlProcedureFunctionModel.cs" />
+    <Compile Include="Models\Procedure\IProcedureModel.cs" />
+    <Compile Include="Models\Procedure\MsSqlProcedureModel.cs" />
+    <Compile Include="Models\Procedure\MySqlProcedureModel.cs" />
     <Compile Include="Models\View\IViewModel.cs" />
     <Compile Include="Models\View\MsSqlViewModel.cs" />
     <Compile Include="Models\View\MySqlViewModel.cs" />
     <Compile Include="Reader\IReader.cs" />
     <Compile Include="Models\ColumnModel.cs" />
-    <Compile Include="Models\ProcedureColumnModel.cs" />
-    <Compile Include="Models\ProcedureModel.cs" />
+    <Compile Include="Models\Procedure\ProcedureColumnModel.cs" />
     <Compile Include="Models\TableModel.cs" />
     <Compile Include="Models\DatabaseModel.cs" />
     <Compile Include="Models\IndexModel.cs" />
@@ -79,6 +72,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlQueries\MsSqlQueries.cs" />
     <Compile Include="TableNames.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
