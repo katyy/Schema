@@ -1,13 +1,14 @@
-﻿using System.Data;
-using Schema.Core.Helpers;
-using Schema.Core.Reader;
-
-
-namespace Shema.CLI
+﻿namespace Shema.CLI
 {
-    class Program
+    using System.Data;
+   
+    using Schema.Core.Helpers;
+   
+    using Schema.Core.Reader;
+
+    public class Program
     {
-        static void Main (string[] args) 
+        public static void Main(string[] args)
         {
 
             var dataSet = new DataSet("dbDataSet");
@@ -17,11 +18,11 @@ namespace Shema.CLI
             //var db = ModelFiller.GetModel(mssqlReader, dataSet);
 
 
-            const string mySqlDbName = @"blog";
-            var mySqlReader = new MySqlReader { DbName = mySqlDbName };
+            const string MySqlDbName = @"blog";
+
+            var mySqlReader = new MySqlReader { DbName = MySqlDbName };
+
             var db = ModelFiller.GetModel(mySqlReader, dataSet);
         }
-
-        
     }
 }

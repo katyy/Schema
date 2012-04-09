@@ -1,8 +1,8 @@
-﻿using System;
-
-namespace Schema.Core.Helpers
+﻿namespace Schema.Core.Helpers
 {
-   public  class Converters
+    using System;
+
+    public class Converters
     {
        public static int? ToInt(object intValue)
        {
@@ -39,6 +39,7 @@ namespace Schema.Core.Helpers
                case "D":
                    return true;
            }
+
            return (bool)val;
        }
     }

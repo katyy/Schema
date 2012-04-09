@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using Schema.Core.Models;
-using Schema.Core.Models.Key;
-using Schema.Core.Models.Table;
-using Schema.Core.Models.Trigger;
-using Schema.Core.Reader;
-
-namespace Schema.Core.Helpers
+﻿namespace Schema.Core.Helpers
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using Schema.Core.Models;
+    using Schema.Core.Models.Key;
+    using Schema.Core.Models.Table;
+    using Schema.Core.Models.Trigger;
+    using Schema.Core.Reader;
+
     public class ModelFiller
     {
-        public static DatabaseModel GetModel(IReader reader,DataSet dataSet) 
+        public static DatabaseModel GetModel(IReader reader, DataSet dataSet) 
          {
              var columnModels = reader.ColumnMethod.GetColumn(reader, dataSet, new List<TableModel>(), TableNames.Tables); //ModelsGetter.GetView(reader,dataSet,new List<TableModel>(), TableNames.Tables);
             var keyModel = reader.KeyMethod.GetKeys(reader, dataSet, TableNames.Keys);
@@ -40,8 +40,8 @@ namespace Schema.Core.Helpers
         {
             foreach (var column in columnModel)
             {
-                Trigger(triggerModel, (ITable) column);
-                Index(indexModel, (ITable) column);
+                Trigger(triggerModel, (ITable)column);
+                Index(indexModel, (ITable)column);
             }
         }
 
@@ -56,7 +56,6 @@ namespace Schema.Core.Helpers
                 Index(indexModel, column);
             }
         }
-
         
         private static void Key(IList<KeyModel> keyModel, TableModel table)
         {

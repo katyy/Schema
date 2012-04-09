@@ -1,25 +1,26 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Globalization;
-using Schema.Core.Helpers.View;
-using Schema.Core.Models.Column;
-using Schema.Core.Models.Table;
-using Schema.Core.Models.View;
-using Schema.Core.Models.View.Column;
-using Schema.Core.Reader;
-
-namespace Schema.Core.Helpers.Column
+﻿namespace Schema.Core.Helpers.Column
 {
-    public class MySqlColumnGetter<TK> : IColumnGetter where TK : MySqlColumnModel, new()
-    {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
+    using Schema.Core.Models.Column;
+    using Schema.Core.Models.Table;
+    using Schema.Core.Reader;
 
-        public List<T> GetColumn<T>(IReader reader, DataSet dataSet, List<T> columns, string TableName) where T : ITable, new()
+    public class MySqlColumnGetter<TK> : IColumnGetter
+        where TK : MySqlColumnModel, new()
+    {
+        [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1306:FieldNamesMustBeginWithLowerCaseLetter",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public List<T> GetColumn<T>(IReader reader, DataSet dataSet, List<T> columns, string TableName)
+            where T : ITable, new()
         {
-            var dAdapter = reader.DataAdapter;
-            dAdapter.SelectCommand = reader.Command;
-            dAdapter.SelectCommand.Connection = reader.Conection;
-            dAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectColumn;
-            dAdapter.Fill(dataSet, TableName);
+            var dataAdapter = reader.DataAdapter;
+            dataAdapter.SelectCommand = reader.Command;
+            dataAdapter.SelectCommand.Connection = reader.Conection;
+            dataAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectColumn;
+            dataAdapter.Fill(dataSet, TableName);
             var column = new List<TK>();
             var dt = dataSet.Tables[TableName];
             string name = null;
@@ -50,19 +51,17 @@ namespace Schema.Core.Helpers.Column
         {
             var isIdenty = dt.Rows[i].ItemArray[5].ToString();
 
-            column.Add(new TK
-            {
-                ColumnName = dt.Rows[i].ItemArray[1].ToString(),
-                TypeName = dt.Rows[i].ItemArray[2].ToString(),
-                MaxLength = Converters.ToInt(dt.Rows[i].ItemArray[3]),
-                AllowNull = Converters.ToBool(dt.Rows[i].ItemArray[4]),
-                IsIdenty = string.IsNullOrEmpty(isIdenty) ? false.ToString(CultureInfo.InvariantCulture) : isIdenty,
-            });
+            column.Add(
+                new TK
+                    {
+                        ColumnName = dt.Rows[i].ItemArray[1].ToString(),
+                        TypeName = dt.Rows[i].ItemArray[2].ToString(),
+                        MaxLength = Converters.ToInt(dt.Rows[i].ItemArray[3]),
+                        AllowNull = Converters.ToBool(dt.Rows[i].ItemArray[4]),
+                        IsIdenty =
+                            string.IsNullOrEmpty(isIdenty) ? false.ToString(CultureInfo.InvariantCulture) : isIdenty,
+                    });
             return column;
         }
-
-       
-
-        
     }
 }

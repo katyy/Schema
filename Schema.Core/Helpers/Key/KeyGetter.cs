@@ -1,20 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using Schema.Core.Models.Key;
-using Schema.Core.Reader;
-
-namespace Schema.Core.Helpers.Key
+﻿namespace Schema.Core.Helpers.Key
 {
+    using System.Collections.Generic;
+    using System.Data;
+
+    using Schema.Core.Models.Key;
+    using Schema.Core.Reader;
+
     public class KeyGetter
     {
         public virtual List<KeyModel> GetKeys(IReader reader, DataSet dataSet, string tableName)
         {
             var keyModel = new List<KeyModel>();
-            var dAdapter = reader.DataAdapter;
-            dAdapter.SelectCommand = reader.Command;
-            dAdapter.SelectCommand.Connection = reader.Conection;
-            dAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectKey;
-            dAdapter.Fill(dataSet, tableName);
+            var dataAdapter = reader.DataAdapter;
+            dataAdapter.SelectCommand = reader.Command;
+            dataAdapter.SelectCommand.Connection = reader.Conection;
+            dataAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectKey;
+            dataAdapter.Fill(dataSet, tableName);
             var dt = dataSet.Tables[tableName];
             for (var i = 0; i < dt.Rows.Count; i++)
             {

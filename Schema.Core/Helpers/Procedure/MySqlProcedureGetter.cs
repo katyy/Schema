@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using Schema.Core.Models.Procedure;
-using Schema.Core.Reader;
-
-namespace Schema.Core.Helpers.Procedure
+﻿namespace Schema.Core.Helpers.Procedure
 {
+    using System.Collections.Generic;
+    using System.Data;
+
+    using Schema.Core.Models.Procedure;
+    using Schema.Core.Reader;
+
     public class MySqlProcedureGetter : IProcedureGetter
     {
         public List<IProcedureModel> GetProcedure(IReader reader, DataSet dataSet, string query, string tableName)

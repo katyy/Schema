@@ -1,25 +1,24 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Globalization;
-using Schema.Core.Helpers.Column;
-using Schema.Core.Models.Column;
-using Schema.Core.Models.View;
-using Schema.Core.Models.View.Column;
-using Schema.Core.Reader;
-
-namespace Schema.Core.Helpers.View
+﻿namespace Schema.Core.Helpers.View
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using Schema.Core.Helpers.Column;
+    using Schema.Core.Models.Column;
+    using Schema.Core.Models.View;
+    using Schema.Core.Models.View.Column;
+    using Schema.Core.Reader;
+
     public class MySqlViewGetter<TK> : MySqlColumnGetter<MySqlViewColumnModel>, IViewGetter
                                         where TK : MySqlViewColumnModel, new()
     {
         public List<IViewModel> GetView(IReader reader, DataSet dataSet, string TableName) //todo union to columngetter
         {
             var columns = new List<IViewModel>();
-            var dAdapter = reader.DataAdapter;
-            dAdapter.SelectCommand = reader.Command;
-            dAdapter.SelectCommand.Connection = reader.Conection;
-            dAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectView;
-            dAdapter.Fill(dataSet, TableName);
+            var dataAdapter = reader.DataAdapter;
+            dataAdapter.SelectCommand = reader.Command;
+            dataAdapter.SelectCommand.Connection = reader.Conection;
+            dataAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectView;
+            dataAdapter.Fill(dataSet, TableName);
             var column = new List<TK>();
             var dt = dataSet.Tables[TableName];
             string name = null;

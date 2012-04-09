@@ -1,60 +1,86 @@
-﻿using System.Data.Common;
-using MySql.Data.MySqlClient;
-using Schema.Core.Helpers.Column;
-using Schema.Core.Helpers.Key;
-using Schema.Core.Helpers.Procedure;
-using Schema.Core.Helpers.Trigger;
-using Schema.Core.Helpers.View;
-using Schema.Core.Models.Column;
-using Schema.Core.Models.View;
-using Schema.Core.Models.View.Column;
-using Schema.Core.SqlQueries;
-
-namespace Schema.Core.Reader
+﻿namespace Schema.Core.Reader
 {
+    using System.Data.Common;
+
+    using MySql.Data.MySqlClient;
+
+    using Schema.Core.Helpers.Column;
+    using Schema.Core.Helpers.Key;
+    using Schema.Core.Helpers.Procedure;
+    using Schema.Core.Helpers.Trigger;
+    using Schema.Core.Helpers.View;
+    using Schema.Core.Models.Column;
+    using Schema.Core.Models.View;
+    using Schema.Core.Models.View.Column;
+    using Schema.Core.SqlQueries;
+
     public class MySqlReader : IReader
     {
         public string DbName { get; set; }
 
         public string ConnectionString
         {
-            get { return @"Server=localhost;Port=3306;Database=" + DbName + ";User=root; "; }
+            get
+            {
+                return @"Server=localhost;Port=3306;Database=" + this.DbName + ";User=root; ";
+            }
         }
 
         public DbDataAdapter DataAdapter
         {
-            get { return new MySqlDataAdapter(); }
+            get
+            {
+                return new MySqlDataAdapter();
+            }
         }
 
         public DbConnection Conection
         {
-            get { return new MySqlConnection(ConnectionString); }
+            get
+            {
+                return new MySqlConnection(this.ConnectionString);
+            }
 
         }
 
         public DbCommand Command
         {
-            get { return new MySqlCommand(); }
+            get
+            {
+                return new MySqlCommand();
+            }
         }
 
         public ISqlQueries SqlQueries
         {
-            get { return new MySqlQueries { DbName = DbName }; }
+            get
+            {
+                return new MySqlQueries { DbName = this.DbName };
+            }
         }
 
         public IViewModel ViewModel
         {
-            get { return new MySqlViewModel(); }
+            get
+            {
+                return new MySqlViewModel();
+            }
         }
 
         public IViewGetter ViewMethod
         {
-            get { return new MySqlViewGetter<MySqlViewColumnModel>(); }
+            get
+            {
+                return new MySqlViewGetter<MySqlViewColumnModel>();
+            }
         }
 
         public IProcedureGetter ProcedureFunctionMethod
         {
-            get { return  new MySqlProcedureGetter(); }
+            get
+            {
+                return new MySqlProcedureGetter();
+            }
         }
 
         public ITriggerGetter TriggerMethod
@@ -64,12 +90,18 @@ namespace Schema.Core.Reader
 
         public KeyGetter KeyMethod
         {
-            get {return new MySqlKeyGetter(); }
+            get
+            {
+                return new MySqlKeyGetter();
+            }
         }
 
         public IColumnGetter ColumnMethod
         {
-            get { return new MySqlColumnGetter<MySqlColumnModel>();}
+            get
+            {
+                return new MySqlColumnGetter<MySqlColumnModel>();
+            }
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿namespace Schema.Core.Models.Key
 {
-    public class MySqlKeyModel:KeyModel
+    public class MySqlKeyModel : KeyModel
     {
-       
     }
 }

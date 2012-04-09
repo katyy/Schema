@@ -4,13 +4,14 @@
     {
         public string DbName { get; set; }
 
-        public string SelectColumn//todo remove view
+        public string SelectColumn //todo remove view
         {
             get
             {
                 return @"SELECT c.TABLE_NAME,c.COLUMN_NAME,c.COLUMN_TYPE,c.CHARACTER_MAXIMUM_LENGTH , c.IS_NULLABLE,c.EXTRA,NULL
              FROM  INFORMATION_SCHEMA.COLUMNS c
-             WHERE c.TABLE_SCHEMA ='"+DbName+@"'
+             WHERE c.TABLE_SCHEMA ='"
+                       + this.DbName + @"'
              ORDER BY c.TABLE_NAME;";
             }
         }
@@ -38,7 +39,7 @@
                                FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE key_usage
                                )KU 
                     ON `KU`.TABLE_NAME=`RT`.TABLE_NAME and `KU`.CONSTRAINT_NAME=`RT`.CONSTRAINT_NAME  
-                    WHERE `RT`.CONSTRAINT_SCHEMA='" + DbName + "';";
+                    WHERE `RT`.CONSTRAINT_SCHEMA='" + this.DbName + "';";
            }
         }
 
@@ -50,7 +51,7 @@
                 return
                     @"SELECT `tr`.EVENT_OBJECT_TABLE ,`tr`.TRIGGER_NAME,`tr`.EVENT_MANIPULATION,`tr`.ACTION_ORIENTATION,`tr`.ACTION_TIMING,`tr`.ACTION_STATEMENT
                     FROM INFORMATION_SCHEMA.TRIGGERS `tr`
-                    WHERE `tr`.TRIGGER_SCHEMA='" + DbName + "';";
+                    WHERE `tr`.TRIGGER_SCHEMA='" + this.DbName + "';";
             }
         }
 
@@ -61,7 +62,7 @@
                 return 
                     @"SELECT DISTINCT `s`.TABLE_NAME, `s`.COLUMN_NAME,`s`.INDEX_NAME,`s`.INDEX_TYPE,`s`.NON_UNIQUE,`s`.COLLATION
                     FROM INFORMATION_SCHEMA.STATISTICS s
-                    WHERE TABLE_SCHEMA = '"+ DbName + "';";
+                    WHERE TABLE_SCHEMA = '"+ this.DbName + "';";
             }
         }
 
@@ -98,7 +99,7 @@
                 return
                         @"SELECT `r`.SPECIFIC_NAME ,`r`.ROUTINE_NAME,`r`.ROUTINE_TYPE,`r`.DTD_IDENTIFIER,`r`.ROUTINE_BODY,`r`.ROUTINE_DEFINITION,`r`.IS_DETERMINISTIC
                     FROM INFORMATION_SCHEMA.ROUTINES r
-                    WHERE `r`.ROUTINE_SCHEMA='" + DbName + @"' and  `r`.ROUTINE_TYPE like '%proc%';";
+                    WHERE `r`.ROUTINE_SCHEMA='" + this.DbName + @"' and  `r`.ROUTINE_TYPE like '%proc%';";
             }
         }
 
@@ -110,7 +111,7 @@
                 return 
                     @"SELECT `r`.SPECIFIC_NAME ,`r`.ROUTINE_NAME,`r`.ROUTINE_TYPE,`r`.DTD_IDENTIFIER,`r`.ROUTINE_BODY,`r`.ROUTINE_DEFINITION,`r`.IS_DETERMINISTIC
                     FROM INFORMATION_SCHEMA.ROUTINES r
-                    WHERE `r`.ROUTINE_SCHEMA='" + DbName + @"' and  `r`.ROUTINE_TYPE like '%fun%';";
+                    WHERE `r`.ROUTINE_SCHEMA='" + this.DbName + @"' and  `r`.ROUTINE_TYPE like '%fun%';";
             }
         }
 

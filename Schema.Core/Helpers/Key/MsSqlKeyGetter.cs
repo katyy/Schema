@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using Schema.Core.Models.Key;
-using Schema.Core.Reader;
-using Schema.Core.SqlQueries;
-
-namespace Schema.Core.Helpers.Key
+﻿namespace Schema.Core.Helpers.Key
 {
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+
+    using Schema.Core.Models.Key;
+    using Schema.Core.Reader;
+    using Schema.Core.SqlQueries;
+
     public class MsSqlKeyGetter : KeyGetter
     {
         public override List<KeyModel> GetKeys(IReader reader, DataSet dataSet, string tableName)

@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-
-namespace Schema.Core.Models.Procedure
+﻿namespace Schema.Core.Models.Procedure
 {
-   public class MsSqlProcedureModel :IProcedureModel
+    using System.Collections.Generic;
+
+    public class MsSqlProcedureModel : IProcedureModel
     {
-       public string Name{get; set; }
-       public List<ProcedureColumnModel> ProcedureFunctionColumn { get; set; }
+        public string Name { get; set; }
+
+        public List<ProcedureColumnModel> ProcedureFunctionColumn { get; set; }
     }
 }

@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using Schema.Core.Models.Procedure;
-using Schema.Core.Reader;
-
-namespace Schema.Core.Helpers.Procedure
+﻿namespace Schema.Core.Helpers.Procedure
 {
-   public class MsSqlProcedureGetter:IProcedureGetter
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Data.SqlClient;
+
+    using Schema.Core.Models.Procedure;
+    using Schema.Core.Reader;
+
+    public class MsSqlProcedureGetter:IProcedureGetter
     {
        public List<IProcedureModel> GetProcedure(IReader reader, DataSet dataSet, string query, string tableName)
        {
