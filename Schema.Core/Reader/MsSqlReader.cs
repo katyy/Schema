@@ -91,7 +91,8 @@
         {
             get
             {
-                return new MsSqlColumnGetter<MsSqlColumnModel>();
+                return null;
+                //  return new MsSqlColumnGetter<MsSqlColumnModel>();
             }
         }
     }

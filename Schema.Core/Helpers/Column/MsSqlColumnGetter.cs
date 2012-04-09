@@ -22,11 +22,11 @@
             var column = new List<TK>();
             var tables = new Dictionary<string, List<TK>>();
             
-            foreach (DataRowCollection row in dt.Rows)
+            foreach (DataRow row in dt.Rows)
             {
                 var tableName = row[0].ToString();
                 var isIdenty = row[5].ToString();
-
+                
                 if (!tables.ContainsKey(tableName))
                 {
                     column = new List<TK>();
@@ -43,7 +43,7 @@
                                 string.IsNullOrEmpty(isIdenty) ? false.ToString(CultureInfo.InvariantCulture) : isIdenty, 
                             IdentyIncriment = Converters.ToInt(row[6])
                         });
-
+                tables.Remove(tableName);
                 tables.Add(tableName, column);
             }
 

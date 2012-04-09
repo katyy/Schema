@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Data;
-
     using Schema.Core.Models.Key;
     using Schema.Core.Reader;
 
