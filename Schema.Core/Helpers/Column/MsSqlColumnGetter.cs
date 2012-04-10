@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Globalization;
+
+    using Schema.Core.Keys;
     using Schema.Core.Models.Column;
     using Schema.Core.Reader;
 
@@ -24,8 +26,8 @@
             
             foreach (DataRow row in dt.Rows)
             {
-                var tableName = row[0].ToString();
-                var isIdenty = row[5].ToString();
+                var tableName = row[ColumnKeys.TableName].ToString();
+                var isIdentity = row[ColumnKeys.IsIdentity].ToString();
                 
                 if (!tables.ContainsKey(tableName))
                 {
@@ -35,14 +37,15 @@
                 column.Add(
                     new TK
                         {
-                            ColumnName = row[1].ToString(), 
-                            TypeName = row[2].ToString(), 
-                            MaxLength = Converters.ToInt(row[3]), 
-                            AllowNull = Converters.ToBool(row[4]), 
-                            IsIdenty =
-                                string.IsNullOrEmpty(isIdenty) ? false.ToString(CultureInfo.InvariantCulture) : isIdenty, 
-                            IdentyIncriment = Converters.ToInt(row[6])
+                            ColumnName = row[ColumnKeys.ColumnName].ToString(), 
+                            TypeName = row[ColumnKeys.TypeName].ToString(), 
+                            MaxLength = Converters.ToInt(row[ColumnKeys.MaxLength]), 
+                            AllowNull = Converters.ToBool(row[ColumnKeys.AllowNull]), 
+                            IsIdentity =
+                                string.IsNullOrEmpty(isIdentity) ? false.ToString(CultureInfo.InvariantCulture) : isIdentity, 
+                            IdentityIncriment = Converters.ToInt(row[ColumnKeys.IdentityIncriment])
                         });
+
                 tables.Remove(tableName);
                 tables.Add(tableName, column);
             }

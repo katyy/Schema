@@ -6,7 +6,8 @@
 
         string SelectKey { get; }
 
-        // string SelectFk { get; }
+        string SelectPk { get; }
+
         string SelectTrigger { get; }
 
         string SelectIndex { get; }

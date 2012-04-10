@@ -7,7 +7,6 @@
     using Schema.Core.Helpers.Procedure;
     using Schema.Core.Helpers.Trigger;
     using Schema.Core.Helpers.View;
-    using Schema.Core.Models.Column;
     using Schema.Core.Models.View;
     using Schema.Core.SqlQueries;
 
@@ -19,8 +18,8 @@
         {
             get
             {
-                return // @"Data Source=SIRICHENKOE\SIRICHENKO;Initial Catalog=Petition;Integrated Security=True;"
-                    @"Data Source=.\LOCALHOST;AttachDbFilename=" + DbName + ";Integrated Security=True";
+                // @"Data Source=.\LOCALHOST;AttachDbFilename=" + this.DbName + ";Integrated Security=True";
+                return @"Data Source=SIRICHENKOE\SIRICHENKO;Initial Catalog=Petition;Integrated Security=True;";
             }
         }
 
@@ -39,7 +38,10 @@
 
         public DbCommand Command
         {
-            get { return new SqlCommand();}
+            get
+            {
+                return new SqlCommand();
+            }
         }
 
         public ISqlQueries SqlQueries

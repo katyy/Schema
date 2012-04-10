@@ -1,18 +1,27 @@
 ﻿namespace Schema.Core.SqlQueries
 {
+    using Schema.Core.Keys;
+    using Schema.Core.Names;
+
     public class MySqlQueries : ISqlQueries
     {
         public string DbName { get; set; }
 
-        public string SelectColumn //todo remove view
+        public string SelectColumn // todo remove view
         {
             get
             {
-                return @"SELECT c.TABLE_NAME,c.COLUMN_NAME,c.COLUMN_TYPE,c.CHARACTER_MAXIMUM_LENGTH , c.IS_NULLABLE,c.EXTRA,NULL
-             FROM  INFORMATION_SCHEMA.COLUMNS c
-             WHERE c.TABLE_SCHEMA ='"
-                       + this.DbName + @"'
-             ORDER BY c.TABLE_NAME;";
+                return 
+                    @"SELECT c.TABLE_NAME as " + ColumnKeys.TableName + 
+                                @", c.COLUMN_NAME as " + ColumnKeys.ColumnName +
+                                @", c.COLUMN_TYPE as " + ColumnKeys.TypeName + 
+                                @", c.CHARACTER_MAXIMUM_LENGTH as" + ColumnKeys.MaxLength + 
+                                @", c.IS_NULLABLE as" + ColumnKeys.AllowNull +
+                                @", c.EXTRA  as " + ColumnKeys.IsIdentity +
+                                @", NULL as " + ColumnKeys.IdentityIncriment +
+                     @"FROM  INFORMATION_SCHEMA.COLUMNS c
+                     WHERE c.TABLE_SCHEMA ='" + this.DbName + @"'
+                     ORDER BY c.TABLE_NAME;";
             }
         }
 
@@ -21,8 +30,16 @@
             get
             {
                 return
-                    @"SELECT `KU`.TABLE_NAME,`KU`.COLUMN_NAME,`RT`.CONSTRAINT_TYPE,`RT`.CONSTRAINT_NAME,`RT`.UNIQUE_CONSTRAINT_NAME,`RT`.DELETE_RULE,`RT`.UPDATE_RULE,`KU`.REFERENCED_TABLE_NAME,`KU`.REFERENCED_COLUMN_NAME
-                        FROM(
+                    @"SELECT `KU`.TABLE_NAME as " + KeyNames.TableName +
+                              @",`KU`.COLUMN_NAME as " + KeyNames.ColumnName +
+                              @",`RT`.CONSTRAINT_TYPE as " + KeyNames.Type +
+                              @",`RT`.CONSTRAINT_NAME as " + KeyNames.KeyName +
+                              @",`RT`.UNIQUE_CONSTRAINT_NAME as" + KeyNames.TypeDescription +
+                              @",`RT`.DELETE_RULE as " + KeyNames.DeletRule +
+                              @",`RT`.UPDATE_RULE as " + KeyNames.UpdateRule +
+                              @",`KU`.REFERENCED_TABLE_NAME as " + KeyNames.ReferanceTable +
+                              @",`KU`.REFERENCED_COLUMN_NAME as " + KeyNames.ReferanceColumn +
+                       @" FROM(
                             SELECT `t`.CONSTRAINT_SCHEMA,`t`.CONSTRAINT_NAME,`t`.TABLE_NAME ,`t`.CONSTRAINT_TYPE, `r`.UNIQUE_CONSTRAINT_NAME, `r`.UPDATE_RULE, `r`.DELETE_RULE,  `r`.REFERENCED_TABLE_NAME
                             FROM (
                                 SELECT  `TC`.CONSTRAINT_SCHEMA,`TC`.CONSTRAINT_NAME,`TC`.TABLE_NAME ,`TC`.CONSTRAINT_TYPE
@@ -43,6 +60,13 @@
            }
         }
 
+        public string SelectPk
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+        }
 
         public string SelectTrigger
         {
@@ -62,7 +86,7 @@
                 return 
                     @"SELECT DISTINCT `s`.TABLE_NAME, `s`.COLUMN_NAME,`s`.INDEX_NAME,`s`.INDEX_TYPE,`s`.NON_UNIQUE,`s`.COLLATION
                     FROM INFORMATION_SCHEMA.STATISTICS s
-                    WHERE TABLE_SCHEMA = '"+ this.DbName + "';";
+                    WHERE TABLE_SCHEMA = '" + this.DbName + "';";
             }
         }
 
@@ -77,7 +101,8 @@
                                       (SELECT `v`.TABLE_NAME,`v`.VIEW_DEFINITION,`v`.IS_UPDATABLE,`v`.SECURITY_TYPE,`v`.COLLATION_CONNECTION
                                        FROM INFORMATION_SCHEMA.VIEWS v) view 
                             ON `c`.TABLE_NAME=`view`.TABLE_NAME
-                            WHERE `c`.TABLE_SCHEMA='" + DbName + "';";
+                            WHERE `c`.TABLE_SCHEMA='" + this.DbName + "';";
+
 //                        @"SELECT `v`.TABLE_NAME,`v`.VIEW_DEFINITION,`v`.IS_UPDATABLE,`v`.SECURITY_TYPE,`v`.COLLATION_CONNECTION
 //                        FROM INFORMATION_SCHEMA.VIEWS v
 //                        WHERE `v`.TABLE_SCHEMA='" + DbName + "';"; todo old
@@ -102,8 +127,7 @@
                     WHERE `r`.ROUTINE_SCHEMA='" + this.DbName + @"' and  `r`.ROUTINE_TYPE like '%proc%';";
             }
         }
-
-       
+        
         public string SelectFunction
         {
             get
@@ -114,10 +138,5 @@
                     WHERE `r`.ROUTINE_SCHEMA='" + this.DbName + @"' and  `r`.ROUTINE_TYPE like '%fun%';";
             }
         }
-
-
-
-
-        
     }
 }

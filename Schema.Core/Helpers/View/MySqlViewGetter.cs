@@ -55,7 +55,7 @@
                   TypeName = dt.Rows[i].ItemArray[2].ToString(),    //,c.COLUMN_TYPE,
                   MaxLength = Converters.ToInt(dt.Rows[i].ItemArray[3]),//c.CHARACTER_MAXIMUM_LENGTH 
                   AllowNull = Converters.ToBool(dt.Rows[i].ItemArray[4]),// c.IS_NULLABLE,
-                  IsIdenty = dt.Rows[i].ItemArray[5].ToString(),// c.EXTRA
+                  IsIdentity = dt.Rows[i].ItemArray[5].ToString(),// c.EXTRA
                   IsUpdatable = Converters.ToBool(dt.Rows[i].ItemArray[6].ToString()),//`view`.IS_UPDATABLE
                   CollacationConnection = dt.Rows[i].ItemArray[7].ToString(),//`view`.SECURITY_TYPE
                   SecurityType = dt.Rows[i].ItemArray[8].ToString(),//`view`.COLLATION_CONNECTION
