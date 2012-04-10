@@ -31,15 +31,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Version=6.5.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=5.1.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\IndexType.cs" />
     <Compile Include="Enums\KeyType.cs" />
+    <Compile Include="Enums\EventRule.cs" />
     <Compile Include="Enums\SortOrder.cs" />
+    <Compile Include="Enums\TriggerEvent.cs" />
     <Compile Include="Helpers\Column\IColumnGetter.cs" />
     <Compile Include="Helpers\Column\MsSqlColumnGetter.cs" />
     <Compile Include="Helpers\Column\MySqlColumnGetter.cs" />
@@ -77,7 +80,9 @@
     <Compile Include="Models\View\IViewModel.cs" />
     <Compile Include="Models\View\MsSqlViewModel.cs" />
     <Compile Include="Models\View\MySqlViewModel.cs" />
+    <Compile Include="Names\IndexNames.cs" />
     <Compile Include="Names\KeyNames.cs" />
+    <Compile Include="Names\TriggerNames.cs" />
     <Compile Include="Reader\IReader.cs" />
     <Compile Include="Models\Procedure\ProcedureColumnModel.cs" />
     <Compile Include="Models\Table\TableModel.cs" />

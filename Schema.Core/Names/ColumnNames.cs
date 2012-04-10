@@ -5,7 +5,7 @@
     /// </summary>
     public class ColumnKeys
     {
-        public const string TableName = "KeyName";
+        public const string TableName = "TableName";
 
         public const string ColumnName = "ColumnName";
 

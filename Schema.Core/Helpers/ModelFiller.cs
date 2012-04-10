@@ -8,6 +8,7 @@
     using Schema.Core.Models.Key;
     using Schema.Core.Models.Table;
     using Schema.Core.Models.Trigger;
+    using Schema.Core.Names;
     using Schema.Core.Reader;
 
     public class ModelFiller
@@ -20,7 +21,7 @@
             var keyModel = reader.KeyMethod.GetKeys(reader, dataSet, TableNames.Keys);
 
             // var keyModel = ModelsGetter.GetKeys(reader,dataSet,TableNames.Keys);
-            //  var forigenKey = ModelsGetter.GetForigenKey(reader,dataSet, TableNames.ForigenKey);
+            //  var forigenKey = ModelsGetter.GetForigenKey(reader,dataSet, TableNames.ForeigenKey);
             var trigers = reader.TriggerMethod.GetTriggers(reader, dataSet, TableNames.Triggers);
 
             // ModelsGetter.GetTriggers(reader, dataSet, TableNames.Triggers);

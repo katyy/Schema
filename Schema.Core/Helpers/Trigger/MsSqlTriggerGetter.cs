@@ -2,34 +2,33 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
+
     using Schema.Core.Models.Trigger;
+    using Schema.Core.Names;
     using Schema.Core.Reader;
 
-    public class MsSqlTriggerGetter:ITriggerGetter
+    public class MsSqlTriggerGetter : ITriggerGetter
     {
-        public  List<ITriggerModel> GetTriggers(IReader reader, DataSet dataSet, string tableName)
+        public List<ITriggerModel> GetTriggers(IReader reader, DataSet dataSet, string tableName)
         {
-            var trigerModel = new List<ITriggerModel>();
-            var dAdapter = reader.DataAdapter;
-            dAdapter.SelectCommand = reader.Command;
-            dAdapter.SelectCommand.Connection = reader.Conection;
-            dAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectTrigger;
-            dAdapter.Fill(dataSet, tableName);
+            var dataAdapter = reader.DataAdapter;
+            dataAdapter.SelectCommand = reader.Command;
+            dataAdapter.SelectCommand.Connection = reader.Conection;
+            dataAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectTrigger;
+            dataAdapter.Fill(dataSet, tableName);
             var dt = dataSet.Tables[tableName];
-            for (var i = 0; i < dt.Rows.Count; i++)
-            {
-                trigerModel.Add(new MsSqlTriggerModel
-                {
-                    TableName = dt.Rows[i].ItemArray[0].ToString(),
-                    TrigerName = dt.Rows[i].ItemArray[1].ToString(),
-                    Event = dt.Rows[i].ItemArray[2].ToString(),
-                    Type = dt.Rows[i].ItemArray[3].ToString(),
-                    TypeDescription = dt.Rows[i].ItemArray[4].ToString()
-                });
-            }
-            return trigerModel;
-        }
 
-       
+            return (from DataRow row in dt.Rows
+                    select
+                        new MsSqlTriggerModel
+                            {
+                                TableName = row[TriggerNames.TableName].ToString(),
+                                TrigerName = row[TriggerNames.TriggerName].ToString(),
+                                Event = Converters.TriggerEventManipulation(TriggerNames.TriggerEvent),
+                                /* Type = dt.Rows[i].ItemArray[3].ToString(),
+                    TypeDescription = dt.Rows[i].ItemArray[4].ToString()*/
+                            }).Cast<ITriggerModel>().ToList();
+        }
     }
 }
