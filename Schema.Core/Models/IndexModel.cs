@@ -1,6 +1,8 @@
 ﻿namespace Schema.Core.Models
 {
-   public class IndexModel
+    using Schema.Core.Enums;
+
+    public class IndexModel
     {
        public string TableName { get; set; }
 
@@ -12,6 +14,6 @@
 
        public bool IsUnique { get; set; }
 
-       public bool IsDescending { get; set; }
+       public SortOrder IsDescending { get; set; }
     }
 }

@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using Schema.Core.Models.Column;
     using Schema.Core.Models.Table;
@@ -11,9 +10,7 @@
     public class MySqlColumnGetter<TK> : IColumnGetter
         where TK : MySqlColumnModel, new()
     {
-        [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1306:FieldNamesMustBeginWithLowerCaseLetter",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public List<T> GetColumn<T>(IReader reader, DataSet dataSet, List<T> columns, string TableName)
+       public List<T> GetColumn<T>(IReader reader, DataSet dataSet, List<T> columns, string TableName)
             where T : ITable, new()
         {
             var dataAdapter = reader.DataAdapter;
@@ -58,7 +55,7 @@
                         TypeName = dt.Rows[i].ItemArray[2].ToString(),
                         MaxLength = Converters.ToInt(dt.Rows[i].ItemArray[3]),
                         AllowNull = Converters.ToBool(dt.Rows[i].ItemArray[4]),
-                        IsIdenty =
+                        IsIdentity =
                             string.IsNullOrEmpty(isIdenty) ? false.ToString(CultureInfo.InvariantCulture) : isIdenty,
                     });
             return column;

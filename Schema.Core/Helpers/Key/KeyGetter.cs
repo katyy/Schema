@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Data;
     using Schema.Core.Models.Key;
+    using Schema.Core.Names;
     using Schema.Core.Reader;
 
     public class KeyGetter
@@ -20,17 +21,18 @@
             {
                 keyModel.Add(new KeyModel
                 {
-                    TableName = dt.Rows[i].ItemArray[0].ToString(),
-                    ColumnName = dt.Rows[i].ItemArray[1].ToString(),
-                    Type = dt.Rows[i].ItemArray[2].ToString(),
-                    Name = dt.Rows[i].ItemArray[3].ToString(),
-                    TypeDescription = dt.Rows[i].ItemArray[4].ToString(),
-                    DeletRule = dt.Rows[i].ItemArray[5].ToString(),
-                    UpdateRule = dt.Rows[i].ItemArray[6].ToString(),
-                    ReferanceTable = dt.Rows[i].ItemArray[7].ToString(),
-                    ReferanceColumn = dt.Rows[i].ItemArray[8].ToString()
+                    TableName = dt.Rows[i][KeyNames.TableName].ToString(),
+                    ColumnName = dt.Rows[i][KeyNames.ColumnName].ToString(),
+                    Type = dt.Rows[i][KeyNames.Type].ToString(),
+                    Name = dt.Rows[i][KeyNames.KeyName].ToString(),
+                    TypeDescription = dt.Rows[i][KeyNames.TypeDescription].ToString(),
+                    DeletRule = dt.Rows[i][KeyNames.DeletRule].ToString(),
+                    UpdateRule = dt.Rows[i][KeyNames.UpdateRule].ToString(),
+                    ReferanceTable = dt.Rows[i][KeyNames.ReferanceTable].ToString(),
+                    ReferanceColumn = dt.Rows[i][KeyNames.ReferanceColumn].ToString()
                 });
             }
+
             return keyModel;
         }
     }

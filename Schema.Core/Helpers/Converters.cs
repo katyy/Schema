@@ -2,6 +2,8 @@
 {
     using System;
 
+    using Schema.Core.Enums;
+
     public class Converters
     {
        public static int? ToInt(object intValue)
@@ -12,9 +14,9 @@
            {
                value = Convert.ToInt32(intValue);
            }
-           return value;
 
-       }
+           return value;
+      }
 
        public static bool ToBool(object boolValue)
        {
@@ -27,20 +29,25 @@
                case "":
                    return false;
            }
+
            return (bool)boolValue;
        }
 
-       public static bool AscDescToBool(object val)
+       public static SortOrder OrderDirection(object val)
        {
            switch (val.ToString().ToUpper())
            {
                case "A":
-                   return false;
+                   return SortOrder.Ascending;
                case "D":
-                   return true;
+                   return SortOrder.Descending;
+               case "0":
+                   return SortOrder.Ascending;
+               case "1":
+                   return SortOrder.Descending;
            }
 
-           return (bool)val;
+           return SortOrder.Ascending;
        }
     }
 }

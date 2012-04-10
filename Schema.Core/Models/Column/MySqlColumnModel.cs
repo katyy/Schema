@@ -6,6 +6,6 @@
         public string TypeName { get; set; }
         public int? MaxLength { get; set; }
         public bool AllowNull { get; set; }
-        public string IsIdenty { get; set; }
+        public string IsIdentity { get; set; }
     }
 }

@@ -1,5 +1,8 @@
 ﻿namespace Schema.Core.SqlQueries
 {
+    using Schema.Core.Keys;
+    using Schema.Core.Names;
+
     public class MsSqlQueries : ISqlQueries
     {
         public string SelectColumn
@@ -7,10 +10,18 @@
             get
             {
                 return
-                        @"SELECT col.table_name,col.column_name,col.type_name, col.max_length, col.is_nullable,col.is_identity, identy.increment_value 
-                        FROM(SELECT t.object_id,c.column_id, t.name table_name,c.name column_name,ty.name type_name, c.max_length, c.is_nullable,c.is_identity 
-                            FROM sys.types ty ,sys.tables t,sys.columns c 
-                            WHERE c.object_id=t.object_id  and ty.user_type_id=c.system_type_id) col 
+                        @"SELECT col.table_name as " + ColumnKeys.TableName +
+                                @", col.column_name as " + ColumnKeys.ColumnName +
+                                @", col.type_name as " + ColumnKeys.TypeName + 
+                                @", col.max_length as " + ColumnKeys.MaxLength + 
+                                @", col.is_nullable as " + ColumnKeys.AllowNull + 
+                                @", col.is_identity as " + ColumnKeys.IsIdentity +
+                                @", identy.increment_value  as " + ColumnKeys.IdentityIncriment + 
+                         @" FROM(
+                                SELECT t.object_id,c.column_id, t.name table_name,c.name column_name,ty.name type_name, c.max_length, c.is_nullable,c.is_identity 
+                                FROM sys.types ty ,sys.tables t,sys.columns c 
+                                WHERE c.object_id=t.object_id  and ty.user_type_id=c.system_type_id
+                                ) col 
                         LEFT JOIN  sys.identity_columns identy 
                         ON identy.object_id=col.object_id and identy.column_id=col.column_id;";
             }
@@ -21,8 +32,16 @@
             get
             {
                 return
-                      @"SELECT foriegen.parent_table,parent_column,f.type,name,f.type_desc,f.delete_referential_action_desc,f.update_referential_action_desc, foriegen.referance_table, foriegen.referance_column
-                      FROM sys.foreign_keys f  
+                      @"SELECT foriegen.parent_table as " + KeyNames.TableName +
+                              @", parent_column as " + KeyNames.ColumnName +
+                              @", f.type as " + KeyNames.Type +
+                              @",name as " + KeyNames.KeyName +
+                              @", f.type_desc as " + KeyNames.TypeDescription +
+                              @", f.delete_referential_action_desc as " + KeyNames.DeletRule +
+                              @", f.update_referential_action_desc as " + KeyNames.UpdateRule +
+                              @", foriegen.referance_table as " + KeyNames.ReferanceTable +
+                              @", foriegen.referance_column as " + KeyNames.ReferanceColumn +
+                      @" FROM sys.foreign_keys f  
                       LEFT OUTER JOIN 
                        (SELECT p.parent_table , p.parent_column,r.referance_table,r.referance_column,r.id 
                         FROM 
@@ -39,7 +58,6 @@
                                   and fc.parent_object_id=c.object_id) p 
                          ON p.id=r.id) foriegen 
                         ON foriegen.id=f.object_id;";
-                   
             }
         }
 
@@ -48,8 +66,12 @@
             get
             {
                 return
-                     @"SELECT t.name,c.name, k.type,k.name,k.type_desc 
-                      FROM sys.key_constraints k, sys.all_columns c,sys.tables t 
+                     @"SELECT t.name as " + KeyNames.TableName +
+                              @",c.name as " + KeyNames.ColumnName +
+                              @", k.type as " + KeyNames.Type +
+                              @",k.name as " + KeyNames.KeyName +
+                              @",k.type_desc as " + KeyNames.TypeDescription +
+                   @" FROM sys.key_constraints k, sys.all_columns c,sys.tables t 
                       WHERE c.object_id=k.parent_object_id 
                       and c.column_id=k.unique_index_id 
                       and k.parent_object_id=t.object_id;";

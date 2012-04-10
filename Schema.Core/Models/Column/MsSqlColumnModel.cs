@@ -10,8 +10,8 @@
 
         public bool AllowNull { get; set; }
 
-        public string IsIdenty { get; set; }
+        public string IsIdentity { get; set; }
 
-        public int? IdentyIncriment { get; set; }
+        public int? IdentityIncriment { get; set; }
     }
 }

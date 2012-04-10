@@ -1,6 +1,6 @@
 ﻿namespace Schema.Core.Helpers.Key
 {
-   public class MySqlKeyGetter: KeyGetter
+    public class MySqlKeyGetter : KeyGetter
     {
     }
 }

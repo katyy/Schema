@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Globalization;
-using Schema.Core.Models;
-using Schema.Core.Models.Column;
-using Schema.Core.Models.Table;
-using Schema.Core.Reader;
-
-namespace Schema.Core.Helpers
+﻿namespace Schema.Core.Helpers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+
+    using Schema.Core.Models;
+    using Schema.Core.Reader;
+
     public class ModelsGetter
     {
         //public static List<T> GetView<T>(IReader reader, DataSet dataSet, List<T> columns, string TableName)
@@ -31,13 +29,13 @@ namespace Schema.Core.Helpers
         //        }
         //        else
         //        {
-        //            columns.Add(new T { Name = name, Columns = column });
+        //            columns.Add(new T { KeyName = name, Columns = column });
         //            column = new List<IColumnModel>();
         //            column = AddColumn(column, i, dt);
         //        }
         //        if (i == dt.Rows.Count - 1)
         //        {
-        //            columns.Add(new T { Name = name, Columns = column });
+        //            columns.Add(new T { KeyName = name, Columns = column });
         //        }
         //        name = tableName;
         //    }
@@ -55,8 +53,8 @@ namespace Schema.Core.Helpers
         //         TypeName = dt.Rows[i].ItemArray[2].ToString(),
         //         MaxLength = Converters.ToInt(dt.Rows[i].ItemArray[3]),
         //         AllowNull = Converters.ToBool(dt.Rows[i].ItemArray[4]),
-        //         IsIdenty = string.IsNullOrEmpty(isIdenty) ? false.ToString(CultureInfo.InvariantCulture) : isIdenty,
-        //         IdentyIncriment = Converters.ToInt(dt.Rows[i].ItemArray[6])
+        //         IsIdentity = string.IsNullOrEmpty(isIdenty) ? false.ToString(CultureInfo.InvariantCulture) : isIdenty,
+        //         IdentityIncriment = Converters.ToInt(dt.Rows[i].ItemArray[6])
         //     });
         //    return column;
         //}
@@ -77,8 +75,8 @@ namespace Schema.Core.Helpers
         //        {
         //            TableName = dt.Rows[i].ItemArray[0].ToString(),
         //            ColumnName = dt.Rows[i].ItemArray[1].ToString(),
-        //            Type = dt.Rows[i].ItemArray[2].ToString(),
-        //            Name = dt.Rows[i].ItemArray[3].ToString(),
+        //            TypeName = dt.Rows[i].ItemArray[2].ToString(),
+        //            KeyName = dt.Rows[i].ItemArray[3].ToString(),
         //            TypeDescription = dt.Rows[i].ItemArray[4].ToString()
         //        });
         //    }
@@ -103,8 +101,8 @@ namespace Schema.Core.Helpers
         //        {
         //            TableName = dt.Rows[i].ItemArray[0].ToString(),
         //            ColumnName = dt.Rows[i].ItemArray[1].ToString(),
-        //            Type = dt.Rows[i].ItemArray[2].ToString(),
-        //            Name = dt.Rows[i].ItemArray[3].ToString(),
+        //            TypeName = dt.Rows[i].ItemArray[2].ToString(),
+        //            KeyName = dt.Rows[i].ItemArray[3].ToString(),
         //            TypeDescription = dt.Rows[i].ItemArray[4].ToString(),
         //            DeletRule = dt.Rows[i].ItemArray[5].ToString(),
         //            UpdateRule = dt.Rows[i].ItemArray[6].ToString(),
@@ -131,7 +129,7 @@ namespace Schema.Core.Helpers
         //            TableName = dt.Rows[i].ItemArray[0].ToString(),
         //            TrigerName = dt.Rows[i].ItemArray[1].ToString(),
         //            Event = dt.Rows[i].ItemArray[2].ToString(),
-        //            Type = dt.Rows[i].ItemArray[3].ToString(),
+        //            TypeName = dt.Rows[i].ItemArray[3].ToString(),
         //            TypeDescription = dt.Rows[i].ItemArray[4].ToString()
         //        });
         //    }
@@ -156,7 +154,7 @@ namespace Schema.Core.Helpers
                     Name = dt.Rows[i].ItemArray[2].ToString(),
                     TypeDescription = dt.Rows[i].ItemArray[3].ToString(),
                     IsUnique = Convert.ToBoolean(dt.Rows[i].ItemArray[4]),
-                    IsDescending = Converters.AscDescToBool(dt.Rows[i].ItemArray[5])
+                    IsDescending = Converters.OrderDirection(dt.Rows[i].ItemArray[5])
                 });
             }
             return indexModel;
@@ -180,14 +178,14 @@ namespace Schema.Core.Helpers
         //        }
         //        else
         //        {
-        //            procedures.Add(new ProcedureModel { Name = name, ProcedureColumn = columns });
+        //            procedures.Add(new ProcedureModel { KeyName = name, ProcedureColumn = columns });
         //            columns = new List<ProcedureColumnModel>();
         //            columns = AddProcedureColumn(columns, i, dt);
 
         //        }
         //        if (i == dt.Rows.Count - 1)
         //        {
-        //            procedures.Add(new ProcedureModel { Name = name, ProcedureColumn = columns });
+        //            procedures.Add(new ProcedureModel { KeyName = name, ProcedureColumn = columns });
         //        }
         //        name = procedureName;
         //    }
@@ -203,7 +201,7 @@ namespace Schema.Core.Helpers
         //    columns.Add(new ProcedureColumnModel
         //    {
         //        ColumnName = dt.Rows[i].ItemArray[1].ToString(),
-        //        Type = dt.Rows[i].ItemArray[2].ToString(),
+        //        TypeName = dt.Rows[i].ItemArray[2].ToString(),
         //        TypeDescription = dt.Rows[i].ItemArray[3].ToString(),
         //        DataType = dt.Rows[i].ItemArray[4].ToString(),
         //        MaxLength = maxLength,
