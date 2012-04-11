@@ -24,8 +24,10 @@
             {
                 case "YES":
                     return true;
+
                 case "NO":
                     return false;
+
                 case "":
                     return false;
             }
@@ -115,8 +117,10 @@
             {
                 case "Insert":
                     return TriggerEvent.Insert;
+
                 case "UPDATE":
                     return TriggerEvent.Update;
+
                 case "Delete":
                     return TriggerEvent.Delete;
             }
@@ -136,7 +140,10 @@
 
                 case "BTREE":
                     return IndexType.Btree;
+                case "UNIQUE":
+                    return IndexType.Unique;
             }
+
             return null;
         }
     }

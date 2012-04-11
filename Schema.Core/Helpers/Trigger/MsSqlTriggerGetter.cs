@@ -21,7 +21,7 @@
 
             return (from DataRow row in dt.Rows
                     select
-                        new MsSqlTriggerModel
+                        new TriggerModel
                             {
                                 TableName = row[TriggerNames.TableName].ToString(),
                                 TrigerName = row[TriggerNames.TriggerName].ToString(),

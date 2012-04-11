@@ -4,7 +4,6 @@
     using System.Data;
     using System.Linq;
 
-    using Schema.Core.Keys;
     using Schema.Core.Models.Key;
     using Schema.Core.Names;
     using Schema.Core.Reader;
@@ -12,7 +11,7 @@
 
     public class MsSqlKeyGetter : KeyGetter
     {
-        public override List<KeyModel> GetKeys(IReader reader, DataSet dataSet, string tableName)
+       public override List<KeyModel> GetKeys(IReader reader, DataSet dataSet, string tableName)
         {
             var fkModel = new KeyGetter().GetKeys(reader, dataSet, tableName);
             var pkModel = GetPK(reader, dataSet, TableNames.ForigenKey, (MsSqlQueries)reader.SqlQueries);
@@ -32,13 +31,13 @@
             for (var i = 0; i < dt.Rows.Count; i++)
             {
                 keyModel.Add(
-                    new MsSqlKeyModel
+                    new KeyModel
                         {
                             TableName = dt.Rows[i].ItemArray[0].ToString(),
                             ColumnName = dt.Rows[i].ItemArray[1].ToString(),
-                           /* Type = dt.Rows[i].ItemArray[2].ToString(),*/
+                            /* Type = dt.Rows[i].ItemArray[2].ToString(),*/
                             Name = dt.Rows[i].ItemArray[3].ToString(),
-                            TypeDescription =Converters.ConstraintType(dt.Rows[i].ItemArray[4])
+                            TypeDescription = Converters.ConstraintType(dt.Rows[i].ItemArray[4])
                         });
             }
 

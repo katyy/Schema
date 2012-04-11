@@ -1,10 +1,10 @@
 ﻿namespace Schema.Core.Models.Procedure
 {
-   public class ProcedureColumnModel
+   public class ParametrModel
     {
-       public string ColumnName { get; set; }
+       public string Parametr { get; set; }
 
-       public string Type { get; set; }
+     /*  public string Type { get; set; }*/
 
        public string TypeDescription { get; set; }
 

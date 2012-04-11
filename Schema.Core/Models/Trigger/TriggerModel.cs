@@ -2,7 +2,7 @@
 {
     using Schema.Core.Enums;
 
-    public class MsSqlTriggerModel : ITriggerModel
+    public class TriggerModel 
     {
         public string TableName { get; set; }
 
@@ -10,8 +10,5 @@
 
         public TriggerEvent? Event { get; set; }
 
-      /*  public string Type { get; set; }
-
-        public string TypeDescription { get; set; }*/
-    }
+     }
 }

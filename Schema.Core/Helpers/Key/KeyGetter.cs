@@ -10,14 +10,25 @@
 
     public class KeyGetter
     {
-        public virtual List<KeyModel> GetKeys(IReader reader, DataSet dataSet, string tableName)
+        public static List<KeyModel> GetKeys(IReader reader, DataSet dataSet, string tableName)
         {
-            var dataAdapter = reader.DataAdapter;
-            dataAdapter.SelectCommand = reader.Command;
-            dataAdapter.SelectCommand.Connection = reader.Conection;
-            dataAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectKey;
-            dataAdapter.Fill(dataSet, tableName);
-            var dt = dataSet.Tables[tableName];
+            var forigenKey = GetForigenKey(reader, dataSet, tableName);
+            var primaryKey = GetPK(reader, dataSet, TableNames.ForigenKey);
+            return primaryKey.Union(forigenKey).ToList();
+        }
+
+        public static List<KeyModel> GetForigenKey(IReader reader, DataSet dataSet, string dataSetTableName)
+        {
+            using (var dataAdapter = reader.DataAdapter)
+            {
+                dataAdapter.SelectCommand = reader.Command;
+                dataAdapter.SelectCommand.Connection = reader.Conection;
+                dataAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectFk;
+                dataAdapter.Fill(dataSet, dataSetTableName);
+            }
+
+            var dt = dataSet.Tables[dataSetTableName];
+          
             var keyModel = (from DataRow row in dt.Rows
                             select
                                 new KeyModel
@@ -31,6 +42,33 @@
                                         ReferanceTable = row[KeyNames.ReferanceTable].ToString(),
                                         ReferanceColumn = row[KeyNames.ReferanceColumn].ToString()
                                     }).ToList();
+
+            return keyModel;
+        }
+
+        public static List<KeyModel> GetPK(IReader reader, DataSet dataSet, string dataSetTableName)
+        {
+            var keyModel = new List<KeyModel>();
+            using (var dataAdapter = reader.DataAdapter)
+            {
+                dataAdapter.SelectCommand = reader.Command;
+                dataAdapter.SelectCommand.Connection = reader.Conection;
+                dataAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectPk;
+                dataAdapter.Fill(dataSet, dataSetTableName);
+            }
+
+            var dt = dataSet.Tables[dataSetTableName];
+            for (var i = 0; i < dt.Rows.Count; i++)
+            {
+                keyModel.Add(
+                    new KeyModel
+                    {
+                        TableName = dt.Rows[i].ItemArray[0].ToString(),
+                        ColumnName = dt.Rows[i].ItemArray[1].ToString(),
+                        Name = dt.Rows[i].ItemArray[3].ToString(),
+                        TypeDescription = Converters.ConstraintType(dt.Rows[i].ItemArray[4])
+                    });
+            }
 
             return keyModel;
         }

@@ -51,7 +51,7 @@
 
         //    column.Add(new ColumnModel
         //     {
-        //         ColumnName = dt.Rows[i].ItemArray[1].ToString(),
+        //         Parametr = dt.Rows[i].ItemArray[1].ToString(),
         //         TypeName = dt.Rows[i].ItemArray[2].ToString(),
         //         MaxLength = Converters.ToInt(dt.Rows[i].ItemArray[3]),
         //         AllowNull = Converters.ToBool(dt.Rows[i].ItemArray[4]),
@@ -76,7 +76,7 @@
         //        keyModel.Add(new KeyModel
         //        {
         //            TableName = dt.Rows[i].ItemArray[0].ToString(),
-        //            ColumnName = dt.Rows[i].ItemArray[1].ToString(),
+        //            Parametr = dt.Rows[i].ItemArray[1].ToString(),
         //            TypeName = dt.Rows[i].ItemArray[2].ToString(),
         //            KeyName = dt.Rows[i].ItemArray[3].ToString(),
         //            TypeDescription = dt.Rows[i].ItemArray[4].ToString()
@@ -102,7 +102,7 @@
         //        keyModel.Add(new KeyModel
         //        {
         //            TableName = dt.Rows[i].ItemArray[0].ToString(),
-        //            ColumnName = dt.Rows[i].ItemArray[1].ToString(),
+        //            Parametr = dt.Rows[i].ItemArray[1].ToString(),
         //            TypeName = dt.Rows[i].ItemArray[2].ToString(),
         //            KeyName = dt.Rows[i].ItemArray[3].ToString(),
         //            TypeDescription = dt.Rows[i].ItemArray[4].ToString(),
@@ -138,14 +138,17 @@
         //    return trigerModel;
         //}
 
-        public static List<IndexModel> GetIndexes(IReader reader, DataSet dataSet, string tableName)
+        public static List<IndexModel> GetIndexes(IReader reader, DataSet dataSet, string dataSetTableName)
         {
-            var dataAdapter = reader.DataAdapter;
-            dataAdapter.SelectCommand = reader.Command;
-            dataAdapter.SelectCommand.Connection = reader.Conection;
-            dataAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectIndex;
-            dataAdapter.Fill(dataSet, tableName);
-            var dt = dataSet.Tables[tableName];
+            using (var dataAdapter = reader.DataAdapter)
+            {
+                dataAdapter.SelectCommand = reader.Command;
+                dataAdapter.SelectCommand.Connection = reader.Conection;
+                dataAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectIndex;
+                dataAdapter.Fill(dataSet, dataSetTableName);
+            }
+
+            var dt = dataSet.Tables[dataSetTableName];
 
             return (from DataRow row in dt.Rows
                     select new IndexModel
@@ -199,7 +202,7 @@
         //    var scale = Converters.ToInt(dt.Rows[i].ItemArray[7]);
         //    columns.Add(new ProcedureColumnModel
         //    {
-        //        ColumnName = dt.Rows[i].ItemArray[1].ToString(),
+        //        Parametr = dt.Rows[i].ItemArray[1].ToString(),
         //        TypeName = dt.Rows[i].ItemArray[2].ToString(),
         //        TypeDescription = dt.Rows[i].ItemArray[3].ToString(),
         //        DataType = dt.Rows[i].ItemArray[4].ToString(),

@@ -4,7 +4,7 @@
     {
         string SelectColumn { get; }
 
-        string SelectKey { get; }
+        string SelectFk { get; }
 
         string SelectPk { get; }
 

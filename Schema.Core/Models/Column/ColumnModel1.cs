@@ -1,17 +1,12 @@
-﻿namespace Schema.Core.Models.Column
+﻿namespace Schema.Core.Models
 {
-    public class MsSqlColumnModel : IColumnModel
+    public class ColumnModel
     {
         public string ColumnName { get; set; }
-
         public string TypeName { get; set; }
-
         public int? MaxLength { get; set; }
-
         public bool AllowNull { get; set; }
-
-        public string IsIdentity { get; set; }
-
-        public int? IdentityIncriment { get; set; }
+        public string IsIdenty { get; set; }
+        public int? IdentyIncriment { get; set; }
     }
 }

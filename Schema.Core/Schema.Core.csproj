@@ -43,48 +43,32 @@
     <Compile Include="Enums\EventRule.cs" />
     <Compile Include="Enums\SortOrder.cs" />
     <Compile Include="Enums\TriggerEvent.cs" />
-    <Compile Include="Helpers\Column\IColumnGetter.cs" />
-    <Compile Include="Helpers\Column\MsSqlColumnGetter.cs" />
-    <Compile Include="Helpers\Column\MySqlColumnGetter.cs" />
+    <Compile Include="Helpers\Column\ColumnGetter.cs" />
     <Compile Include="Helpers\Converters.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Helpers\Key\KeyGetter.cs" />
-    <Compile Include="Helpers\Key\MsSqlKeyGetter.cs" />
-    <Compile Include="Helpers\Key\MySqlKeyGetter.cs" />
+    <Compile Include="Helpers\Key\KeyGetter.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Helpers\ModelFiller.cs" />
     <Compile Include="Helpers\ModelsGetter.cs" />
-    <Compile Include="Helpers\Procedure\IProcedureGetter.cs" />
-    <Compile Include="Helpers\Procedure\MsSqlProcedureGetter.cs" />
-    <Compile Include="Helpers\Procedure\MySqlProcedureGetter.cs" />
-    <Compile Include="Helpers\Trigger\ITriggerGetter.cs" />
-    <Compile Include="Helpers\Trigger\MsSqlTriggerGetter.cs" />
-    <Compile Include="Helpers\Trigger\MySqlTriggerGetter.cs" />
-    <Compile Include="Helpers\View\IViewGetter.cs" />
-    <Compile Include="Helpers\View\MsSqlViewGetter.cs" />
-    <Compile Include="Helpers\View\MySqlViewGetter.cs" />
+    <Compile Include="Helpers\Procedure\ProcedureGetter.cs" />
+    <Compile Include="Helpers\Trigger\TriggerGetter.cs" />
+    <Compile Include="Helpers\View\ViewGetter.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Names\ColumnNames.cs" />
-    <Compile Include="Models\Column\IColumnModel.cs" />
-    <Compile Include="Models\Column\MsSqlColumnModel.cs" />
-    <Compile Include="Models\Column\MySqlColumnModel.cs" />
+    <Compile Include="Models\Column\ColumnModel.cs" />
     <Compile Include="Models\Key\KeyModel.cs" />
-    <Compile Include="Models\Key\MsSqlKeyModel.cs" />
-    <Compile Include="Models\Key\MySqlKeyModel.cs" />
-    <Compile Include="Models\Procedure\IProcedureModel.cs" />
-    <Compile Include="Models\Procedure\MsSqlProcedureModel.cs" />
-    <Compile Include="Models\Procedure\MySqlProcedureModel.cs" />
-    <Compile Include="Models\Trigger\ITriggerModel.cs" />
-    <Compile Include="Models\Trigger\MsSqlTriggerModel.cs" />
-    <Compile Include="Models\Trigger\MySqlTriggerModel.cs" />
-    <Compile Include="Models\View\Column\MySqlViewColumnModel.cs" />
-    <Compile Include="Models\View\IViewModel.cs" />
-    <Compile Include="Models\View\MsSqlViewModel.cs" />
-    <Compile Include="Models\View\MySqlViewModel.cs" />
+    <Compile Include="Models\Procedure\ProcedureModel.cs" />
+    <Compile Include="Models\Trigger\TriggerModel.cs" />
+    <Compile Include="Models\View\ViewModel.cs" />
     <Compile Include="Names\IndexNames.cs" />
     <Compile Include="Names\KeyNames.cs" />
+    <Compile Include="Names\ProcedureNames.cs" />
     <Compile Include="Names\TriggerNames.cs" />
     <Compile Include="Reader\IReader.cs" />
-    <Compile Include="Models\Procedure\ProcedureColumnModel.cs" />
+    <Compile Include="Models\Procedure\ParametrModel.cs" />
     <Compile Include="Models\Table\TableModel.cs" />
     <Compile Include="Models\DatabaseModel.cs" />
     <Compile Include="Models\IndexModel.cs" />

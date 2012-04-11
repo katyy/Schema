@@ -4,7 +4,7 @@
     {
         public const string TableName = "TableName";
 
-        public const string ColumnName = "ColumnName";
+        public const string ColumnName = "Parametr";
 
         // public const string Type = "TypeName";
         public const string KeyName = "KeyName";

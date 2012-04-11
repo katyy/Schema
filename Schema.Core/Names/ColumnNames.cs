@@ -1,4 +1,4 @@
-﻿namespace Schema.Core.Keys
+﻿namespace Schema.Core.Names
 {
     /// <summary>
     /// Column keys
@@ -7,7 +7,7 @@
     {
         public const string TableName = "TableName";
 
-        public const string ColumnName = "ColumnName";
+        public const string ColumnName = "Parametr";
 
         public const string TypeName = "TypeName";
 

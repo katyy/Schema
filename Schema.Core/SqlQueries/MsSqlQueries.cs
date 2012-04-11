@@ -1,6 +1,5 @@
 ﻿namespace Schema.Core.SqlQueries
 {
-    using Schema.Core.Keys;
     using Schema.Core.Names;
 
     public class MsSqlQueries : ISqlQueries
@@ -16,7 +15,7 @@
                                 @", col.max_length as " + ColumnKeys.MaxLength + 
                                 @", col.is_nullable as " + ColumnKeys.AllowNull + 
                                 @", col.is_identity as " + ColumnKeys.IsIdentity +
-                                @", identy.increment_value  as " + ColumnKeys.IdentityIncriment + 
+                               /* @", identy.increment_value  as " + ColumnKeys.IdentityIncriment + */
                          @" FROM(
                                 SELECT t.object_id,c.column_id, t.name table_name,c.name column_name,ty.name type_name, c.max_length, c.is_nullable,c.is_identity 
                                 FROM sys.types ty ,sys.tables t,sys.columns c 
@@ -27,7 +26,7 @@
             }
         }
 
-        public string SelectKey
+        public string SelectFk
         {
             get
             {
@@ -128,8 +127,13 @@
             get
             {
                 return 
-                    @"SELECT col.table_name,col.column_name,col.type_name, col.max_length, col.is_nullable,col.is_identity
-                      FROM(SELECT t.object_id,c.column_id, t.name table_name,c.name column_name,ty.name type_name, c.max_length, c.is_nullable,c.is_identity 
+                    @"SELECT col.table_name as " + ColumnKeys.TableName + 
+                            @", col.column_name as " + ColumnKeys.ColumnName +
+                            @", col.type_name as " + ColumnKeys.TypeName +
+                            @", col.max_length as " + ColumnKeys.MaxLength +
+                            @", col.is_nullable as " + ColumnKeys.AllowNull +
+                            @", col.is_identity as " + ColumnKeys.IsIdentity +
+                      @" FROM(SELECT t.object_id,c.column_id, t.name table_name,c.name column_name,ty.name type_name, c.max_length, c.is_nullable,c.is_identity 
                            FROM sys.types ty ,sys.views t,sys.columns c 
                            WHERE c.object_id=t.object_id  and ty.user_type_id=c.system_type_id) col;";
 
@@ -142,29 +146,17 @@
             }
         }
 
-        public string SelectProcedure
+      public string SelectViewTriggers
         {
             get
             {
                 return
-                    @"SELECT pr.procedure_name,pr.parametr_name,pr.type,pr.type_desc,ty.name,pr.max_length,pr.precision,pr.scale
-                      FROM
-                          (SELECT p.name procedure_name,p.type ,p.type_desc, param.name parametr_name,param.system_type_id,param.max_length,param.precision,param.scale
-                           FROM sys.procedures p
-                           LEFT OUTER JOIN  sys.parameters param
-                           ON param.object_id=p.object_id) pr
-                       LEFT OUTER JOIN sys.types ty 
-                       ON ty.system_type_id=pr.system_type_id;";
-            }
-        }
-
-        public string SelectViewTriggers
-        {
-            get
-            {
-                return
-                    @"SELECT t.name table_name,triger.triger_name,triger.triger_event,triger.type,triger.type_desc 
-                      FROM 
+                    @"SELECT t.name table_name as " + TriggerNames.TableName +
+                          @", triger.triger_name as " + TriggerNames.TriggerName +
+                          @", triger.triger_event as " + TriggerNames.TriggerEvent +
+                        /*  @", triger.type as " +
+                          @", triger.type_desc as" + */
+                     @" FROM 
                          (SELECT te.type_desc triger_event,tr.name triger_name, tr.parent_id,tr.type,tr.type_desc 
                           FROM sys.triggers tr 
                           LEFT OUTER JOIN sys.trigger_events te 
@@ -178,8 +170,13 @@
             get
             {
                 return
-                    @"SELECT index_table.table_name, c.name column_name,index_table.name,index_table.type_desc,index_table.is_unique,index_table.is_descending_key 
-                     FROM
+                    @"SELECT index_table.table_name as " + IndexNames.TableName +
+                         @", c.name column_name as " + IndexNames.ColumnName +
+                         @", index_table.name as " + IndexNames.TableName +
+                         @", index_table.type_desc as " + ColumnKeys.TypeName +
+                         @", index_table.is_unique as " + IndexNames.Unique + 
+                         @", index_table.is_descending_key as " + IndexNames.SortOrder +
+                    @" FROM
                      (SELECT t.name table_name,indexes.* 
                       FROM 
                          (SELECT i.object_id,i.name,i.type_desc,i.is_unique,ic.index_column_id,ic.column_id,ic.is_descending_key
@@ -200,8 +197,15 @@
             get
             {
                 return
-                    @"SELECT fun.function_name,fun.parametr_name,fun.type,fun.type_desc,ty.name,fun.max_length,fun.precision,fun.scale
-                      FROM
+                    @"SELECT fun.function_name as " + ProcedureNames.Name +
+                         @", fun.parametr_name as " + ProcedureNames.Parametr +
+                       /*  @", fun.type as " +*/
+                         @", fun.type_desc as " + ProcedureNames.TypeDescription +
+                         @", ty.name as " + ProcedureNames.DataType +
+                         @", fun.max_length as " + ProcedureNames.MaxLength +
+                         @", fun.precision as " + ProcedureNames.Precision +
+                         @", fun.scale as " + ProcedureNames.Scale +
+                     @" FROM
                       (SELECT f.object_id, f.function_name,f.type ,f.type_desc, param.name parametr_name,param.system_type_id,param.max_length,param.precision,param.scale
                       FROM
                       (SELECT o.object_id, o.name function_name,o.type ,o.type_desc 
@@ -212,6 +216,29 @@
                         LEFT JOIN  sys.types ty 
                         ON ty.system_type_id=fun.system_type_id
                         WHERE fun.parametr_name!='';";
+            }
+        }
+
+        public string SelectProcedure
+        {
+            get
+            {
+                return
+                    @"SELECT pr.procedure_name as " + ProcedureNames.Name +
+                          @", pr.parametr_name as " + ProcedureNames.Parametr + 
+                        /*  @", pr.type as " +*/
+                          @", pr.type_desc as " + ProcedureNames.TypeDescription +
+                          @", ty.name as " + ProcedureNames.DataType +
+                          @", pr.max_length as " + ProcedureNames.MaxLength +
+                          @", pr.precision as " + ProcedureNames.MaxLength +
+                          @", pr.scale as " + ProcedureNames.Scale +
+                      @" FROM
+                          (SELECT p.name procedure_name,p.type ,p.type_desc, param.name parametr_name,param.system_type_id,param.max_length,param.precision,param.scale
+                           FROM sys.procedures p
+                           LEFT OUTER JOIN  sys.parameters param
+                           ON param.object_id=p.object_id) pr
+                       LEFT OUTER JOIN sys.types ty 
+                       ON ty.system_type_id=pr.system_type_id;";
             }
         }
     }

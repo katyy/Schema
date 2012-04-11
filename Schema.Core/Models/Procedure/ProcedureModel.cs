@@ -2,10 +2,10 @@
 {
     using System.Collections.Generic;
 
-    public class MsSqlProcedureModel : IProcedureModel
+    public class ProcedureModel 
     {
         public string Name { get; set; }
 
-        public List<ProcedureColumnModel> ProcedureFunctionColumn { get; set; }
+        public List<ParametrModel> ProcedureFunctionColumn { get; set; }
     }
 }

@@ -6,6 +6,8 @@
         
         NonClustered,
 
-        Btree
+        Btree,
+
+        Unique 
     }
 }

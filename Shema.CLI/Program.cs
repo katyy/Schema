@@ -21,12 +21,10 @@
             // var db = ModelFiller.GetModel(mssqlReader, dataSet);
             const string MySqlDbName = @"blog";
 
-           var mySqlReader = new MySqlReader { DbName = MySqlDbName };
+            var mySqlReader = new MySqlReader { DbName = MySqlDbName };
 
             // var db = ModelFiller.GetModel(mySqlReader, dataSet);
-            var m = new MsSqlColumnGetter<MsSqlColumnModel>();
-            var yu = m.GetColumn(mssqlReader, dataSet, TableNames.Tables);
-            var key = new KeyGetter().GetKeys(mssqlReader, dataSet, TableNames.Keys);
+           
         }
     }
 }
