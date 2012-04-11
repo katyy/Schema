@@ -11,13 +11,7 @@
         public static List<TriggerModel> GetTriggers(IReader reader, DataSet dataSet, string dataSetTableName)
         {
             var trigerModel = new List<TriggerModel>();
-            using (var dataAdapter = reader.DataAdapter)
-            {
-                dataAdapter.SelectCommand = reader.Command;
-                dataAdapter.SelectCommand.Connection = reader.Conection;
-                dataAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectTrigger;
-                dataAdapter.Fill(dataSet, dataSetTableName);
-            }
+            CommonHelper.SetDataAdapterSettings(reader, reader.SqlQueries.SelectTrigger, dataSet, dataSetTableName);
 
             var dt = dataSet.Tables[dataSetTableName];
             for (var i = 0; i < dt.Rows.Count; i++)

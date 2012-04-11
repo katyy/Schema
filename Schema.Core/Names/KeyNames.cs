@@ -6,7 +6,6 @@
 
         public const string ColumnName = "Parametr";
 
-        // public const string Type = "TypeName";
         public const string KeyName = "KeyName";
 
         public const string TypeDescription = "TypeDescription";

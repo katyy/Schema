@@ -9,6 +9,5 @@
         public string TrigerName { get; set; }
 
         public TriggerEvent? Event { get; set; }
-
      }
 }

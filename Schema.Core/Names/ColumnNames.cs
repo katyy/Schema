@@ -3,7 +3,7 @@
     /// <summary>
     /// Column keys
     /// </summary>
-    public class ColumnKeys
+    public class ColumnNames
     {
         public const string TableName = "TableName";
 

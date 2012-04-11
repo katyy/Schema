@@ -15,8 +15,8 @@
         {
             var views = ColumnGetter<ColumnModel>.GetColumn(reader, dataSet, TableNames.Views); 
             var viewTriggers = TriggerGetter.GetTriggers(reader, dataSet, TableNames.ViewTriggers);
-            var viewIndexes = ModelsGetter.GetIndexes(reader, dataSet, TableNames.ViewIndexes);
-            ModelFiller.InsertModels(views, viewTriggers, viewIndexes);
+            var viewIndexes = IndexGetter.GetIndexes(reader, dataSet, TableNames.ViewIndexes);
+            ModelFiller.InsertModels(TODO, views, viewTriggers, viewIndexes);
             return views;
         }
     }

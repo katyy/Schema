@@ -19,13 +19,7 @@
 
         public static List<KeyModel> GetForigenKey(IReader reader, DataSet dataSet, string dataSetTableName)
         {
-            using (var dataAdapter = reader.DataAdapter)
-            {
-                dataAdapter.SelectCommand = reader.Command;
-                dataAdapter.SelectCommand.Connection = reader.Conection;
-                dataAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectFk;
-                dataAdapter.Fill(dataSet, dataSetTableName);
-            }
+            CommonHelper.SetDataAdapterSettings(reader, reader.SqlQueries.SelectFk, dataSet, dataSetTableName);
 
             var dt = dataSet.Tables[dataSetTableName];
           
@@ -49,13 +43,7 @@
         public static List<KeyModel> GetPK(IReader reader, DataSet dataSet, string dataSetTableName)
         {
             var keyModel = new List<KeyModel>();
-            using (var dataAdapter = reader.DataAdapter)
-            {
-                dataAdapter.SelectCommand = reader.Command;
-                dataAdapter.SelectCommand.Connection = reader.Conection;
-                dataAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectPk;
-                dataAdapter.Fill(dataSet, dataSetTableName);
-            }
+            CommonHelper.SetDataAdapterSettings(reader, reader.SqlQueries.SelectPk, dataSet, dataSetTableName);
 
             var dt = dataSet.Tables[dataSetTableName];
             for (var i = 0; i < dt.Rows.Count; i++)

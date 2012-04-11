@@ -9,14 +9,13 @@
             get
             {
                 return
-                        @"SELECT col.table_name as " + ColumnKeys.TableName +
-                                @", col.column_name as " + ColumnKeys.ColumnName +
-                                @", col.type_name as " + ColumnKeys.TypeName + 
-                                @", col.max_length as " + ColumnKeys.MaxLength + 
-                                @", col.is_nullable as " + ColumnKeys.AllowNull + 
-                                @", col.is_identity as " + ColumnKeys.IsIdentity +
-                               /* @", identy.increment_value  as " + ColumnKeys.IdentityIncriment + */
-                         @" FROM(
+                        @"SELECT col.table_name as " + ColumnNames.TableName +
+                                @", col.column_name as " + ColumnNames.ColumnName +
+                                @", col.type_name as " + ColumnNames.TypeName + 
+                                @", col.max_length as " + ColumnNames.MaxLength + 
+                                @", col.is_nullable as " + ColumnNames.AllowNull + 
+                                @", col.is_identity as " + ColumnNames.IsIdentity +
+                       @" FROM(
                                 SELECT t.object_id,c.column_id, t.name table_name,c.name column_name,ty.name type_name, c.max_length, c.is_nullable,c.is_identity 
                                 FROM sys.types ty ,sys.tables t,sys.columns c 
                                 WHERE c.object_id=t.object_id  and ty.user_type_id=c.system_type_id
@@ -33,7 +32,6 @@
                 return
                       @"SELECT foriegen.parent_table as " + KeyNames.TableName +
                               @", parent_column as " + KeyNames.ColumnName +
-                              /*@", f.type as " + KeyNames.Type +*/
                               @",name as " + KeyNames.KeyName +
                               @", f.type_desc as " + KeyNames.TypeDescription +
                               @", f.delete_referential_action_desc as " + KeyNames.DeletRule +
@@ -66,10 +64,9 @@
             {
                 return
                      @"SELECT t.name as " + KeyNames.TableName +
-                              @",c.name as " + KeyNames.ColumnName +
-                             /* @", k.type as " + KeyNames.Type +*/
-                              @",k.name as " + KeyNames.KeyName +
-                              @",k.type_desc as " + KeyNames.TypeDescription +
+                              @", c.name as " + KeyNames.ColumnName +
+                              @", k.name as " + KeyNames.KeyName +
+                              @", k.type_desc as " + KeyNames.TypeDescription +
                    @" FROM sys.key_constraints k, sys.all_columns c,sys.tables t 
                       WHERE c.object_id=k.parent_object_id 
                       and c.column_id=k.unique_index_id 
@@ -127,22 +124,15 @@
             get
             {
                 return 
-                    @"SELECT col.table_name as " + ColumnKeys.TableName + 
-                            @", col.column_name as " + ColumnKeys.ColumnName +
-                            @", col.type_name as " + ColumnKeys.TypeName +
-                            @", col.max_length as " + ColumnKeys.MaxLength +
-                            @", col.is_nullable as " + ColumnKeys.AllowNull +
-                            @", col.is_identity as " + ColumnKeys.IsIdentity +
+                    @"SELECT col.table_name as " + ColumnNames.TableName + 
+                            @", col.column_name as " + ColumnNames.ColumnName +
+                            @", col.type_name as " + ColumnNames.TypeName +
+                            @", col.max_length as " + ColumnNames.MaxLength +
+                            @", col.is_nullable as " + ColumnNames.AllowNull +
+                            @", col.is_identity as " + ColumnNames.IsIdentity +
                       @" FROM(SELECT t.object_id,c.column_id, t.name table_name,c.name column_name,ty.name type_name, c.max_length, c.is_nullable,c.is_identity 
                            FROM sys.types ty ,sys.views t,sys.columns c 
                            WHERE c.object_id=t.object_id  and ty.user_type_id=c.system_type_id) col;";
-
-                // @"SELECT col.table_name,col.column_name,col.type_name, col.max_length, col.is_nullable,col.is_identity, identy.increment_value 
-                // FROM(SELECT t.object_id,c.column_id, t.name table_name,c.name column_name,ty.name type_name, c.max_length, c.is_nullable,c.is_identity 
-                // FROM sys.types ty ,sys.views t,sys.columns c 
-                // WHERE c.object_id=t.object_id  and ty.user_type_id=c.system_type_id) col 
-                // LEFT JOIN  sys.identity_columns identy 
-                // ON identy.object_id=col.object_id and identy.column_id=col.column_id;"; todo old with identity incriment
             }
         }
 
@@ -154,8 +144,6 @@
                     @"SELECT t.name table_name as " + TriggerNames.TableName +
                           @", triger.triger_name as " + TriggerNames.TriggerName +
                           @", triger.triger_event as " + TriggerNames.TriggerEvent +
-                        /*  @", triger.type as " +
-                          @", triger.type_desc as" + */
                      @" FROM 
                          (SELECT te.type_desc triger_event,tr.name triger_name, tr.parent_id,tr.type,tr.type_desc 
                           FROM sys.triggers tr 
@@ -173,7 +161,7 @@
                     @"SELECT index_table.table_name as " + IndexNames.TableName +
                          @", c.name column_name as " + IndexNames.ColumnName +
                          @", index_table.name as " + IndexNames.TableName +
-                         @", index_table.type_desc as " + ColumnKeys.TypeName +
+                         @", index_table.type_desc as " + ColumnNames.TypeName +
                          @", index_table.is_unique as " + IndexNames.Unique + 
                          @", index_table.is_descending_key as " + IndexNames.SortOrder +
                     @" FROM
@@ -199,7 +187,6 @@
                 return
                     @"SELECT fun.function_name as " + ProcedureNames.Name +
                          @", fun.parametr_name as " + ProcedureNames.Parametr +
-                       /*  @", fun.type as " +*/
                          @", fun.type_desc as " + ProcedureNames.TypeDescription +
                          @", ty.name as " + ProcedureNames.DataType +
                          @", fun.max_length as " + ProcedureNames.MaxLength +
@@ -226,7 +213,6 @@
                 return
                     @"SELECT pr.procedure_name as " + ProcedureNames.Name +
                           @", pr.parametr_name as " + ProcedureNames.Parametr + 
-                        /*  @", pr.type as " +*/
                           @", pr.type_desc as " + ProcedureNames.TypeDescription +
                           @", ty.name as " + ProcedureNames.DataType +
                           @", pr.max_length as " + ProcedureNames.MaxLength +

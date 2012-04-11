@@ -11,7 +11,5 @@
         public bool AllowNull { get; set; }
 
         public string IsIdentity { get; set; }
-
-       /* public int? IdentityIncriment { get; set; }*/
-    }
+     }
 }

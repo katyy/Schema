@@ -11,13 +11,7 @@
     {
         public static Dictionary<string, List<ParametrModel>> GetProcedure(IReader reader, DataSet dataSet, string query, string dataSetTableName)
         {
-            using (var dataAdapter = reader.DataAdapter)
-            {
-                dataAdapter.SelectCommand = reader.Command;
-                dataAdapter.SelectCommand.Connection = reader.Conection;
-                dataAdapter.SelectCommand.CommandText = query;
-                dataAdapter.Fill(dataSet, dataSetTableName);
-            }
+            CommonHelper.SetDataAdapterSettings(reader, query, dataSet, dataSetTableName);
 
             var dt = dataSet.Tables[dataSetTableName];
             var parametr = new List<ParametrModel>();

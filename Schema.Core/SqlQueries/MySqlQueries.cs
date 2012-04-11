@@ -10,13 +10,12 @@
         {
             get
             {
-                return @"SELECT c.TABLE_NAME as " + ColumnKeys.TableName + 
-                            @", c.COLUMN_NAME as " + ColumnKeys.ColumnName + 
-                            @", c.COLUMN_TYPE as " + ColumnKeys.TypeName + 
-                            @", c.CHARACTER_MAXIMUM_LENGTH as " + ColumnKeys.MaxLength + 
-                            @", c.IS_NULLABLE as " + ColumnKeys.AllowNull + 
-                            @", c.EXTRA  as " + ColumnKeys.IsIdentity
-                       + /* @", NULL as " + ColumnKeys.IdentityIncriment +*/
+                return @"SELECT c.TABLE_NAME as " + ColumnNames.TableName + 
+                            @", c.COLUMN_NAME as " + ColumnNames.ColumnName + 
+                            @", c.COLUMN_TYPE as " + ColumnNames.TypeName + 
+                            @", c.CHARACTER_MAXIMUM_LENGTH as " + ColumnNames.MaxLength + 
+                            @", c.IS_NULLABLE as " + ColumnNames.AllowNull + 
+                            @", c.EXTRA  as " + ColumnNames.IsIdentity +
                        @"FROM  INFORMATION_SCHEMA.COLUMNS c
                        WHERE c.TABLE_SCHEMA ='" + this.DbName + @"'
                        ORDER BY c.TABLE_NAME;";
@@ -31,7 +30,6 @@
                             @", `KU`.COLUMN_NAME as " + KeyNames.ColumnName + 
                             @", `RT`.CONSTRAINT_TYPE as " + KeyNames.TypeDescription + 
                             @", `RT`.CONSTRAINT_NAME as " + KeyNames.KeyName + 
-                            /*@",`RT`.UNIQUE_CONSTRAINT_NAME as " + KeyNames.Type +*/
                             @", `RT`.DELETE_RULE as " + KeyNames.DeletRule + 
                             @", `RT`.UPDATE_RULE as " + KeyNames.UpdateRule + 
                             @", `KU`.REFERENCED_TABLE_NAME as " + KeyNames.ReferanceTable + 
@@ -71,10 +69,9 @@
             get
             {
                 return @"SELECT `tr`.EVENT_OBJECT_TABLE as " + TriggerNames.TableName + 
-                             @", `tr`.TRIGGER_NAME as " + TriggerNames.TriggerName + 
+                            @", `tr`.TRIGGER_NAME as " + TriggerNames.TriggerName + 
                             @", `tr`.EVENT_MANIPULATION as " + TriggerNames.TriggerEvent + 
-                            /*",`tr`.ACTION_ORIENTATION,`tr`.ACTION_TIMING,`tr`.ACTION_STATEMENT*/
-                       @" FROM INFORMATION_SCHEMA.TRIGGERS `tr`
+                      @" FROM INFORMATION_SCHEMA.TRIGGERS `tr`
                     WHERE `tr`.TRIGGER_SCHEMA='"
                        + this.DbName + "';";
             }
@@ -100,12 +97,12 @@
         {
             get
             {
-                return @"SELECT c.TABLE_NAME as " + ColumnKeys.TableName + 
-                            @", c.COLUMN_NAME as " + ColumnKeys.ColumnName + 
-                            @", c.COLUMN_TYPE as " + ColumnKeys.TypeName + 
-                            @", c.CHARACTER_MAXIMUM_LENGTH as " + ColumnKeys.MaxLength + 
-                            @", c.IS_NULLABLE as " + ColumnKeys.AllowNull + 
-                            @", c.EXTRA as " + ColumnKeys.IsIdentity +
+                return @"SELECT c.TABLE_NAME as " + ColumnNames.TableName + 
+                            @", c.COLUMN_NAME as " + ColumnNames.ColumnName + 
+                            @", c.COLUMN_TYPE as " + ColumnNames.TypeName + 
+                            @", c.CHARACTER_MAXIMUM_LENGTH as " + ColumnNames.MaxLength + 
+                            @", c.IS_NULLABLE as " + ColumnNames.AllowNull + 
+                            @", c.EXTRA as " + ColumnNames.IsIdentity +
                        @" FROM INFORMATION_SCHEMA.COLUMNS c
                             RIGHT JOIN
                                       (SELECT `v`.TABLE_NAME,`v`.VIEW_DEFINITION,`v`.IS_UPDATABLE,`v`.SECURITY_TYPE,`v`.COLLATION_CONNECTION
@@ -113,19 +110,7 @@
                             ON `c`.TABLE_NAME=`view`.TABLE_NAME
                             WHERE `c`.TABLE_SCHEMA='"
                        + this.DbName + "';";
-
-                // @"SELECT `v`.TABLE_NAME,`v`.VIEW_DEFINITION,`v`.IS_UPDATABLE,`v`.SECURITY_TYPE,`v`.COLLATION_CONNECTION
-                // FROM INFORMATION_SCHEMA.VIEWS v
-                // WHERE `v`.TABLE_SCHEMA='" + DbName + "';"; todo old
-
-                // SELECT c.TABLE_NAME,c.COLUMN_NAME,c.COLUMN_TYPE,c.CHARACTER_MAXIMUM_LENGTH , c.IS_NULLABLE,c.EXTRA,NULL,`view`.IS_UPDATABLE,`view`.SECURITY_TYPE,`view`.COLLATION_CONNECTION
-                // FROM INFORMATION_SCHEMA.COLUMNS c
-                // RIGHT JOIN
-                // (SELECT `v`.TABLE_NAME,`v`.VIEW_DEFINITION,`v`.IS_UPDATABLE,`v`.SECURITY_TYPE,`v`.COLLATION_CONNECTION
-                // FROM INFORMATION_SCHEMA.VIEWS v) view 
-                // ON `c`.TABLE_NAME=`view`.TABLE_NAME
-                // WHERE `c`.TABLE_SCHEMA='blog';
-            }
+                }
         }
 
         public string SelectViewTriggers
@@ -158,17 +143,7 @@
                              @", p.NUMERIC_SCALE as " +	ProcedureNames.Scale +
                        @" FROM INFORMATION_SCHEMA.PARAMETERS p
                         WHERE `p`.SPECIFIC_SCHEMA='" + this.DbName + @"' and  `p`.ROUTINE_TYPE like '%proc%';";
-
-                // @"SELECT `r`.SPECIFIC_NAME as " +
-                // @",`r`.ROUTINE_NAME as " +
-                // @",`r`.ROUTINE_TYPE as " +
-                // @",`r`.DTD_IDENTIFIER as " +
-                // @",`r`.ROUTINE_BODY as " +
-                // @",`r`.ROUTINE_DEFINITION as " +
-                // @",`r`.IS_DETERMINISTIC as " +
-                // @" FROM INFORMATION_SCHEMA.ROUTINES r
-                // WHERE `r`.ROUTINE_SCHEMA='" + this.DbName + @"' and  `r`.ROUTINE_TYPE like '%proc%';";
-            }
+               }
         }
 
         public string SelectFunction
@@ -185,16 +160,6 @@
                              @", p.NUMERIC_SCALE as " + ProcedureNames.Scale +
                        @" FROM INFORMATION_SCHEMA.PARAMETERS p
                         WHERE `p`.SPECIFIC_SCHEMA='" + this.DbName + @"' and  `p`.ROUTINE_TYPE like '%fun%';";
-
-// @"SELECT `r`.SPECIFIC_NAME as " +
-// @", `r`.ROUTINE_NAME as " +
-// @", `r`.ROUTINE_TYPE as " +
-// @", `r`.DTD_IDENTIFIER as " +
-// @", `r`.ROUTINE_BODY as " +
-// @", `r`.ROUTINE_DEFINITION as " +
-// @",`r`.IS_DETERMINISTIC as " +
-// @" FROM INFORMATION_SCHEMA.ROUTINES r
-// WHERE `r`.ROUTINE_SCHEMA='" + this.DbName + @"' and  `r`.ROUTINE_TYPE like '%fun%';";
             }
         }
     }

@@ -12,13 +12,7 @@
     {
         public static Dictionary<string, List<TK>> GetColumn(IReader reader, DataSet dataSet, string dataSetTableName)
         {
-            using (var dataAdapter = reader.DataAdapter)
-            {
-                dataAdapter.SelectCommand = reader.Command;
-                dataAdapter.SelectCommand.Connection = reader.Conection;
-                dataAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectColumn;
-                dataAdapter.Fill(dataSet, dataSetTableName);
-            }
+            CommonHelper.SetDataAdapterSettings(reader, reader.SqlQueries.SelectColumn, dataSet, dataSetTableName);
 
             var dt = dataSet.Tables[dataSetTableName];
             var column = new List<TK>();
@@ -26,8 +20,8 @@
             
             foreach (DataRow row in dt.Rows)
             {
-                var tableName = row[ColumnKeys.TableName].ToString();
-                var isIdentity = row[ColumnKeys.IsIdentity].ToString();
+                var tableName = row[ColumnNames.TableName].ToString();
+                var isIdentity = row[ColumnNames.IsIdentity].ToString();
                 
                 if (!tables.ContainsKey(tableName))
                 {
@@ -37,10 +31,10 @@
                 column.Add(
                     new TK
                         {
-                            ColumnName = row[ColumnKeys.ColumnName].ToString(), 
-                            TypeName = row[ColumnKeys.TypeName].ToString(), 
-                            MaxLength = Converters.ToInt(row[ColumnKeys.MaxLength]), 
-                            AllowNull = Converters.ToBool(row[ColumnKeys.AllowNull]), 
+                            ColumnName = row[ColumnNames.ColumnName].ToString(), 
+                            TypeName = row[ColumnNames.TypeName].ToString(), 
+                            MaxLength = Converters.ToInt(row[ColumnNames.MaxLength]), 
+                            AllowNull = Converters.ToBool(row[ColumnNames.AllowNull]), 
                             IsIdentity =
                                 string.IsNullOrEmpty(isIdentity) ? false.ToString(CultureInfo.InvariantCulture) : isIdentity, 
                            });

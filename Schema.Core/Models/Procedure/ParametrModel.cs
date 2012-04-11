@@ -4,8 +4,6 @@
     {
        public string Parametr { get; set; }
 
-     /*  public string Type { get; set; }*/
-
        public string TypeDescription { get; set; }
 
        public string DataType { get; set; }

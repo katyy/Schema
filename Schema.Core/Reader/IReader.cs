@@ -17,13 +17,5 @@
         DbCommand Command { get; }
 
         ISqlQueries SqlQueries { get; }
-
-        // IViewModel ViewModel { get; }
-        // IViewGetter ViewMethod { get; }
-        // IProcedureGetter ProcedureFunctionMethod { get; }
-        // ITriggerGetter TriggerMethod { get; }
-        // KeyGetter KeyMethod { get; }
-        // IColumnGetter ColumnMethod { get; }
     }
-
 }

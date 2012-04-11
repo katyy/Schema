@@ -8,8 +8,6 @@
 
         public string ColumnName { get; set; }
 
-       /* public string Type { get; set; }*/
-
         public string Name { get; set; }
 
         public KeyType? TypeDescription { get; set; }
