@@ -4,11 +4,11 @@
     using System.Data;
     using System.Globalization;
 
-    using Schema.Core.Keys;
     using Schema.Core.Models.Column;
+    using Schema.Core.Names;
     using Schema.Core.Reader;
 
-    public class MsSqlColumnGetter<TK> where TK : MsSqlColumnModel, new()
+    public class ColumnGetter<TK> where TK : ColumnModel, new()
     {
         public Dictionary<string, List<TK>> GetColumn(IReader reader, DataSet dataSet, string dataSetTableName)
         {
@@ -43,7 +43,7 @@
                             AllowNull = Converters.ToBool(row[ColumnKeys.AllowNull]), 
                             IsIdentity =
                                 string.IsNullOrEmpty(isIdentity) ? false.ToString(CultureInfo.InvariantCulture) : isIdentity, 
-                            IdentityIncriment = Converters.ToInt(row[ColumnKeys.IdentityIncriment])
+                           /* IdentityIncriment = Converters.ToInt(row[ColumnKeys.IdentityIncriment])*/
                         });
 
                 tables.Remove(tableName);

@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Data;
 
-    using Schema.Core.Keys;
     using Schema.Core.Models.View;
     using Schema.Core.Names;
     using Schema.Core.Reader;

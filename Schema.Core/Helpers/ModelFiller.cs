@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Data;
 
-    using Schema.Core.Keys;
     using Schema.Core.Models;
     using Schema.Core.Models.Key;
     using Schema.Core.Models.Table;

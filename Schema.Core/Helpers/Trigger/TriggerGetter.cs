@@ -6,11 +6,11 @@
     using Schema.Core.Models.Trigger;
     using Schema.Core.Reader;
 
-    public class MySqlTriggerGetter : ITriggerGetter
+    public class TriggerGetter 
     {
-        public List<ITriggerModel> GetTriggers(IReader reader, DataSet dataSet, string tableName)
+        public List<TriggerModel> GetTriggers(IReader reader, DataSet dataSet, string tableName)
         {
-            var trigerModel = new List<ITriggerModel>();
+            var trigerModel = new List<TriggerModel>();
             var dataAdapter = reader.DataAdapter;
             dataAdapter.SelectCommand = reader.Command;
             dataAdapter.SelectCommand.Connection = reader.Conection;
@@ -19,7 +19,7 @@
             var dt = dataSet.Tables[tableName];
             for (var i = 0; i < dt.Rows.Count; i++)
             {
-                trigerModel.Add(new MySqlTriggerModel
+                trigerModel.Add(new TriggerModel
                 {
                     TableName = dt.Rows[i].ItemArray[0].ToString(),
                     TrigerName = dt.Rows[i].ItemArray[1].ToString(),
@@ -29,6 +29,7 @@
                     ActionStatement = dt.Rows[i].ItemArray[5].ToString()*/
                 });
             }
+
             return trigerModel;
         }
     }

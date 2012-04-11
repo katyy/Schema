@@ -59,49 +59,49 @@
             }
         }
 
-        public IViewModel ViewModel
-        {
-            get
-            {
-                return new MySqlViewModel();
-            }
-        }
+        //public IViewModel ViewModel
+        //{
+        //    get
+        //    {
+        //        return new MySqlViewModel();
+        //    }
+        //}
 
-        public IViewGetter ViewMethod
-        {
-            get
-            {
-                return new MySqlViewGetter<MySqlViewColumnModel>();
-            }
-        }
+        //public IViewGetter ViewMethod
+        //{
+        //    get
+        //    {
+        //        return new MySqlViewGetter<MySqlViewColumnModel>();
+        //    }
+        //}
 
-        public IProcedureGetter ProcedureFunctionMethod
-        {
-            get
-            {
-                return new MySqlProcedureGetter();
-            }
-        }
+        //public IProcedureGetter ProcedureFunctionMethod
+        //{
+        //    get
+        //    {
+        //        return new MySqlProcedureGetter();
+        //    }
+        //}
 
-        public ITriggerGetter TriggerMethod
-        {
-            get { return new MySqlTriggerGetter(); }
-        }
+        //public ITriggerGetter TriggerMethod
+        //{
+        //    get { return new MySqlTriggerGetter(); }
+        //}
 
-        public KeyGetter KeyMethod
-        {
-            get
-            {
-                return new MySqlKeyGetter();
-            }
-        }
+        //public KeyGetter KeyMethod
+        //{
+        //    get
+        //    {
+        //        return new MySqlKeyGetter();
+        //    }
+        //}
 
-        public IColumnGetter ColumnMethod
-        {
-            get
-            {
-                return new MySqlColumnGetter<MySqlColumnModel>();
-            }
-        }
+        //public IColumnGetter ColumnMethod
+        //{
+        //    get
+        //    {
+        //        return new MySqlColumnGetter<MySqlColumnModel>();
+        //    }
+        //}
     }
 }

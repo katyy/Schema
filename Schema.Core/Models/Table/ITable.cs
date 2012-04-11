@@ -9,7 +9,7 @@
     {
         string Name { get; set; }
 
-        List<IColumnModel> Columns { get; set; }
+        List<ColumnModel> Columns { get; set; }
 
         List<ITriggerModel> Trigers { get; set; }
 

@@ -1,6 +1,5 @@
 ﻿namespace Schema.Core.SqlQueries
 {
-    using Schema.Core.Keys;
     using Schema.Core.Names;
 
     public class MySqlQueries : ISqlQueries
@@ -18,7 +17,7 @@
                                 @", c.CHARACTER_MAXIMUM_LENGTH as" + ColumnKeys.MaxLength + 
                                 @", c.IS_NULLABLE as" + ColumnKeys.AllowNull +
                                 @", c.EXTRA  as " + ColumnKeys.IsIdentity +
-                                @", NULL as " + ColumnKeys.IdentityIncriment +
+                               /* @", NULL as " + ColumnKeys.IdentityIncriment +*/
                      @"FROM  INFORMATION_SCHEMA.COLUMNS c
                      WHERE c.TABLE_SCHEMA ='" + this.DbName + @"'
                      ORDER BY c.TABLE_NAME;";
@@ -102,8 +101,13 @@
             get
             {
                 return
-                    @"SELECT c.TABLE_NAME,c.COLUMN_NAME,c.COLUMN_TYPE,c.CHARACTER_MAXIMUM_LENGTH , c.IS_NULLABLE,c.EXTRA
-                            FROM INFORMATION_SCHEMA.COLUMNS c
+                    @"SELECT c.TABLE_NAME as " + ColumnKeys.TableName +
+                          @", c.COLUMN_NAME as " + ColumnKeys.ColumnName +
+                          @", c.COLUMN_TYPE as " + ColumnKeys.TypeName +
+                          @", c.CHARACTER_MAXIMUM_LENGTH as " + ColumnKeys.MaxLength +
+                          @", c.IS_NULLABLE as " + ColumnKeys.AllowNull +
+                          @", c.EXTRA as " + ColumnKeys.IsIdentity +
+                          @" FROM INFORMATION_SCHEMA.COLUMNS c
                             RIGHT JOIN
                                       (SELECT `v`.TABLE_NAME,`v`.VIEW_DEFINITION,`v`.IS_UPDATABLE,`v`.SECURITY_TYPE,`v`.COLLATION_CONNECTION
                                        FROM INFORMATION_SCHEMA.VIEWS v) view 
@@ -129,8 +133,14 @@
             get
             {
                 return
-                        @"SELECT `r`.SPECIFIC_NAME ,`r`.ROUTINE_NAME,`r`.ROUTINE_TYPE,`r`.DTD_IDENTIFIER,`r`.ROUTINE_BODY,`r`.ROUTINE_DEFINITION,`r`.IS_DETERMINISTIC
-                    FROM INFORMATION_SCHEMA.ROUTINES r
+                        @"SELECT `r`.SPECIFIC_NAME as " +
+                              @",`r`.ROUTINE_NAME as " +
+                              @",`r`.ROUTINE_TYPE as " +
+                              @",`r`.DTD_IDENTIFIER as " +
+                              @",`r`.ROUTINE_BODY as " +
+                              @",`r`.ROUTINE_DEFINITION as " +
+                              @",`r`.IS_DETERMINISTIC as " +
+                   @" FROM INFORMATION_SCHEMA.ROUTINES r
                     WHERE `r`.ROUTINE_SCHEMA='" + this.DbName + @"' and  `r`.ROUTINE_TYPE like '%proc%';";
             }
         }
@@ -140,8 +150,14 @@
             get
             {
                 return 
-                    @"SELECT `r`.SPECIFIC_NAME ,`r`.ROUTINE_NAME,`r`.ROUTINE_TYPE,`r`.DTD_IDENTIFIER,`r`.ROUTINE_BODY,`r`.ROUTINE_DEFINITION,`r`.IS_DETERMINISTIC
-                    FROM INFORMATION_SCHEMA.ROUTINES r
+                    @"SELECT `r`.SPECIFIC_NAME as " +
+                        @", `r`.ROUTINE_NAME as " +
+                        @", `r`.ROUTINE_TYPE as " +
+                        @", `r`.DTD_IDENTIFIER as " +
+                        @", `r`.ROUTINE_BODY as " +
+                        @", `r`.ROUTINE_DEFINITION as " +
+                        @",`r`.IS_DETERMINISTIC as " +
+                    @" FROM INFORMATION_SCHEMA.ROUTINES r
                     WHERE `r`.ROUTINE_SCHEMA='" + this.DbName + @"' and  `r`.ROUTINE_TYPE like '%fun%';";
             }
         }

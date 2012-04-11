@@ -24,7 +24,7 @@
            var mySqlReader = new MySqlReader { DbName = MySqlDbName };
 
             // var db = ModelFiller.GetModel(mySqlReader, dataSet);
-            var m = new MsSqlColumnGetter<MsSqlColumnModel>();
+            var m = new ColumnGetter<ColumnModel>();
             var yu = m.GetColumn(mssqlReader, dataSet, TableNames.Tables);
             var key = new KeyGetter().GetKeys(mssqlReader, dataSet, TableNames.Keys);
         }

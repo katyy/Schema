@@ -12,7 +12,7 @@
 
         public List<KeyModel> Keys { get; set; }
 
-        public List<IColumnModel> Columns { get; set; }
+        public List<ColumnModel> Columns { get; set; }
 
         public List<ITriggerModel> Trigers { get; set; }
 

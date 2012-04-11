@@ -1,4 +1,4 @@
-﻿namespace Schema.Core.Keys
+﻿namespace Schema.Core.Names
 {
     /// <summary>
     /// Column keys
