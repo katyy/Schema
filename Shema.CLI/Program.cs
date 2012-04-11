@@ -4,8 +4,8 @@
 
     using Schema.Core.Helpers.Column;
     using Schema.Core.Helpers.Key;
-    using Schema.Core.Keys;
     using Schema.Core.Models.Column;
+    using Schema.Core.Names;
     using Schema.Core.Reader;
 
     public class Program

@@ -18,8 +18,8 @@
         {
             get
             {
-                // @"Data Source=.\LOCALHOST;AttachDbFilename=" + this.DbName + ";Integrated Security=True";
-                return @"Data Source=SIRICHENKOE\SIRICHENKO;Initial Catalog=Petition;Integrated Security=True;";
+                return @"Data Source=.\LOCALHOST;AttachDbFilename=" + this.DbName + ";Integrated Security=True";
+               // return @"Data Source=SIRICHENKOE\SIRICHENKO;Initial Catalog=Petition;Integrated Security=True;";
             }
         }
 

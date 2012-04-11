@@ -1,4 +1,4 @@
-﻿namespace Schema.Core.Keys
+namespace Schema.Core.Keys
 {
     public class TableNames
     {
@@ -14,3 +14,5 @@
         public const string Functions = "Functions";
     }
 }
+
+

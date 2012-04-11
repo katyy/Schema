@@ -6,6 +6,7 @@
 
     using Schema.Core.Keys;
     using Schema.Core.Models.Key;
+    using Schema.Core.Names;
     using Schema.Core.Reader;
     using Schema.Core.SqlQueries;
 
@@ -35,9 +36,9 @@
                         {
                             TableName = dt.Rows[i].ItemArray[0].ToString(),
                             ColumnName = dt.Rows[i].ItemArray[1].ToString(),
-                            Type = dt.Rows[i].ItemArray[2].ToString(),
+                           /* Type = dt.Rows[i].ItemArray[2].ToString(),*/
                             Name = dt.Rows[i].ItemArray[3].ToString(),
-                            TypeDescription = dt.Rows[i].ItemArray[4].ToString()
+                            TypeDescription =Converters.ConstraintType(dt.Rows[i].ItemArray[4])
                         });
             }
 

@@ -10,10 +10,10 @@
 
        public string Name { get; set; }
 
-       public string TypeDescription { get; set; }
+       public IndexType? TypeDescription { get; set; }
 
        public bool IsUnique { get; set; }
 
-       public SortOrder IsDescending { get; set; }
+       public SortOrder? IsDescending { get; set; }
     }
 }

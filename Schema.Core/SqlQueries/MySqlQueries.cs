@@ -32,9 +32,9 @@
                 return
                     @"SELECT `KU`.TABLE_NAME as " + KeyNames.TableName +
                               @",`KU`.COLUMN_NAME as " + KeyNames.ColumnName +
-                              @",`RT`.CONSTRAINT_TYPE as " + KeyNames.Type +
+                              @",`RT`.CONSTRAINT_TYPE as " + KeyNames.TypeDescription +
                               @",`RT`.CONSTRAINT_NAME as " + KeyNames.KeyName +
-                              @",`RT`.UNIQUE_CONSTRAINT_NAME as" + KeyNames.TypeDescription +
+                              /*@",`RT`.UNIQUE_CONSTRAINT_NAME as " + KeyNames.Type +*/
                               @",`RT`.DELETE_RULE as " + KeyNames.DeletRule +
                               @",`RT`.UPDATE_RULE as " + KeyNames.UpdateRule +
                               @",`KU`.REFERENCED_TABLE_NAME as " + KeyNames.ReferanceTable +
@@ -73,8 +73,10 @@
             get
             {
                 return
-                    @"SELECT `tr`.EVENT_OBJECT_TABLE ,`tr`.TRIGGER_NAME,`tr`.EVENT_MANIPULATION,`tr`.ACTION_ORIENTATION,`tr`.ACTION_TIMING,`tr`.ACTION_STATEMENT
-                    FROM INFORMATION_SCHEMA.TRIGGERS `tr`
+                    @"SELECT `tr`.EVENT_OBJECT_TABLE as " + TriggerNames.TableName +
+                             @",`tr`.TRIGGER_NAME as " + TriggerNames.TriggerName +
+                             @",`tr`.EVENT_MANIPULATION as " + TriggerNames.TriggerEvent + /*",`tr`.ACTION_ORIENTATION,`tr`.ACTION_TIMING,`tr`.ACTION_STATEMENT*/
+                  @" FROM INFORMATION_SCHEMA.TRIGGERS `tr`
                     WHERE `tr`.TRIGGER_SCHEMA='" + this.DbName + "';";
             }
         }
@@ -84,8 +86,13 @@
             get
             {
                 return 
-                    @"SELECT DISTINCT `s`.TABLE_NAME, `s`.COLUMN_NAME,`s`.INDEX_NAME,`s`.INDEX_TYPE,`s`.NON_UNIQUE,`s`.COLLATION
-                    FROM INFORMATION_SCHEMA.STATISTICS s
+                    @"SELECT DISTINCT `s`.TABLE_NAME as " + IndexNames.TableName +
+                                  @", `s`.COLUMN_NAME as " + IndexNames.ColumnName +
+                                  @",`s`.INDEX_NAME as " + IndexNames.IndexName +
+                                  @",`s`.INDEX_TYPE as " + IndexNames.IndexType + 
+                                  @",`s`.NON_UNIQUE as " + IndexNames.Unique +
+                                  @",`s`.COLLATION as " + IndexNames.SortOrder + 
+                   @" FROM INFORMATION_SCHEMA.STATISTICS s
                     WHERE TABLE_SCHEMA = '" + this.DbName + "';";
             }
         }
@@ -95,7 +102,7 @@
             get
             {
                 return
-                    @"SELECT c.TABLE_NAME,c.COLUMN_NAME,c.COLUMN_TYPE,c.CHARACTER_MAXIMUM_LENGTH , c.IS_NULLABLE,c.EXTRA,`view`.IS_UPDATABLE,`view`.SECURITY_TYPE,`view`.COLLATION_CONNECTION
+                    @"SELECT c.TABLE_NAME,c.COLUMN_NAME,c.COLUMN_TYPE,c.CHARACTER_MAXIMUM_LENGTH , c.IS_NULLABLE,c.EXTRA
                             FROM INFORMATION_SCHEMA.COLUMNS c
                             RIGHT JOIN
                                       (SELECT `v`.TABLE_NAME,`v`.VIEW_DEFINITION,`v`.IS_UPDATABLE,`v`.SECURITY_TYPE,`v`.COLLATION_CONNECTION

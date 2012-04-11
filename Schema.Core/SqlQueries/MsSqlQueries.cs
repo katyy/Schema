@@ -34,7 +34,7 @@
                 return
                       @"SELECT foriegen.parent_table as " + KeyNames.TableName +
                               @", parent_column as " + KeyNames.ColumnName +
-                              @", f.type as " + KeyNames.Type +
+                              /*@", f.type as " + KeyNames.Type +*/
                               @",name as " + KeyNames.KeyName +
                               @", f.type_desc as " + KeyNames.TypeDescription +
                               @", f.delete_referential_action_desc as " + KeyNames.DeletRule +
@@ -68,7 +68,7 @@
                 return
                      @"SELECT t.name as " + KeyNames.TableName +
                               @",c.name as " + KeyNames.ColumnName +
-                              @", k.type as " + KeyNames.Type +
+                             /* @", k.type as " + KeyNames.Type +*/
                               @",k.name as " + KeyNames.KeyName +
                               @",k.type_desc as " + KeyNames.TypeDescription +
                    @" FROM sys.key_constraints k, sys.all_columns c,sys.tables t 
@@ -84,8 +84,10 @@
             get
             {
                 return
-                    @"SELECT t.name table_name,triger.triger_name,triger.triger_event,triger.type,triger.type_desc 
-                      FROM 
+                    @"SELECT t.name table_name as " + TriggerNames.TableName +
+                            @",triger.triger_name as " + TriggerNames.TriggerName +
+                            @",triger.triger_event as " + TriggerNames.TriggerEvent + /*,triger.type,triger.type_desc */
+                     @" FROM 
                          (SELECT te.type_desc triger_event,tr.name triger_name, tr.parent_id,tr.type,tr.type_desc 
                           FROM sys.triggers tr 
                           LEFT OUTER JOIN sys.trigger_events te 
@@ -99,8 +101,13 @@
             get
             {
                 return
-                    @"SELECT index_table.table_name, c.name column_name,index_table.name,index_table.type_desc,index_table.is_unique,index_table.is_descending_key 
-                      FROM
+                    @"SELECT index_table.table_name as "  + IndexNames.TableName +
+                             @", c.name column_name as " + IndexNames.ColumnName +
+                             @",index_table.name as " + IndexNames.IndexName + 
+                             @",index_table.type_desc as " + IndexNames.IndexType +
+                             @",index_table.is_unique as " + IndexNames.Unique +
+                             @",index_table.is_descending_key as " + IndexNames.SortOrder +
+                     @" FROM
                          (SELECT t.name table_name,indexes.* 
                           FROM 
                              (SELECT i.object_id,i.name,i.type_desc,i.is_unique,ic.index_column_id,ic.column_id,ic.is_descending_key
@@ -120,13 +127,18 @@
         {
             get
             {
-                return
-                    @"SELECT col.table_name,col.column_name,col.type_name, col.max_length, col.is_nullable,col.is_identity, identy.increment_value 
+                return 
+                    @"SELECT col.table_name,col.column_name,col.type_name, col.max_length, col.is_nullable,col.is_identity
                       FROM(SELECT t.object_id,c.column_id, t.name table_name,c.name column_name,ty.name type_name, c.max_length, c.is_nullable,c.is_identity 
                            FROM sys.types ty ,sys.views t,sys.columns c 
-                           WHERE c.object_id=t.object_id  and ty.user_type_id=c.system_type_id) col 
-                      LEFT JOIN  sys.identity_columns identy 
-                      ON identy.object_id=col.object_id and identy.column_id=col.column_id;";
+                           WHERE c.object_id=t.object_id  and ty.user_type_id=c.system_type_id) col;";
+
+                // @"SELECT col.table_name,col.column_name,col.type_name, col.max_length, col.is_nullable,col.is_identity, identy.increment_value 
+                // FROM(SELECT t.object_id,c.column_id, t.name table_name,c.name column_name,ty.name type_name, c.max_length, c.is_nullable,c.is_identity 
+                // FROM sys.types ty ,sys.views t,sys.columns c 
+                // WHERE c.object_id=t.object_id  and ty.user_type_id=c.system_type_id) col 
+                // LEFT JOIN  sys.identity_columns identy 
+                // ON identy.object_id=col.object_id and identy.column_id=col.column_id;"; todo old with identity incriment
             }
         }
 

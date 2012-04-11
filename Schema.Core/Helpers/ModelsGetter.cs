@@ -3,8 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
 
     using Schema.Core.Models;
+    using Schema.Core.Names;
     using Schema.Core.Reader;
 
     public class ModelsGetter
@@ -138,26 +140,23 @@
 
         public static List<IndexModel> GetIndexes(IReader reader, DataSet dataSet, string tableName)
         {
-            var indexModel = new List<IndexModel>();
-            var dAdapter = reader.DataAdapter;
-            dAdapter.SelectCommand = reader.Command;
-            dAdapter.SelectCommand.Connection = reader.Conection;
-            dAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectIndex;
-            dAdapter.Fill(dataSet, tableName);
+            var dataAdapter = reader.DataAdapter;
+            dataAdapter.SelectCommand = reader.Command;
+            dataAdapter.SelectCommand.Connection = reader.Conection;
+            dataAdapter.SelectCommand.CommandText = reader.SqlQueries.SelectIndex;
+            dataAdapter.Fill(dataSet, tableName);
             var dt = dataSet.Tables[tableName];
-            for (var i = 0; i < dt.Rows.Count; i++)
-            {
-                indexModel.Add(new IndexModel
-                {
-                    TableName = dt.Rows[i].ItemArray[0].ToString(),
-                    ColumnName = dt.Rows[i].ItemArray[1].ToString(),
-                    Name = dt.Rows[i].ItemArray[2].ToString(),
-                    TypeDescription = dt.Rows[i].ItemArray[3].ToString(),
-                    IsUnique = Convert.ToBoolean(dt.Rows[i].ItemArray[4]),
-                    IsDescending = Converters.OrderDirection(dt.Rows[i].ItemArray[5])
-                });
-            }
-            return indexModel;
+
+            return (from DataRow row in dt.Rows
+                    select new IndexModel
+                    {
+                        TableName = row[IndexNames.TableName].ToString(),
+                        ColumnName = row[IndexNames.ColumnName].ToString(),
+                        Name = row[IndexNames.IndexName].ToString(),
+                        TypeDescription = Converters.IndexTypeDescription(row[IndexNames.IndexType]),
+                        IsUnique = Convert.ToBoolean(row[IndexNames.Unique]),
+                        IsDescending = Converters.OrderDirection(row[IndexNames.SortOrder])
+                    }).ToList();
         }
 
         //public static List<ProcedureModel> GetProcedures(IReader reader, DataSet dataSet, string tableName)
