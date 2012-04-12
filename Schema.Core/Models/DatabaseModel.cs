@@ -4,7 +4,6 @@
 
     using Schema.Core.Models.Procedure;
     using Schema.Core.Models.Table;
-    using Schema.Core.Models.View;
 
     public class DatabaseModel
     {

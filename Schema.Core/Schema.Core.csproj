@@ -31,7 +31,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Version=6.5.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft SQL Server\100\SDK\Assemblies\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft SQL Server\100\SDK\Assemblies\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Smo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft SQL Server\100\SDK\Assemblies\Microsoft.SqlServer.Smo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.SqlEnum - Copy, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft SQL Server\100\SDK\Assemblies\Microsoft.SqlServer.SqlEnum - Copy.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=5.1.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -43,27 +59,27 @@
     <Compile Include="Enums\EventRule.cs" />
     <Compile Include="Enums\SortOrder.cs" />
     <Compile Include="Enums\TriggerEvent.cs" />
-    <Compile Include="Helpers\Column\ColumnGetter.cs" />
+    <Compile Include="Helpers\ModelGetters\ColumnGetter.cs" />
     <Compile Include="Helpers\CommonHelper.cs" />
     <Compile Include="Helpers\Converters.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Helpers\Key\KeyGetter.cs">
+    <Compile Include="Helpers\ModelGetters\KeyGetter.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helpers\ModelFiller.cs" />
-    <Compile Include="Helpers\IndexGetter.cs" />
-    <Compile Include="Helpers\Procedure\ProcedureGetter.cs" />
-    <Compile Include="Helpers\Trigger\TriggerGetter.cs" />
-    <Compile Include="Helpers\View\ViewGetter.cs">
+    <Compile Include="Helpers\ModelGetters\IndexGetter.cs" />
+    <Compile Include="Helpers\ModelGetters\ProcedureGetter.cs" />
+    <Compile Include="Helpers\ModelGetters\TriggerGetter.cs" />
+    <Compile Include="Helpers\ModelGetters\ViewGetter.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Names\ColumnNames.cs" />
-    <Compile Include="Models\Column\ColumnModel.cs" />
-    <Compile Include="Models\Key\KeyModel.cs" />
+    <Compile Include="Models\ColumnModel.cs" />
+    <Compile Include="Models\KeyModel.cs" />
     <Compile Include="Models\Procedure\ProcedureModel.cs" />
-    <Compile Include="Models\Trigger\TriggerModel.cs" />
-    <Compile Include="Models\View\ViewModel.cs" />
+    <Compile Include="Models\TriggerModel.cs" />
+    <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Names\IndexNames.cs" />
     <Compile Include="Names\KeyNames.cs" />
     <Compile Include="Names\ProcedureNames.cs" />

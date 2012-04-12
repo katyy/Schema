@@ -2,9 +2,6 @@
 {
     using System.Collections.Generic;
 
-    using Schema.Core.Models.Column;
-    using Schema.Core.Models.Trigger;
-
     public interface ITable
     {
         string Name { get; set; }
