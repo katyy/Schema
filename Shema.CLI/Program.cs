@@ -2,6 +2,7 @@
 {
     using System.Data;
 
+    using Schema.Core.Helpers;
     using Schema.Core.Helpers.Column;
     using Schema.Core.Helpers.Key;
     using Schema.Core.Models.Column;
@@ -14,17 +15,14 @@
         {
 
             var dataSet = new DataSet("dbDataSet");
-
             const string DbName = @"|DataDirectory|Parking.mdf";
             var mssqlReader = new MsSqlReader { DbName = DbName };
+            var db = ModelFiller.GetModel(mssqlReader, dataSet);
 
-            // var db = ModelFiller.GetModel(mssqlReader, dataSet);
-            const string MySqlDbName = @"blog";
-
-            var mySqlReader = new MySqlReader { DbName = MySqlDbName };
-
+            // const string MySqlDbName = @"blog";
+            // var mySqlReader = new MySqlReader { DbName = MySqlDbName };
             // var db = ModelFiller.GetModel(mySqlReader, dataSet);
-           
+
         }
     }
 }

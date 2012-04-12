@@ -11,7 +11,7 @@ namespace Schema.Core.Names
 
         public const string IndexType = "IndexType";
 
-        public const string Unique = "Unique";
+        public const string Unique = "IsUnique";
 
         public const string SortOrder = "Sortorder";
     }

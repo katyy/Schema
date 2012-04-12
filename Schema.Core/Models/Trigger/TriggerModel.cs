@@ -4,7 +4,7 @@
 
     public class TriggerModel 
     {
-        public string TableName { get; set; }
+       /* public string TableName { get; set; }*/
 
         public string TrigerName { get; set; }
 

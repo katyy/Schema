@@ -6,18 +6,19 @@
     using Schema.Core.Helpers.Column;
     using Schema.Core.Helpers.Trigger;
     using Schema.Core.Models.Column;
+    using Schema.Core.Models.View;
     using Schema.Core.Names;
     using Schema.Core.Reader;
 
     public class ViewGetter 
     {
-        public static Dictionary<string, List<ColumnModel>> GetView(IReader reader, DataSet dataSet, string tableName)
+        public static List<ViewModel> GetView(IReader reader, DataSet dataSet, string tableName)
         {
-            var views = ColumnGetter<ColumnModel>.GetColumn(reader, dataSet, TableNames.Views); 
+            var viewColumn = ColumnGetter<ColumnModel>.GetColumn(reader, dataSet, TableNames.Views);
             var viewTriggers = TriggerGetter.GetTriggers(reader, dataSet, TableNames.ViewTriggers);
             var viewIndexes = IndexGetter.GetIndexes(reader, dataSet, TableNames.ViewIndexes);
-            ModelFiller.InsertModels(TODO, views, viewTriggers, viewIndexes);
-            return views;
+
+            return ModelFiller.GetTable<ViewModel>(viewColumn, viewIndexes, viewTriggers);
+           }
         }
-    }
 }

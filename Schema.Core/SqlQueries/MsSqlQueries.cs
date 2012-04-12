@@ -80,9 +80,9 @@
             get
             {
                 return
-                    @"SELECT t.name table_name as " + TriggerNames.TableName +
-                            @",triger.triger_name as " + TriggerNames.TriggerName +
-                            @",triger.triger_event as " + TriggerNames.TriggerEvent + /*,triger.type,triger.type_desc */
+                    @"SELECT t.name as " + TriggerNames.TableName +
+                            @", triger.triger_name as " + TriggerNames.TriggerName +
+                            @", triger.triger_event as " + TriggerNames.TriggerEvent +
                      @" FROM 
                          (SELECT te.type_desc triger_event,tr.name triger_name, tr.parent_id,tr.type,tr.type_desc 
                           FROM sys.triggers tr 
@@ -98,7 +98,7 @@
             {
                 return
                     @"SELECT index_table.table_name as "  + IndexNames.TableName +
-                             @", c.name column_name as " + IndexNames.ColumnName +
+                             @", c.name as " + IndexNames.ColumnName +
                              @",index_table.name as " + IndexNames.IndexName + 
                              @",index_table.type_desc as " + IndexNames.IndexType +
                              @",index_table.is_unique as " + IndexNames.Unique +
@@ -216,7 +216,7 @@
                           @", pr.type_desc as " + ProcedureNames.TypeDescription +
                           @", ty.name as " + ProcedureNames.DataType +
                           @", pr.max_length as " + ProcedureNames.MaxLength +
-                          @", pr.precision as " + ProcedureNames.MaxLength +
+                          @", pr.precision as " + ProcedureNames.Precision +
                           @", pr.scale as " + ProcedureNames.Scale +
                       @" FROM
                           (SELECT p.name procedure_name,p.type ,p.type_desc, param.name parametr_name,param.system_type_id,param.max_length,param.precision,param.scale

@@ -4,27 +4,51 @@
     using System.Data;
 
     using Schema.Core.Models.Trigger;
+    using Schema.Core.Names;
     using Schema.Core.Reader;
 
-    public class TriggerGetter 
+    public class TriggerGetter
     {
-        public static List<TriggerModel> GetTriggers(IReader reader, DataSet dataSet, string dataSetTableName)
+        public static Dictionary<string, List<TriggerModel>> GetTriggers(IReader reader, DataSet dataSet, string dataSetTableName)
         {
-            var trigerModel = new List<TriggerModel>();
+
             CommonHelper.SetDataAdapterSettings(reader, reader.SqlQueries.SelectTrigger, dataSet, dataSetTableName);
 
             var dt = dataSet.Tables[dataSetTableName];
-            for (var i = 0; i < dt.Rows.Count; i++)
+
+            var triggerModels = new List<TriggerModel>();
+            var triggers = new Dictionary<string, List<TriggerModel>>();
+            foreach (DataRow row in dt.Rows)
             {
-                trigerModel.Add(new TriggerModel
+                var name = row[TriggerNames.TableName].ToString();
+                if (!triggers.ContainsKey(name))
                 {
-                    TableName = dt.Rows[i].ItemArray[0].ToString(),
-                    TrigerName = dt.Rows[i].ItemArray[1].ToString(),
-                    Event = Converters.TriggerEventManipulation(dt.Rows[i].ItemArray[2]),
-                });
+                    triggerModels = new List<TriggerModel>();
+                }
+
+                triggerModels.Add(
+                    new TriggerModel
+                    {
+                        TrigerName = row[TriggerNames.TriggerName].ToString(),
+                        Event = Converters.TriggerEventManipulation(row[TriggerNames.TriggerEvent]),
+                    });
+
+                triggers.Remove(name);
+                triggers.Add(name, triggerModels);
             }
 
-            return trigerModel;
+            return triggers;
+
+            // for (var i = 0; i < dt.Rows.Count; i++)
+            // {
+            //    trigerModel.Add(new TriggerModel
+            //    {
+            //        TableName = dt.Rows[i].ItemArray[0].ToString(),
+            //        TrigerName = dt.Rows[i].ItemArray[1].ToString(),
+            //        Event = Converters.TriggerEventManipulation(dt.Rows[i].ItemArray[2]),
+            //    });
+            // }
+            // return trigerModel;
         }
     }
 }

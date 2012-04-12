@@ -12,10 +12,8 @@
     using Schema.Core.Models;
     using Schema.Core.Models.Column;
     using Schema.Core.Models.Key;
-    using Schema.Core.Models.Procedure;
     using Schema.Core.Models.Table;
     using Schema.Core.Models.Trigger;
-    using Schema.Core.Models.View;
     using Schema.Core.Names;
     using Schema.Core.Reader;
 
@@ -23,140 +21,84 @@
     {
         public static DatabaseModel GetModel(IReader reader, DataSet dataSet)
         {
-            var columnModels = ColumnGetter<ColumnModel>.GetColumn(reader, dataSet, /*new List<TableModel>(),*/ TableNames.Tables);
-
-            // IndexGetter.GetView(reader,dataSet,new List<TableModel>(), TableNames.Tables);
+            var columnModels = ColumnGetter<ColumnModel>.GetColumn(reader, dataSet, TableNames.Tables);
+            
             var keyModel = KeyGetter.GetKeys(reader, dataSet, TableNames.Keys);
-
-            // var keyModel = IndexGetter.GetKeys(reader,dataSet,TableNames.Keys);
-            //  var forigenKey = IndexGetter.GetForigenKey(reader,dataSet, TableNames.ForeigenKey);
+            
             var trigers = TriggerGetter.GetTriggers(reader, dataSet, TableNames.Triggers);
-
-            // IndexGetter.GetTriggers(reader, dataSet, TableNames.Triggers);
+            
             var indexes = IndexGetter.GetIndexes(reader, dataSet, TableNames.Indexes);
+            
             var procedures = ProcedureGetter.GetProcedure(
                 reader, dataSet, reader.SqlQueries.SelectProcedure, TableNames.Procedures);
-
-            // IndexGetter.GetProcedures(reader,dataSet,  TableNames.Procedures);
+            
             var functions = ProcedureGetter.GetProcedure(
                 reader, dataSet, reader.SqlQueries.SelectFunction, TableNames.Functions);
 
-            // IndexGetter.GetProcedures(reader,dataSet,TableNames.Functions);
-            var views = ViewGetter.GetView(reader, dataSet, TableNames.Views); // IndexGetter.GetView(reader, dataSet, new List<IViewModel>(), TableNames.Views);
+            var views = ViewGetter.GetView(reader, dataSet, TableNames.Views);
 
-            var model = new DatabaseModel
-                {
-                    Functions = new List<ProcedureModel>(),
-                    Procedures = new List<ProcedureModel>(),
-                    Tables = new List<TableModel>(),
-                    Views = new List<ViewModel>()
-                };
-
-            var tables = InsertColumn(columnModels);
+            var tables = GetTable<TableModel>(columnModels, indexes, trigers);
+            tables = InsertKey(keyModel, tables);
 
             return new DatabaseModel
              {
-                 Tables = columnModels,
+                 Tables = tables,
                  Views = views,
                  Procedures = procedures,
                  Functions = functions
              };
         }
 
-        public static List<TableModel> InsertColumn(Dictionary<string, List<ColumnModel>> columnDictionary)
+        public static List<T> GetTable<T>(
+                                            Dictionary<string, List<ColumnModel>> columnDictionary,
+                                            Dictionary<string, List<IndexModel>> indexDictionary,
+                                            Dictionary<string, List<TriggerModel>> triggerDictionary) where T : ITable, new()
         {
-            return columnDictionary.Select(column => 
-                                            new TableModel
+            var table = InsertColumn<T>(columnDictionary);
+            table = InsertIndex(indexDictionary, table);
+            table = InsertTrigger(triggerDictionary, table);
+            return table;
+        }
+
+
+        public static List<T> InsertColumn<T>(Dictionary<string, List<ColumnModel>> columnDictionary) where T : ITable, new()
+        {
+            return columnDictionary.Select(column =>
+                                            new T
                                                 {
-                                                    Name = column.Key, 
+                                                    Name = column.Key,
                                                     Columns = column.Value
                                                 }).ToList();
         }
 
-        public static List<TableModel> InsertIndex(Dictionary<string, List<IndexModel>> indexDictionary, List<TableModel> table)
+        public static List<T> InsertIndex<T>(Dictionary<string, List<IndexModel>> indexDictionary, List<T> table) where T : ITable
         {
-            foreach (var t in table)
+            foreach (var t in table.Where(t => indexDictionary.ContainsKey(t.Name)))
             {
-                List<IndexModel> indexModels;
-                indexDictionary.TryGetValue(t.Name, out indexModels);
-               // t.Indexes.Add();
+                t.Indexes = indexDictionary[t.Name];
             }
 
-            return columnDictionary.Select(column =>
-                                            new TableModel
-                                            {
-                                                Name = column.Key,
-                                                Columns = column.Value
-                                            }).ToList();
+            return table;
         }
 
-
-        public static void InsertModels(IEnumerable<TableModel> columnModel, List<KeyModel> keyModel, IList<TriggerModel> triggerModel, IList<IndexModel> indexModel)
+        public static List<TableModel> InsertKey(Dictionary<string, List<KeyModel>> keyDictionary, List<TableModel> table)
         {
-            foreach (var column in columnModel)
+            foreach (var t in table.Where(t => keyDictionary.ContainsKey(t.Name)))
             {
-                Key(keyModel, column);
-                Trigger(triggerModel, column);
-                Index(indexModel, column);
+                t.Keys = keyDictionary[t.Name];
             }
+
+            return table;
         }
 
-        private static void Key(IList<KeyModel> keyModel, TableModel table)
+        public static List<T> InsertTrigger<T>(Dictionary<string, List<TriggerModel>> triggerDictionary, List<T> table) where T : ITable
         {
-            if (table.Keys == null)
+            foreach (var t in table.Where(t => triggerDictionary.ContainsKey(t.Name)))
             {
-                table.Keys = new List<KeyModel>();
-            }
-            for (var i = 0; i < keyModel.Count; i++)
-            {
-                var key = keyModel[i];
-                if (key.TableName != table.Name)
-                {
-                    continue;
-                }
-
-                table.Keys.Add(key);
-                keyModel.Remove(key);
-            }
-        }
-
-        private static void Trigger(IList<TriggerModel> trigerModel, ITable table)
-        {
-            if (table.Trigers == null)
-            {
-                table.Trigers = new List<TriggerModel>();
-            }
-            for (var i = 0; i < trigerModel.Count; i++)
-            {
-                var triger = trigerModel[i];
-                if (triger.TableName != table.Name)
-                {
-                    continue;
-                }
-
-                table.Trigers.Add(triger);
-                trigerModel.Remove(triger);
-            }
-        }
-
-        private static void Index(IList<IndexModel> indexModel, ITable table)
-        {
-            if (table.Indexes == null)
-            {
-                table.Indexes = new List<IndexModel>();
+                t.Trigers = triggerDictionary[t.Name];
             }
 
-            for (var i = 0; i < indexModel.Count; i++)
-            {
-                var index = indexModel[i];
-                if (index.TableName != table.Name)
-                {
-                    continue;
-                }
-
-                table.Indexes.Add(index);
-                indexModel.Remove(index);
-            }
+            return table;
         }
     }
 }
