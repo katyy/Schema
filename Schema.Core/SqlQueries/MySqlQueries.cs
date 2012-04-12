@@ -141,7 +141,7 @@
                              @", p.CHARACTER_MAXIMUM_LENGTH as " + ProcedureNames.MaxLength +
                              @", p.NUMERIC_PRECISION as " + ProcedureNames.Precision +
                              @", p.NUMERIC_SCALE as " +	ProcedureNames.Scale +
-                       @" FROM INFORMATION_SCHEMA.PARAMETERS p
+                        @" FROM INFORMATION_SCHEMA.PARAMETERS p
                         WHERE `p`.SPECIFIC_SCHEMA='" + this.DbName + @"' and  `p`.ROUTINE_TYPE like '%proc%';";
                }
         }

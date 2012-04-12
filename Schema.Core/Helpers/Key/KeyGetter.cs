@@ -29,7 +29,7 @@
                 }
             }
 
-            return foriegenKey; 
+            return foriegenKey;
         }
 
         public static Dictionary<string, List<KeyModel>> GetForigenKey(IReader reader, DataSet dataSet, string dataSetTableName)
@@ -65,21 +65,6 @@
             }
 
             return keyDictionary;
-
-            // var keyModel = (from DataRow row in dt.Rows
-            //                select
-            //                    new KeyModel
-            //                        {
-            //                            TableName = row[KeyNames.TableName].ToString(),
-            //                            ColumnName = row[KeyNames.ColumnName].ToString(),
-            //                            Name = row[KeyNames.KeyName].ToString(),
-            //                            TypeDescription = Converters.ConstraintType(row[KeyNames.TypeDescription]),
-            //                            DeletRule = Converters.UpdateDeleteRule(row[KeyNames.DeletRule]),
-            //                            UpdateRule = Converters.UpdateDeleteRule(row[KeyNames.UpdateRule]),
-            //                            ReferanceTable = row[KeyNames.ReferanceTable].ToString(),
-            //                            ReferanceColumn = row[KeyNames.ReferanceColumn].ToString()
-            //                        }).ToList();
-            //  return keyModel;
         }
 
         public static Dictionary<string, List<KeyModel>> GetPK(IReader reader, DataSet dataSet, string dataSetTableName)
@@ -101,7 +86,6 @@
                 keyColumn.Add(
                     new KeyModel
                     {
-                        /*TableName = row[KeyNames.TableName].ToString(),*/
                         ColumnName = row[KeyNames.ColumnName].ToString(),
                         Name = row[KeyNames.KeyName].ToString(),
                         TypeDescription = Converters.ConstraintType(row[KeyNames.TypeDescription]),
@@ -112,19 +96,6 @@
             }
 
             return keyDictionary;
-
-            // for (var i = 0; i < dt.Rows.Count; i++)
-            // {
-            //    keyModel.Add(
-            //        new KeyModel
-            //        {
-            //            TableName = dt.Rows[i].ItemArray[0].ToString(),
-            //            ColumnName = dt.Rows[i].ItemArray[1].ToString(),
-            //            Name = dt.Rows[i].ItemArray[3].ToString(),
-            //            TypeDescription = Converters.ConstraintType(dt.Rows[i].ItemArray[4])
-            //        });//}
-
-            // return keyModel;
         }
     }
 }

@@ -1,23 +1,10 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="CommonHelper.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Schema.Core.Helpers
+﻿namespace Schema.Core.Helpers
 {
-    using System;
-    using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
-    using System.Text;
 
     using Schema.Core.Reader;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
-    public class CommonHelper
+   public class CommonHelper
     {
         public static void SetDataAdapterSettings(IReader reader, string query, DataSet dataSet, string dataSetTableName)
         {
@@ -29,5 +16,5 @@ namespace Schema.Core.Helpers
                 dataAdapter.Fill(dataSet, dataSetTableName);
             }
         }
-    }
+     }
 }

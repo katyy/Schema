@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
 
     using Schema.Core.Models;
     using Schema.Core.Names;
@@ -30,31 +29,19 @@
 
                 indexModels.Add(
                     new IndexModel
-                    {
-                       /* TableName = row[IndexNames.TableName].ToString(),*/
-                        ColumnName = row[IndexNames.ColumnName].ToString(),
-                        Name = row[IndexNames.IndexName].ToString(),
-                        TypeDescription = Converters.IndexTypeDescription(row[IndexNames.IndexType]),
-                        IsUnique = Convert.ToBoolean(row[IndexNames.Unique]),
-                        IsDescending = Converters.OrderDirection(row[IndexNames.SortOrder])
-                    });
+                        {
+                            ColumnName = row[IndexNames.ColumnName].ToString(),
+                            Name = row[IndexNames.IndexName].ToString(),
+                            TypeDescription = Converters.IndexTypeDescription(row[IndexNames.IndexType]),
+                            IsUnique = Convert.ToBoolean(row[IndexNames.Unique]),
+                            IsDescending = Converters.OrderDirection(row[IndexNames.SortOrder])
+                        });
 
                 indexes.Remove(name);
                 indexes.Add(name, indexModels);
             }
 
             return indexes;
-
-            //return (from DataRow row in dt.Rows
-            //        select new IndexModel
-            //        {
-            //            TableName = row[IndexNames.TableName].ToString(),
-            //            ColumnName = row[IndexNames.ColumnName].ToString(),
-            //            Name = row[IndexNames.IndexName].ToString(),
-            //            TypeDescription = Converters.IndexTypeDescription(row[IndexNames.IndexType]),
-            //            IsUnique = Convert.ToBoolean(row[IndexNames.Unique]),
-            //            IsDescending = Converters.OrderDirection(row[IndexNames.SortOrder])
-            //        }).ToList();
         }
-     }
+    }
 }

@@ -22,16 +22,16 @@
         public static DatabaseModel GetModel(IReader reader, DataSet dataSet)
         {
             var columnModels = ColumnGetter<ColumnModel>.GetColumn(reader, dataSet, TableNames.Tables);
-            
+
             var keyModel = KeyGetter.GetKeys(reader, dataSet, TableNames.Keys);
-            
+
             var trigers = TriggerGetter.GetTriggers(reader, dataSet, TableNames.Triggers);
-            
+
             var indexes = IndexGetter.GetIndexes(reader, dataSet, TableNames.Indexes);
-            
+
             var procedures = ProcedureGetter.GetProcedure(
                 reader, dataSet, reader.SqlQueries.SelectProcedure, TableNames.Procedures);
-            
+
             var functions = ProcedureGetter.GetProcedure(
                 reader, dataSet, reader.SqlQueries.SelectFunction, TableNames.Functions);
 

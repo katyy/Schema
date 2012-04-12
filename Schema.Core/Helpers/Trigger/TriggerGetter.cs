@@ -38,17 +38,6 @@
             }
 
             return triggers;
-
-            // for (var i = 0; i < dt.Rows.Count; i++)
-            // {
-            //    trigerModel.Add(new TriggerModel
-            //    {
-            //        TableName = dt.Rows[i].ItemArray[0].ToString(),
-            //        TrigerName = dt.Rows[i].ItemArray[1].ToString(),
-            //        Event = Converters.TriggerEventManipulation(dt.Rows[i].ItemArray[2]),
-            //    });
-            // }
-            // return trigerModel;
         }
     }
 }

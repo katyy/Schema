@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
 
-    using Schema.Core.Models.Column;
     using Schema.Core.Models.Procedure;
     using Schema.Core.Models.Table;
     using Schema.Core.Models.View;

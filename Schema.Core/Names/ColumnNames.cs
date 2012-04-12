@@ -1,8 +1,5 @@
 ﻿namespace Schema.Core.Names
 {
-    /// <summary>
-    /// Column keys
-    /// </summary>
     public class ColumnNames
     {
         public const string TableName = "TableName";

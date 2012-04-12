@@ -4,8 +4,6 @@
 
     public class KeyModel
     {
-       /* public string TableName { get; set; }*/
-
         public string ColumnName { get; set; }
 
         public string Name { get; set; }
