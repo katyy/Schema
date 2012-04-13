@@ -1,9 +1,8 @@
 ﻿namespace Schema.UI
 {
-    using System.Collections.Generic;
+    using System;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Input;
 
     using Shema.Server;
 
@@ -15,28 +14,49 @@
         public MainWindow()
         {
             InitializeComponent();
-           
-           treeView1.ItemsSource = ServerGetter.GetMsSqlServerNames();
-
-           
-            //TreeViewItem rootItem = new TreeViewItem() { Header = "Root" };
-            //TreeViewItem level1 = new TreeViewItem() { Header = "Level1" };
-            //TreeViewItem level11 = new TreeViewItem() { Header = "Level11" };
-            //level1.Items.Add(level11);
-            //rootItem.Items.Add(level1);
-            //treeView1.Items.Add(rootItem);
-
-          }
-
-        private void SelectedChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        }
+        
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-           var t= ServerGetter.GetDataBases((string)this.treeView1.SelectedValue);
-           var item = (ItemsControl)treeView1.SelectedItem;
-            item.AddChild("dfs");
-         
-          // item.Parent.I
-         // treeView1.SelectedNode.Nodes.Add(yourChildNode);
-           treeView1.Items.Insert(2 , "dsv");
+            foreach (var name in ServerGetter.GetMsSqlServerNames())
+            {
+                var item = new TreeViewItem
+                    {
+                        Header = name,
+                        Tag = name + ",", 
+                        FontWeight = FontWeights.Normal
+                       };
+               item.Expanded += this.ServerExpanded;
+              foldersItem.Items.Add(item);
+            }
+         }
+
+        private void ServerExpanded(object sender, RoutedEventArgs e)
+        {
+            var item = (TreeViewItem)sender;
+            if (item.Items.Count >= 1)
+            {
+                return;
+            }
+
+            try
+            {
+                foreach (var databaseName in ServerGetter.GetDataBases(item.Header.ToString()))
+                {
+                    var subitem = new TreeViewItem
+                        {
+                            Header = databaseName,
+                            Tag = databaseName, 
+                            FontWeight = FontWeights.Normal
+                        };
+                    subitem.Expanded += this.ServerExpanded;
+                    item.Items.Add(subitem);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.lblError.Content = ex.Message;
+            }
         }
     }
 }

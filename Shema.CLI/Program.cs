@@ -13,7 +13,6 @@
         {
             var dataSet = new DataSet("dbDataSet");
             //const string DbName = @"|DataDirectory|Parking.mdf";
-            //var mssqlReader = new MsSqlReader { DbName = DbName };
             //var db = ModelFiller.GetModel(mssqlReader, dataSet);
 
             const string MySqlDbName = @"blog";

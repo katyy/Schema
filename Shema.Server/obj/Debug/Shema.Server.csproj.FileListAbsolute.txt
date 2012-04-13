@@ -1,0 +1,5 @@
+D:\downloads\last\Schema\Shema.Server\bin\Debug\Shema.Server.dll
+D:\downloads\last\Schema\Shema.Server\bin\Debug\Shema.Server.pdb
+D:\downloads\last\Schema\Shema.Server\obj\Debug\ResolveAssemblyReference.cache
+D:\downloads\last\Schema\Shema.Server\obj\Debug\Shema.Server.dll
+D:\downloads\last\Schema\Shema.Server\obj\Debug\Shema.Server.pdb

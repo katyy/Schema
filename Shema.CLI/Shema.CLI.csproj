@@ -54,9 +54,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\MySQL\MySQL Connector Net 5.1.7\Binaries\.NET 2.0\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Shema.Server">
-      <HintPath>..\Shema.Server\bin\Debug\Shema.Server.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -73,6 +70,10 @@
     <ProjectReference Include="..\Schema.Core\Schema.Core.csproj">
       <Project>{D6E30640-9840-4DAD-8736-8D97A01474ED}</Project>
       <Name>Schema.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shema.Server\Shema.Server.csproj">
+      <Project>{70FC12AF-E26A-405D-A3F4-1446BFEBD7A9}</Project>
+      <Name>Shema.Server</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
