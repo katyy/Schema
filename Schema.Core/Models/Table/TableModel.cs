@@ -2,10 +2,6 @@
 {
     using System.Collections.Generic;
 
-    using Schema.Core.Models.Column;
-    using Schema.Core.Models.Key;
-    using Schema.Core.Models.Trigger;
-
     public class TableModel : ITable
     {
         public string Name { get; set; }

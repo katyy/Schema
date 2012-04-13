@@ -16,7 +16,7 @@
                             @", c.CHARACTER_MAXIMUM_LENGTH as " + ColumnNames.MaxLength + 
                             @", c.IS_NULLABLE as " + ColumnNames.AllowNull + 
                             @", c.EXTRA  as " + ColumnNames.IsIdentity +
-                       @"FROM  INFORMATION_SCHEMA.COLUMNS c
+                       @" FROM  INFORMATION_SCHEMA.COLUMNS c
                        WHERE c.TABLE_SCHEMA ='" + this.DbName + @"'
                        ORDER BY c.TABLE_NAME;";
             }

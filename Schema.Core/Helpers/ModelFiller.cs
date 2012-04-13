@@ -4,16 +4,9 @@
     using System.Data;
     using System.Linq;
 
-    using Schema.Core.Helpers.Column;
-    using Schema.Core.Helpers.Key;
-    using Schema.Core.Helpers.Procedure;
-    using Schema.Core.Helpers.Trigger;
-    using Schema.Core.Helpers.View;
+    using Schema.Core.Helpers.ModelGetters;
     using Schema.Core.Models;
-    using Schema.Core.Models.Column;
-    using Schema.Core.Models.Key;
     using Schema.Core.Models.Table;
-    using Schema.Core.Models.Trigger;
     using Schema.Core.Names;
     using Schema.Core.Reader;
 
