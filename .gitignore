@@ -13,3 +13,5 @@
 
 /Schema.Core/obj
 /Shema.CLI/obj
+/Schema.UI/obj
+/Schema.UI/bin
