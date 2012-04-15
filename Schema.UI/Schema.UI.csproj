@@ -41,9 +41,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Web">
-      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\System.Web\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -61,10 +58,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="HeaderToImageConverter.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="EditBox\BoolToVisibilityConverter.cs" />
+    <Compile Include="TreeViewList\Combobox\DbCustomer.cs" />
+    <Compile Include="TreeViewList\Combobox\DbOption.cs" />
+    <Compile Include="TreeViewList\ServerImageConverter.cs" />
+    <Compile Include="TreeViewList\ServersTreeViewModel.cs" />
+    <Compile Include="TreeViewList\ServersTreeView.xaml.cs">
+      <DependentUpon>ServersTreeView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -73,13 +74,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="HeaderToImageConverter.xaml.cs">
-      <DependentUpon>HeaderToImageConverter.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="TreeViewList\ServersTreeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -106,17 +108,21 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\run.png" />
+    <ProjectReference Include="..\Aga.Controls\Aga.Controls.csproj">
+      <Project>{D17CD489-1B14-47EB-8C22-C189D078AEC9}</Project>
+      <Name>Aga.Controls</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\database.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\databaseImg.png" />
+    <Resource Include="Images\server_database.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\db.png" />
+    <Resource Include="Images\1334425794_windows_users.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

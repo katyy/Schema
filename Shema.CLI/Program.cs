@@ -20,7 +20,7 @@
             var db = ModelFiller.GetModel(mySqlReader, dataSet);
 
 
-           var server= ServerGetter.GetServices();
+          // var server= ServerGetter.GetServices();
         }
     }
 }

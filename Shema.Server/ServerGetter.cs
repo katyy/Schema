@@ -4,15 +4,18 @@
     using System.Data;
     using System.Linq;
 
+    using Microsoft.SqlServer.Management.Common;
     using Microsoft.SqlServer.Management.Smo;
+
+    using Shema.Server.Models;
 
     public class ServerGetter
     {
-       public static Dictionary<string, List<string>> GetServices()
-        {
-            var serverNames = GetMsSqlServerNames();
-            return GetDataBases(serverNames);
-        }
+       //public static Dictionary<string, List<string>> GetServices()
+       // {
+       //     var serverNames = GetMsSqlServerNames();
+       //     return GetDataBases(serverNames);
+       // }
 
        public static List<string> GetMsSqlServerNames()
        {
@@ -20,19 +23,21 @@
            return (from DataRow dr in dataTable.Rows select dr["Name"].ToString()).ToList();
        }
 
-       public static Dictionary<string, List<string>> GetDataBases(List<string> serverNames)
+       public static Dictionary<string, List<string>> GetDataBases(List<ServerModel> server)
        {
-           var servers = new Dictionary<string, List<string>>();
-           foreach (var serverName in serverNames)
+           var serverList = new Dictionary<string, List<string>>();
+           foreach (var serverModel in server)
            {
-               var server = new Server(serverName);
+               var oneServer = string.IsNullOrWhiteSpace(serverModel.UserName) ? 
+                                new Server(serverModel.Name) : 
+                                new Server(new ServerConnection(serverModel.Name, serverModel.UserName, serverModel.Password));
 
-               var database = (from Database db in server.Databases select db.Name).ToList();
+               var database = (from Database db in oneServer.Databases select db.Name).ToList();
 
-               servers.Add(serverName, database);
+               serverList.Add(serverModel.Name, database);
            }
 
-           return servers;
+           return serverList;
        }
 
         public static List<string> GetDataBases(string serverName)

@@ -1,8 +1,12 @@
 ﻿<Window x:Class="Schema.UI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:UI="clr-namespace:Schema.UI" Title="MainWindow" Height="617" Width="525" Loaded="Window_Loaded">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:UI="clr-namespace:Schema.UI"
+        xmlns:local="clr-namespace:Schema.UI.TreeViewList" Title="MainWindow" Height="617" Width="938" >
+  
     <Grid>
-    <TreeView x:Name="foldersItem"      
+        <local:ServersTreeView></local:ServersTreeView>
+        <!--<TreeView x:Name="foldersItem"      
           Width="Auto" Background="#FFFFFFFF"
           BorderBrush="#FFFFFFFF"
           Foreground="#FFFFFFFF">
@@ -18,7 +22,9 @@
                                         Path=Tag,
                                         Converter={x:Static UI:HeaderToImageConverter.Instance}}"
                                     />
-                                    <TextBlock Text="{Binding}" Margin="5,0" />
+                                    <TextBlock Width="300"  Text="{Binding}" Margin="5,0" />
+                                    <TextBox Name="Login" Text="Login"></TextBox>
+                                    <TextBox Name="Password" Text="Password"></TextBox>
                                 </StackPanel>
                             </DataTemplate>
                         </Setter.Value>
@@ -26,6 +32,7 @@
                 </Style>
             </TreeView.Resources>
         </TreeView>
-        <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="215,12,0,0" Name="lblError" VerticalAlignment="Top" />
+        <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="215,12,0,0" Name="lblError" VerticalAlignment="Top" />-->
+       
     </Grid>
 </Window>

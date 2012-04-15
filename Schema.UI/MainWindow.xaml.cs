@@ -16,47 +16,60 @@
             InitializeComponent();
         }
         
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            foreach (var name in ServerGetter.GetMsSqlServerNames())
-            {
-                var item = new TreeViewItem
-                    {
-                        Header = name,
-                        Tag = name + ",", 
-                        FontWeight = FontWeights.Normal
-                       };
-               item.Expanded += this.ServerExpanded;
-              foldersItem.Items.Add(item);
-            }
-         }
+        //private void Window_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    foreach (var name in ServerGetter.GetMsSqlServerNames())
+        //    {
+        //        var item = new TreeViewItem
+        //            {
+        //                Header = name,
+        //                Tag = name + ",", 
+        //                FontWeight = FontWeights.Normal
+        //               };
+        //       item.Expanded += this.ServerExpanded;
+        //      foldersItem.Items.Add(item);
+        //    }
+        // }
 
-        private void ServerExpanded(object sender, RoutedEventArgs e)
-        {
-            var item = (TreeViewItem)sender;
-            if (item.Items.Count >= 1)
-            {
-                return;
-            }
+        //private void ServerExpanded(object sender, RoutedEventArgs e)
+        //{
+        //    var item = (TreeViewItem)sender;
+            
+        //    if (item.Items.Count >= 1 )
+        //    {
+        //        return;
+        //    }
 
-            try
-            {
-                foreach (var databaseName in ServerGetter.GetDataBases(item.Header.ToString()))
-                {
-                    var subitem = new TreeViewItem
-                        {
-                            Header = databaseName,
-                            Tag = databaseName, 
-                            FontWeight = FontWeights.Normal
-                        };
-                    subitem.Expanded += this.ServerExpanded;
-                    item.Items.Add(subitem);
-                }
-            }
-            catch (Exception ex)
-            {
-                this.lblError.Content = ex.Message;
-            }
-        }
+        //    try
+        //    {
+        //        foreach (var databaseName in ServerGetter.GetDataBases(item.Header.ToString()))
+        //        {
+        //            var subitem = new TreeViewItem
+        //                {
+        //                    Header = databaseName,
+        //                    Tag = databaseName, 
+        //                    FontWeight = FontWeights.Normal
+        //                };
+        //            subitem.Expanded += this.DataBaseExpanded;
+        //            item.Items.Add(subitem);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        this.lblError.Content = ex.Message;
+        //    }
+        //}
+
+        //private void DataBaseExpanded(object sender, RoutedEventArgs e)
+        //{
+        //    var item = (TreeViewItem)sender;
+            
+        //    var dataBaseName = item.Header;
+        //    var ph = (TreeViewItem)item.Parent;
+        //   var serverName = ph.Header;
+          
+        //    string connectionString = @"Data Source=" + serverName + @";Initial Catalog=" + dataBaseName + @";Integrated Security=True;";
+        //    lblError.Content = connectionString;
+        //}
     }
 }
