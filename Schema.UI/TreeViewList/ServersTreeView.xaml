@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Schema.UI.TreeViewList"
              xmlns:tree="clr-namespace:Aga.Controls.Tree;assembly=Aga.Controls"
-             xmlns:l="clr-namespace:Schema.UI.EditBox">
+             xmlns:l="clr-namespace:Schema.UI.EditBox" xmlns:Converters="clr-namespace:Schema.UI.Converters">
     <UserControl.Resources>
         <local:ServerImageConverter x:Key="RegImageConverter"/>
         <l:BoolToVisibilityConverter x:Key="boolToVis" />
+        <Converters:ButtonVisibilityConverter x:Key="ButtonVisiBility" />
 
         <Style TargetType="{x:Type TextBlock}" x:Key="GridBlockStyle">
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -26,12 +27,17 @@
                             Converter={StaticResource boolToVis},
                             ConverterParameter=True}" />
         </Style>
+        <Style TargetType="{x:Type Button}" x:Key="ButtonStyle">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Visibility" Value="{Binding Converter={StaticResource ButtonVisiBility}}"/>
+            
+        </Style>
 
     </UserControl.Resources>
 
-    <tree:TreeList Name="_tree"  >
+    <tree:TreeList Name="_tree" >
         <tree:TreeList.View>
-            <GridView >
+            <GridView  >
                 <GridView.Columns>
                     <GridViewColumn  Width="400" Header="Name">
                         <GridViewColumn.CellTemplate>
@@ -46,19 +52,8 @@
                     </GridViewColumn>
                     <GridViewColumn  Width="70" x:Name="color"  >
                         <GridViewColumn.CellTemplate >  
-                            <DataTemplate>
-                                <ComboBox x:Name="mycombo" 
-								 ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Options}"
-								 SelectedValue="{Binding SelectedOption2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="OptionId" DisplayMemberPath="OptionText" />
-                                <!--<ListBox x:Name="lbColor" Width="248" Height="56">
-                                    <ListBoxItem Content="Blue"/>
-                                    <ListBoxItem Content="Green"/>
-                                    <ListBoxItem Content="Yellow"/>
-                                    <ListBoxItem Content="Red"/>
-                                    <ListBoxItem Content="Purple"/>
-                                    <ListBoxItem Content="Orange"/>
-                                </ListBox>-->
-                                <!--<ComboBox SelectedValuePath="Content"  SelectionChanged="AuthenicationSelectionChanged" SelectedIndex="0"  Margin="10,10,0,13" Name="comboBoxAutentication" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <DataTemplate>                         
+                                <ComboBox SelectedValuePath="Content"   SelectedIndex="0"  Margin="10,10,0,13" Name="comboBoxAutentication" HorizontalAlignment="Left" VerticalAlignment="Top">
                                     <ComboBoxItem Tag="Hidden" FontFamily="Verdana" FontSize="12" FontWeight="Bold">
                                         <StackPanel Orientation="Horizontal">
                                             <Image   Source="/images/1334425794_windows_users.png" ></Image>
@@ -71,21 +66,17 @@
                                             <TextBlock  Text="    Sql Server Authentication"></TextBlock>
                                         </StackPanel>
                                     </ComboBoxItem>
-                                </ComboBox>-->
+                                </ComboBox>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn   Header="User Name" x:Name="User"  Width="100" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-
-                                    <TextBlock Width="248" Height="24"  Text="{Binding SelectedOption2}"/>
-                                    <!--<TextBlock Visibility="{Binding ElementName=comboBoxAutentication,Path=SelectedValue}"  Width="{Binding ElementName=User, Path=ActualWidth}" Text="{Binding Path=UserName}"  />-->
-                                    <!--Style="{StaticResource GridBlockStyle}"-->
-                                    <!--<TextBox Visibility="{Binding ElementName=comboBoxAutentication,Path=SelectedValue}" Text="{Binding Path=UserName}"   />-->
-                                    <!--Style="{StaticResource GridEditStyle}"-->
-                                </StackPanel>
+                                <Grid>
+                                    <TextBlock   Width="{Binding ElementName=User, Path=ActualWidth}" Text="{Binding Path=UserName, Mode=TwoWay}"  Style="{StaticResource GridBlockStyle}" />
+                                    <TextBox  Text="{Binding Path=UserName, Mode=TwoWay}" Style="{StaticResource GridEditStyle}"  />
+                                </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -95,6 +86,15 @@
                                 <Grid>
                                     <TextBlock Width="{Binding ElementName=Password, Path=ActualWidth}"  Text="{Binding Path=Password}"   Style="{StaticResource GridBlockStyle}"/>
                                     <TextBox Text="{Binding Path=Password}"   Style="{StaticResource GridEditStyle}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  Width="40" x:Name="OK">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Button Visibility="{Binding Converter={StaticResource ButtonVisiBility}}"  Content="Ok" Click="OkClick"></Button>
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

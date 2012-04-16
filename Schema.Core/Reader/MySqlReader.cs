@@ -15,6 +15,10 @@
             {
                 return @"Server=localhost;Port=3307;Database=" + this.DbName + ";User=root;Pwd=root;";
             }
+
+            set
+            {
+            }
         }
 
         public DbDataAdapter DataAdapter

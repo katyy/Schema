@@ -11,8 +11,7 @@ namespace Schema.UI.TreeViewList
 
     using Aga.Controls.Tree;
 
-    using Schema.UI.TreeViewList.Combobox;
-
+   
     using Shema.Server;
     using Shema.Server.Models;
 
@@ -29,14 +28,7 @@ namespace Schema.UI.TreeViewList
                         new ServerModel
                             {
                                 Name = s,
-                                Options =
-                                    new List<DbOption>
-                                        {
-                                            new DbOption { OptionId = 1, OptionText = "Option 1" },
-                                            new DbOption { OptionId = 2, OptionText = "Option 2" },
-                                            new DbOption { OptionId = 3, OptionText = "Option 3" },
-                                        }
-                            };
+                             };
                 }
             }
             else if (key != null)

@@ -1,0 +1,8 @@
+﻿<Window x:Class="Schema.UI.ChooseMsSqlServerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:Schema.UI.TreeViewList"
+        Title="ChooseMsSqlServerWindow" Height="471" Width="796">
+    <Grid>
+        <local:ServersTreeView></local:ServersTreeView>
+    </Grid>
+</Window>

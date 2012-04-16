@@ -37,3 +37,7 @@ d:\new\Schema\Schema.UI\bin\Debug\Aga.Controls.dll
 d:\new\Schema\Schema.UI\bin\Debug\Aga.Controls.pdb
 d:\new\Schema\Schema.UI\obj\x86\Debug\TreeViewList\ServersTreeView.g.cs
 d:\new\Schema\Schema.UI\obj\x86\Debug\TreeViewList\ServersTreeView.baml
+d:\new\Schema\Schema.UI\obj\x86\Debug\ChooseMsSqlServerWindow.g.cs
+d:\new\Schema\Schema.UI\obj\x86\Debug\ChooseMsSqlServerWindow.baml
+d:\new\Schema\Schema.UI\bin\Debug\Schema.Core.dll
+d:\new\Schema\Schema.UI\bin\Debug\Schema.Core.pdb

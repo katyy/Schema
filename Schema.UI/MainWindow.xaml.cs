@@ -71,5 +71,21 @@
         //    string connectionString = @"Data Source=" + serverName + @";Initial Catalog=" + dataBaseName + @";Integrated Security=True;";
         //    lblError.Content = connectionString;
         //}
+        private void OpenMySqlServers(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("TODO");
+        }
+
+        private void OpenMsSqlServers(object sender, RoutedEventArgs e)
+        {
+            var serverWindow = new ChooseMsSqlServerWindow();
+            serverWindow.Show();
+        }
+
+        private void ExitClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+
+        }
     }
 }

@@ -8,7 +8,7 @@
     {
         string DbName { get; set; }
 
-        string ConnectionString { get; }
+        string ConnectionString { get; set; }
 
         DbDataAdapter DataAdapter { get; }
 

@@ -2,10 +2,36 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:UI="clr-namespace:Schema.UI"
-        xmlns:local="clr-namespace:Schema.UI.TreeViewList" Title="MainWindow" Height="617" Width="938" >
+        xmlns:local="clr-namespace:Schema.UI.TreeViewList" Title="Schema Builder" Height="617" Width="938" >
   
     <Grid>
-        <local:ServersTreeView></local:ServersTreeView>
+        <Menu Margin="0,0,0,550">
+            <MenuItem Header="File">
+            <MenuItem Header="MS Sql Server" Click="OpenMsSqlServers" >
+                <MenuItem.ToolTip>
+                    <ToolTip>
+                        Click here to add database from MS Sql Server
+                    </ToolTip>
+                </MenuItem.ToolTip>
+            </MenuItem>
+                <MenuItem Header="My Sql Server"  Click="OpenMySqlServers">
+                    <MenuItem.ToolTip>
+                        <ToolTip>
+                            Click here to add database from My Sql Server
+                        </ToolTip>
+                    </MenuItem.ToolTip>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Exit" Click="ExitClick"><!--InputGestureText="Alt-F4"-->
+                    <MenuItem.ToolTip>
+                    <ToolTip>
+                        Click here to exit
+                    </ToolTip>
+                </MenuItem.ToolTip>
+            </MenuItem>
+        </MenuItem>
+        </Menu>
+        <!--<local:ServersTreeView></local:ServersTreeView>-->
         <!--<TreeView x:Name="foldersItem"      
           Width="Auto" Background="#FFFFFFFF"
           BorderBrush="#FFFFFFFF"

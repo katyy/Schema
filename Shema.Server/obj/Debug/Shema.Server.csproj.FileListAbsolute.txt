@@ -12,3 +12,5 @@ d:\new\Schema\Shema.Server\bin\Debug\Schema.UI.exe
 d:\new\Schema\Shema.Server\bin\Debug\Aga.Controls.dll
 d:\new\Schema\Shema.Server\bin\Debug\Schema.UI.pdb
 d:\new\Schema\Shema.Server\bin\Debug\Aga.Controls.pdb
+d:\new\Schema\Shema.Server\bin\Debug\Schema.Core.dll
+d:\new\Schema\Shema.Server\bin\Debug\Schema.Core.pdb

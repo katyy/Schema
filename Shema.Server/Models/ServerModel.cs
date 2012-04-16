@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     
-    using Schema.UI.TreeViewList.Combobox;
+
 
     public class ServerModel
     {
@@ -13,7 +13,5 @@
         public string Password { get; set; }
 
         public List<string> DatabasesName { get; set; }
-
-        public List<DbOption> Options { get; set; }
     }
 }

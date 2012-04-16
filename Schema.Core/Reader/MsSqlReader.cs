@@ -11,11 +11,12 @@
 
         public string ConnectionString
         {
-            get
-            {
-                return @"Data Source=.\LOCALHOST;AttachDbFilename=" + this.DbName + ";Integrated Security=True";
-                //return @"Data Source=SIRICHENKOE\SIRICHENKO;Initial Catalog=Petition;Integrated Security=True;";
-            }
+            get; set;
+
+            // {
+            //     //return @"Data Source=.\LOCALHOST;AttachDbFilename=" + this.DbName + ";Integrated Security=True";
+            //    //return @"Data Source=SIRICHENKOE\SIRICHENKO;Initial Catalog=Petition;Integrated Security=True;";
+            // }
         }
 
         public DbDataAdapter DataAdapter

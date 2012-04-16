@@ -58,14 +58,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ChooseMsSqlServerWindow.xaml.cs">
+      <DependentUpon>ChooseMsSqlServerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\ButtonVisibilityConverter.cs" />
     <Compile Include="EditBox\BoolToVisibilityConverter.cs" />
-    <Compile Include="TreeViewList\Combobox\DbCustomer.cs" />
-    <Compile Include="TreeViewList\Combobox\DbOption.cs" />
     <Compile Include="TreeViewList\ServerImageConverter.cs" />
     <Compile Include="TreeViewList\ServersTreeViewModel.cs" />
     <Compile Include="TreeViewList\ServersTreeView.xaml.cs">
       <DependentUpon>ServersTreeView.xaml</DependentUpon>
     </Compile>
+    <Page Include="ChooseMsSqlServerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -111,6 +117,10 @@
     <ProjectReference Include="..\Aga.Controls\Aga.Controls.csproj">
       <Project>{D17CD489-1B14-47EB-8C22-C189D078AEC9}</Project>
       <Name>Aga.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Schema.Core\Schema.Core.csproj">
+      <Project>{D6E30640-9840-4DAD-8736-8D97A01474ED}</Project>
+      <Name>Schema.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
