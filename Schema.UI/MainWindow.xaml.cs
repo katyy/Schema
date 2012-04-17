@@ -1,91 +1,54 @@
 ﻿namespace Schema.UI
 {
-    using System;
+    using System.ComponentModel;
     using System.Windows;
     using System.Windows.Controls;
 
-    using Shema.Server;
+    using Schema.Core.Models;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        public static ChooseMsSqlServerWindow serverWindow ;
+        public static DatabaseModel Model;
+        public TextBox textbox = new TextBox{Text = "111"};
+       
+
+
         public MainWindow()
         {
-            InitializeComponent();
+           InitializeComponent();
+           Stack.Children.Add(textbox);
         }
         
-        //private void Window_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    foreach (var name in ServerGetter.GetMsSqlServerNames())
-        //    {
-        //        var item = new TreeViewItem
-        //            {
-        //                Header = name,
-        //                Tag = name + ",", 
-        //                FontWeight = FontWeights.Normal
-        //               };
-        //       item.Expanded += this.ServerExpanded;
-        //      foldersItem.Items.Add(item);
-        //    }
-        // }
-
-        //private void ServerExpanded(object sender, RoutedEventArgs e)
-        //{
-        //    var item = (TreeViewItem)sender;
-            
-        //    if (item.Items.Count >= 1 )
-        //    {
-        //        return;
-        //    }
-
-        //    try
-        //    {
-        //        foreach (var databaseName in ServerGetter.GetDataBases(item.Header.ToString()))
-        //        {
-        //            var subitem = new TreeViewItem
-        //                {
-        //                    Header = databaseName,
-        //                    Tag = databaseName, 
-        //                    FontWeight = FontWeights.Normal
-        //                };
-        //            subitem.Expanded += this.DataBaseExpanded;
-        //            item.Items.Add(subitem);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        this.lblError.Content = ex.Message;
-        //    }
-        //}
-
-        //private void DataBaseExpanded(object sender, RoutedEventArgs e)
-        //{
-        //    var item = (TreeViewItem)sender;
-            
-        //    var dataBaseName = item.Header;
-        //    var ph = (TreeViewItem)item.Parent;
-        //   var serverName = ph.Header;
-          
-        //    string connectionString = @"Data Source=" + serverName + @";Initial Catalog=" + dataBaseName + @";Integrated Security=True;";
-        //    lblError.Content = connectionString;
-        //}
         private void OpenMySqlServers(object sender, RoutedEventArgs e)
         {
+           
+            var t = Model;
             MessageBox.Show("TODO");
         }
 
         private void OpenMsSqlServers(object sender, RoutedEventArgs e)
         {
-            var serverWindow = new ChooseMsSqlServerWindow();
+            serverWindow = new ChooseMsSqlServerWindow();
+            serverWindow.Owner = this;
             serverWindow.Show();
         }
 
         private void ExitClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
-
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+           
+          
+        }
+
+       
     }
 }

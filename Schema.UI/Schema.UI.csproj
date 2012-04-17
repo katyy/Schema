@@ -63,6 +63,8 @@
     </Compile>
     <Compile Include="Converters\ButtonVisibilityConverter.cs" />
     <Compile Include="EditBox\BoolToVisibilityConverter.cs" />
+    <Compile Include="MoveResize\MoveThumb.cs" />
+    <Compile Include="MoveResize\ResizeThumb.cs" />
     <Compile Include="TreeViewList\ServerImageConverter.cs" />
     <Compile Include="TreeViewList\ServersTreeViewModel.cs" />
     <Compile Include="TreeViewList\ServersTreeView.xaml.cs">

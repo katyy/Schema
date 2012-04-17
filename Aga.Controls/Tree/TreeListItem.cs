@@ -20,7 +20,7 @@ namespace Aga.Controls.Tree
 			internal set
 			{
 				_node = value;
-				OnPropertyChanged("Node");
+				this.OnPropertyChanged("Node");
 			}
 		}
 
