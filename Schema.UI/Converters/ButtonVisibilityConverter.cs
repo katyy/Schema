@@ -16,9 +16,6 @@ namespace Schema.UI.Converters
 
     using Shema.Server.Models;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class ButtonVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

@@ -7,17 +7,17 @@
     <Grid>
         <Menu Margin="0,0,0,550">
             <MenuItem Header="File">
-            <MenuItem Header="MS Sql Server" Click="OpenMsSqlServers" >
+            <MenuItem Header="MSSql Server" Click="OpenMsSqlServers" >
                 <MenuItem.ToolTip>
                     <ToolTip>
-                        Click here to add database from MS Sql Server
+                        Click here to add database from MSSql Server
                     </ToolTip>
                 </MenuItem.ToolTip>
             </MenuItem>
-                <MenuItem Header="My Sql Server"  Click="OpenMySqlServers">
+                <MenuItem Header="MySql Server"  Click="OpenMySqlServers">
                     <MenuItem.ToolTip>
                         <ToolTip>
-                            Click here to add database from My Sql Server
+                            Click here to add database from MySql Server
                         </ToolTip>
                     </MenuItem.ToolTip>
                 </MenuItem>
