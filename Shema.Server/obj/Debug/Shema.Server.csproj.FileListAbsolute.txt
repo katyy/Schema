@@ -14,3 +14,14 @@ d:\new\Schema\Shema.Server\bin\Debug\Schema.UI.pdb
 d:\new\Schema\Shema.Server\bin\Debug\Aga.Controls.pdb
 d:\new\Schema\Shema.Server\bin\Debug\Schema.Core.dll
 d:\new\Schema\Shema.Server\bin\Debug\Schema.Core.pdb
+D:\downloads\new\Schema\Shema.Server\bin\Debug\Shema.Server.dll
+D:\downloads\new\Schema\Shema.Server\bin\Debug\Shema.Server.pdb
+D:\downloads\new\Schema\Shema.Server\bin\Debug\Schema.UI.exe
+D:\downloads\new\Schema\Shema.Server\bin\Debug\Aga.Controls.dll
+D:\downloads\new\Schema\Shema.Server\bin\Debug\Schema.Core.dll
+D:\downloads\new\Schema\Shema.Server\bin\Debug\Schema.UI.pdb
+D:\downloads\new\Schema\Shema.Server\bin\Debug\Aga.Controls.pdb
+D:\downloads\new\Schema\Shema.Server\bin\Debug\Schema.Core.pdb
+D:\downloads\new\Schema\Shema.Server\obj\Debug\ResolveAssemblyReference.cache
+D:\downloads\new\Schema\Shema.Server\obj\Debug\Shema.Server.dll
+D:\downloads\new\Schema\Shema.Server\obj\Debug\Shema.Server.pdb

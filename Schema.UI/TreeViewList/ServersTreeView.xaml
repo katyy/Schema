@@ -27,12 +27,7 @@
                             Converter={StaticResource boolToVis},
                             ConverterParameter=True}" />
         </Style>
-        <Style TargetType="{x:Type Button}" x:Key="ButtonStyle">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Visibility" Value="{Binding Converter={StaticResource ButtonVisiBility}}"/>
-            
-        </Style>
-
+        
     </UserControl.Resources>
 
     <tree:TreeList Name="_tree" >
@@ -45,7 +40,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <tree:RowExpander/>
                                     <Image Source="{Binding Converter={StaticResource RegImageConverter}}"  Margin="0, 0, 5, 0"/>
-                                    <TextBlock Text="{Binding Name}"></TextBlock>
+                                    <TextBlock Text="{Binding Path=Name}"></TextBlock>
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -53,7 +48,7 @@
                     <GridViewColumn  Width="70" x:Name="color"  >
                         <GridViewColumn.CellTemplate >  
                             <DataTemplate>                         
-                                <ComboBox SelectedValuePath="Content"   SelectedIndex="0"  Margin="10,10,0,13" Name="comboBoxAutentication" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <ComboBox SelectedValuePath="Content"   SelectedIndex="0"  Margin="10,10,0,13" x:Name="comboBoxAutentication" HorizontalAlignment="Left" VerticalAlignment="Top">
                                     <ComboBoxItem Tag="Hidden" FontFamily="Verdana" FontSize="12" FontWeight="Bold">
                                         <StackPanel Orientation="Horizontal">
                                             <Image   Source="/images/1334425794_windows_users.png" ></Image>
@@ -80,12 +75,21 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Password" Width="100" x:Name="Password">
+                    <GridViewColumn   Header="Password" x:Name="HeaderPassword"  Width="100" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Width="{Binding ElementName=Password, Path=ActualWidth}"  Text="{Binding Path=Password}"   Style="{StaticResource GridBlockStyle}"/>
-                                    <TextBox Text="{Binding Path=Password}"   Style="{StaticResource GridEditStyle}" />
+                                    <TextBlock   Width="{Binding ElementName=HeaderPassword, Path=ActualWidth}" Text="{Binding Path=Password, Mode=TwoWay}"  Style="{StaticResource GridBlockStyle}" />
+                                    <TextBox  Text="{Binding Path=Password, Mode=TwoWay}" Style="{StaticResource GridEditStyle}"  />
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                 
                                 </Grid>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

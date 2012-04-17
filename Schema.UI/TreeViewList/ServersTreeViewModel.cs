@@ -27,16 +27,16 @@ namespace Schema.UI.TreeViewList
                     yield return
                         new ServerModel
                             {
-                                Name = s,
+                                Name = s
                              };
                 }
             }
             else if (key != null)
             {
-                foreach (var databaseName in ServerGetter.GetDataBases(key.Name))
-                {
-                    yield return new DataBaseModel { Name = databaseName };
-                }
+                //foreach (var databaseName in ServerGetter.GetDataBases(key))
+                //{
+                //    yield return new DataBaseModel { Name = databaseName };
+                //}
               }
         }
 

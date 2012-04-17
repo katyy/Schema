@@ -31,34 +31,6 @@
             </MenuItem>
         </MenuItem>
         </Menu>
-        <!--<local:ServersTreeView></local:ServersTreeView>-->
-        <!--<TreeView x:Name="foldersItem"      
-          Width="Auto" Background="#FFFFFFFF"
-          BorderBrush="#FFFFFFFF"
-          Foreground="#FFFFFFFF">
-            <TreeView.Resources>
-                <Style TargetType="{x:Type TreeViewItem}">
-                    <Setter Property="HeaderTemplate">
-                        <Setter.Value>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                               <Image Name="img"  Width="20" Height="20" Stretch="Fill"
-                                      Source="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
-                                        AncestorType={x:Type TreeViewItem}},
-                                        Path=Tag,
-                                        Converter={x:Static UI:HeaderToImageConverter.Instance}}"
-                                    />
-                                    <TextBlock Width="300"  Text="{Binding}" Margin="5,0" />
-                                    <TextBox Name="Login" Text="Login"></TextBox>
-                                    <TextBox Name="Password" Text="Password"></TextBox>
-                                </StackPanel>
-                            </DataTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </TreeView.Resources>
-        </TreeView>
-        <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="215,12,0,0" Name="lblError" VerticalAlignment="Top" />-->
-       
+            
     </Grid>
 </Window>

@@ -17,7 +17,7 @@ namespace Aga.Controls.Tree
 
             public NodeCollection(TreeNode owner)
             {
-                _owner = owner;
+                this._owner = owner;
             }
 
             protected override void ClearItems()

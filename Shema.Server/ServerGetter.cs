@@ -1,5 +1,6 @@
 ﻿namespace Shema.Server
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
@@ -40,10 +41,27 @@
            return serverList;
        }
 
-        public static List<string> GetDataBases(string serverName)
+        public static List<string> GetDataBases(ServerModel serverModel)
         {
-           var server = new Server(serverName);
-           return (from Database db in server.Databases select db.Name).ToList();
+            try
+            {
+                Server server;
+                if (!(string.IsNullOrWhiteSpace(serverModel.UserName) && string.IsNullOrWhiteSpace(serverModel.Password)))
+                {
+                    var connection = new ServerConnection(serverModel.Name, serverModel.UserName, serverModel.Password);
+                    server = new Server(connection);
+                }
+                else
+                {
+                    server = new Server(serverModel.Name);
+                }
+
+                return (from Database db in server.Databases select db.Name).ToList();
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
         }
     }
 }
