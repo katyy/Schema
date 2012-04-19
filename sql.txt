@@ -1,3 +1,0 @@
-SELECT * FROM INFORMATION_SCHEMA.ROUTINES;
-select * from sys.objects where (type='TF' or type='FN');
-select * from sys.objects where type_desc like '%fun%';
