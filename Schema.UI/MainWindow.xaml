@@ -4,7 +4,7 @@
         WindowStartupLocation="CenterScreen"
         xmlns:UI="clr-namespace:Schema.UI"
         xmlns:local="clr-namespace:Schema.UI.TreeViewList" xmlns:s="clr-namespace:Schema.UI.MoveResize"
-        Title="Schema Builder"   Height="617" Width="938" Loaded="Window_Loaded"  WindowState="Maximized" >
+        Title="Schema Builder"   Height="617" Width="938" Loaded="Window_Loaded"  WindowState="Maximized" x:Name="mainWindow" >
     <Window.Resources>
         <!-- MoveThumb Template -->
         <ControlTemplate x:Key="MoveThumbTemplate" TargetType="{x:Type s:MoveThumb}">
@@ -44,8 +44,8 @@
         </ControlTemplate>
 
     </Window.Resources>
-  
-    <StackPanel x:Name="Stack">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel x:Name="Stack" ScrollViewer.VerticalScrollBarVisibility="Auto">
         <Menu Height="21" HorizontalAlignment="Left" >
             <MenuItem Header="File">
                 <MenuItem Header="MSSql Server" Click="OpenMsSqlServers">
@@ -67,9 +67,11 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <Canvas x:Name="MainCanvas" >
+       
+            <Canvas x:Name="MainCanvas">
+               
             <!--TextBox-->
-            <!--<ContentControl Width="130"
+          <ContentControl Width="130"
                       Height="130"
                       Padding="2"
                       Canvas.Left="360"
@@ -86,12 +88,30 @@
                     <TextBox Text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit."/>
                     </Border>
                 </Grid>
-            </ContentControl>-->
+            </ContentControl>
 
-           
+            <!--TextBox-->
+            <!--<ContentControl Width="130"
+                      Height="130"
+                      Padding="2"
+                      Canvas.Left="360"
+                      Canvas.Top="60"
+                       Template="{StaticResource DesignerItemTemplate}">
+                <Grid>
+                    <Border CornerRadius="5"
+                  IsHitTestVisible="False"
+                  BorderBrush="#E0E0E0"
+                  BorderThickness="0,1,0,0"
+                  Background="Red"/>
+                 <Border Background="WhiteSmoke" CornerRadius="5" Margin="5,5,5,25" IsHitTestVisible="False"/>
+                <Border BorderBrush="Black" BorderThickness="1,1,0,0" CornerRadius="5" Margin="5,5,5,25">
+                        <TextBlock Text= "Lorem ipsum dolor sit amet, consectetuer adipiscing elit."/>
+                   </Border>
+                </Grid>
+            </ContentControl>-->
         </Canvas>
-        
+      
    
     </StackPanel>
-    
+    </ScrollViewer>
 </Window>

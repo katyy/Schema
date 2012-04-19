@@ -62,7 +62,7 @@
                 {
                     mainWindow.MainCanvas.Children.Clear();
                     var tables = MainWindow.Model.Tables;
-                    var count = (int)(mainWindow.Width / 110);
+                    var count = (int)(mainWindow.ActualWidth / 120);
                     var width = 0;
                     var height = 10;
                     for (var i = 0; i < tables.Count; i++)
@@ -113,46 +113,23 @@
         private void AddTable(string name, MainWindow mainWindow, int w, int h)
         {
             var blackBrush = new SolidColorBrush { Color = Colors.Black };
-            //var blueBrush = new SolidColorBrush { Color = Colors.LightBlue };
-            //var whiteSmokeBrush = new SolidColorBrush { Color = Colors.WhiteSmoke };
-            //var blueBorder = new Border
-            //    {
-            //        CornerRadius = new CornerRadius(5),
-            //        Background = blueBrush,
-            //        BorderThickness = new Thickness(0, 1, 0, 0)
-            //    };
-            //var whiteBorder = new Border
-            //    {
-            //        Background = whiteSmokeBrush,
-            //        CornerRadius = new CornerRadius(5),
-            //        Margin = new Thickness(5, 5, 5, 25)
-            //    };
-
-
-            var text = new TextBox
+            var whiteSmokeBrush = new SolidColorBrush { Color = Colors.WhiteSmoke };
+        
+            var text = new TextBlock
             {
-                Text = name,
-                FontSize = 11,
-                Margin = new Thickness(1, 1, 0, 0),
-                Foreground = blackBrush,
-                TextWrapping = TextWrapping.Wrap,
-                AcceptsReturn = true,
-                BorderThickness = new Thickness(0),
+                Text = name
             };
 
             var border = new Border
                  {
-                    BorderBrush = blackBrush,
+                     BorderBrush = blackBrush,
                      BorderThickness = new Thickness(1, 1, 1, 1),
                      CornerRadius = new CornerRadius(5),
                      Margin = new Thickness(15, 15, 15, 15),
                      Child = text,
-                     Background = blackBrush
+                     Background = whiteSmokeBrush
                  };
-            //var grid = new Grid();
-            //grid.Children.Add(blueBorder);
-            //grid.Children.Add(whiteBorder);
-            //grid.Children.Add(border);
+           
             var contentControl = new ContentControl
             {
                 MinWidth = 100,
