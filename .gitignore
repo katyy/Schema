@@ -7,20 +7,10 @@
 /Schema.DataAccess.txt
 /Shema.CLI/bin
 /Shema.CLI/obj
-/Schema.DataAccess/obj
-/Schema.DataAccess/bin
-/Schema.Core/obj
-
-/Schema.Core/obj
-/Shema.CLI/obj
 /Schema.UI/obj
 /Schema.UI/bin
-<<<<<<< HEAD
-/Schema.UI/bin
-/Schema.UI/obj
-/Schema.UI/bin
-/Schema.UI/obj
-=======
 /Aga.Controls/bin
 /Aga.Controls/obj
->>>>>>> 88e2177df568abb571b696844dbccfdd19ac0fb8
+/Shema.Server/bin
+/Shema.Server/obj
+
