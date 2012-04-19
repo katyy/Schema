@@ -36,6 +36,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aga.Controls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Aga.Controls.dll</HintPath>
+    </Reference>
     <Reference Include="Shema.Server">
       <HintPath>..\Shema.Server\bin\Debug\Shema.Server.dll</HintPath>
     </Reference>
@@ -116,10 +120,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Aga.Controls\Aga.Controls.csproj">
-      <Project>{D17CD489-1B14-47EB-8C22-C189D078AEC9}</Project>
-      <Name>Aga.Controls</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Schema.Core\Schema.Core.csproj">
       <Project>{D6E30640-9840-4DAD-8736-8D97A01474ED}</Project>
       <Name>Schema.Core</Name>
