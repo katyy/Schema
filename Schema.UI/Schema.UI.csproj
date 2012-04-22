@@ -40,11 +40,35 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Aga.Controls.dll</HintPath>
     </Reference>
+    <Reference Include="GraphSharp">
+      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\GraphSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphSharp.Contracts">
+      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\GraphSharp.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphSharp.Controls">
+      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\GraphSharp.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Contracts">
+      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\Microsoft.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickGraph">
+      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\QuickGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="RibbonControlsLibrary">
+      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\RibbonControlsLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Shema.Server">
       <HintPath>..\Shema.Server\bin\Debug\Shema.Server.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Controls.Theming">
+      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\System.Windows.Controls.Theming.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Theming.ExpressionDark">
+      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\System.Windows.Controls.Theming.ExpressionDark.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -56,6 +80,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFExtensions">
+      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\WPFExtensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -65,9 +92,10 @@
     <Compile Include="ChooseMsSqlServerWindow.xaml.cs">
       <DependentUpon>ChooseMsSqlServerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ActiveConverter.cs" />
     <Compile Include="Converters\ButtonVisibilityConverter.cs" />
     <Compile Include="Converters\EditBoxConverter.cs" />
-    <Compile Include="MoveResize\MoveThumb.cs" />
+    <Compile Include="Table\SampleVertex.cs" />
     <Compile Include="TreeViewList\ServerImageConverter.cs" />
     <Compile Include="TreeViewList\ServersTreeViewModel.cs" />
     <Compile Include="TreeViewList\ServersTreeView.xaml.cs">
