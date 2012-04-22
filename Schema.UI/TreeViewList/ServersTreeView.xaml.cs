@@ -1,14 +1,17 @@
 ﻿namespace Schema.UI.TreeViewList
 {
     using System.Data;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
+    using System.Windows.Shapes;
 
     using Aga.Controls.Tree;
 
     using Schema.Core.Helpers;
     using Schema.Core.Reader;
+    using Schema.UI.MoveResize;
 
     using Shema.Server.Models;
 
@@ -58,9 +61,17 @@
                 var db = ModelFiller.GetModel(mssqlReader, dataSet);
                 MainWindow.Model = db;
                 var mainWindow = MainWindow.serverWindow.Owner as MainWindow;
+
                 if (mainWindow != null)
                 {
                     mainWindow.MainCanvas.Children.Clear();
+                    var path = new Path
+                      {
+                          Stroke = new SolidColorBrush { Color = Colors.Blue},
+                          StrokeThickness = 1,
+                          Data = new GeometryGroup()
+                      };
+                    mainWindow.MainCanvas.Children.Add(path);
                     var tables = MainWindow.Model.Tables;
                     var count = (int)(mainWindow.ActualWidth / 120);
                     var width = 0;
@@ -79,6 +90,34 @@
 
                         this.AddTable(tables[i].Name, mainWindow, width, height);
                     }
+
+                    foreach (var referance in db.Tables)
+                    {
+                        var name = referance.Name;
+                        if (referance.Keys == null)
+                        {
+                            continue;
+                        }
+
+                        foreach (var k in referance.Keys)
+                        {
+                            var refName = k.ReferanceTable;
+                            if (!string.IsNullOrEmpty(refName))
+                            {
+                                var myThumb1 = mainWindow.MainCanvas.Children.Cast<FrameworkElement>().FirstOrDefault(nextElement => nextElement.Name == name) as MoveThumb;
+                                var myThumb2 = mainWindow.MainCanvas.Children.Cast<FrameworkElement>().FirstOrDefault(nextElement => nextElement.Name == refName) as MoveThumb;
+                                if (myThumb1 != null)
+                                {
+                                    mainWindow.connectors.Children.Add(myThumb1.LinkTo(myThumb2));
+                                    var geometryGroup = path.Data as GeometryGroup;
+                                    if (geometryGroup != null)
+                                    {
+                                        geometryGroup.Children.Add(myThumb1.LinkTo(myThumb2));
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
 
                MainWindow.serverWindow.Close();
@@ -87,7 +126,6 @@
             {
                 MessageBox.Show("Sorry.Try again.");
             }
-
         }
 
         private string CreateConnectionString(ServerModel serverModel, DataBaseModel dataBase)
@@ -112,37 +150,47 @@
 
         private void AddTable(string name, MainWindow mainWindow, int w, int h)
         {
-            var blackBrush = new SolidColorBrush { Color = Colors.Black };
-            var whiteSmokeBrush = new SolidColorBrush { Color = Colors.WhiteSmoke };
-        
-            var text = new TextBlock
-            {
-                Text = name
-            };
-
-            var border = new Border
-                 {
-                     BorderBrush = blackBrush,
-                     BorderThickness = new Thickness(1, 1, 1, 1),
-                     CornerRadius = new CornerRadius(5),
-                     Margin = new Thickness(15, 15, 15, 15),
-                     Child = text,
-                     Background = whiteSmokeBrush
-                 };
+            var table = new MoveThumb
+                {
+                    Title = name,
+                    Template = (ControlTemplate)mainWindow.Resources["TableTemplate"],
+                    Name = name
+                };
+            Canvas.SetLeft(table, w);
+            Canvas.SetTop(table, h);
+            mainWindow.MainCanvas.Children.Add(table);
            
-            var contentControl = new ContentControl
-            {
-                MinWidth = 100,
-                Height = HeightEl,
-                MinHeight = 50,
-                Width = WidthEl,
-                Template = (ControlTemplate)mainWindow.Resources["DesignerItemTemplate"],
-                Content = border
-            };
+            //var blackBrush = new SolidColorBrush { Color = Colors.Black };
+            //var whiteSmokeBrush = new SolidColorBrush { Color = Colors.WhiteSmoke };
 
-            Canvas.SetLeft(contentControl, w);
-            Canvas.SetTop(contentControl, h);
-            mainWindow.MainCanvas.Children.Add(contentControl);
+            //var text = new TextBlock
+            //{
+            //    Text = name
+            //};
+
+            //var border = new Border
+            //     {
+            //         BorderBrush = blackBrush,
+            //         BorderThickness = new Thickness(1, 1, 1, 1),
+            //         CornerRadius = new CornerRadius(5),
+            //         Margin = new Thickness(15, 15, 15, 15),
+            //         Child = text,
+            //         Background = whiteSmokeBrush
+            //     };
+
+            //var contentControl = new ContentControl
+            //{
+            //    MinWidth = 100,
+            //    Height = HeightEl,
+            //    MinHeight = 50,
+            //    Width = WidthEl,
+            //    Template = (ControlTemplate)mainWindow.Resources["DesignerItemTemplate"],
+            //    Content = border
+            //};
+
+            //Canvas.SetLeft(contentControl, w);
+            //Canvas.SetTop(contentControl, h);
+            //mainWindow.MainCanvas.Children.Add(contentControl);
         }
     }
 }
