@@ -12,8 +12,8 @@
     using QuickGraph;
 
     using Schema.Core.Helpers;
+    using Schema.Core.Models;
     using Schema.Core.Reader;
-  //  using Schema.UI.MoveResize;
     using Schema.UI.Table;
 
     using Shema.Server.Models;
@@ -59,118 +59,60 @@
 
             if (!string.IsNullOrEmpty(connectionString) && dataBase != null)
             {
-                var dataSet = new DataSet("dbDataSet");
-                var mssqlReader = new MsSqlReader(dataBase.Name, connectionString);
-                var db = ModelFiller.GetModel(mssqlReader, dataSet);
-                MainWindow.Model = db;
+                var db = this.GetDataBaseModel(dataBase.Name, connectionString);
+
                 var mainWindow = MainWindow.serverWindow.Owner as MainWindow;
                 if (mainWindow != null)
                 {
-                   // CreateGraph(mainWindow);
-                 mainWindow.Clear();
-                 foreach (var table in db.Tables)
+                    InsertInfo(db, mainWindow);
+                    mainWindow.graphLayout.Children.Clear();
+                    mainWindow._graph.Clear();
+                    foreach (var obj1 in db.Tables.Select(table => new TableVertex(table)))
                     {
-                        mainWindow.CreateGraph(table.Name, table);
+                        mainWindow._graph.AddVertex(obj1);
                     }
-                   var test = mainWindow.zoomControl.FindName("graphLayout") as GraphSharp.Controls.GraphLayout;
+
+                    var graphLayout = mainWindow.zoomControl.FindName("graphLayout") as GraphSharp.Controls.GraphLayout;
 
 
-                        foreach (var referance in db.Tables)
+                    foreach (var referance in db.Tables)
+                    {
+                        var name = referance.Name;
+                        if (referance.Keys == null)
                         {
-                            var name = referance.Name;
-                            if (referance.Keys == null)
+                            continue;
+                        }
+
+                        foreach (var k in referance.Keys)
+                        {
+                            var refName = k.ReferanceTable;
+                            if (string.IsNullOrEmpty(refName))
                             {
                                 continue;
                             }
 
-                            foreach (var k in referance.Keys)
-                            {
-                                var refName = k.ReferanceTable;
-                                if (!string.IsNullOrEmpty(refName))
-                                {
-                                  var el1=  test.Graph.Vertices.Cast<SampleVertex>().Where(s => s.Text == name).FirstOrDefault();
-                                   var el2=  test.Graph.Vertices.Cast<SampleVertex>().Where(s => s.Text == refName).FirstOrDefault();
-                                    mainWindow.add(el1, el2);
-                                    //var myThumb1 = mainWindow.zoomControl.Children.Cast<FrameworkElement>().FirstOrDefault(nextElement => nextElement.Name == name) as MoveThumb;
-                                    //var myThumb2 = mainWindow.zoomControl.Children.Cast<FrameworkElement>().FirstOrDefault(nextElement => nextElement.Name == refName) as MoveThumb;
-                                    //if (myThumb1 != null)
-                                    //{
-                                    //    mainWindow.connectors.Children.Add(myThumb1.LinkTo(myThumb2));
-                                    //    var geometryGroup = path.Data as GeometryGroup;
-                                    //    if (geometryGroup != null)
-                                    //    {
-                                    //        geometryGroup.Children.Add(myThumb1.LinkTo(myThumb2));
-                                    //    }
-                                    }
-                                }
-                            }
+                            var el1 = graphLayout.Graph.Vertices.Cast<TableVertex>().FirstOrDefault(s => s.Text == name);
+                            var el2 = graphLayout.Graph.Vertices.Cast<TableVertex>().FirstOrDefault(s => s.Text == refName);
+                            mainWindow._graph.AddEdge(new Edge<object>(el1, el2));
+                        }
+                    }
                 }
-                ////if (mainWindow != null)
-                ////{
-                ////    mainWindow.MainCanvas.Children.Clear();
-                ////    var path = new Path
-                ////      {
-                ////          Stroke = new SolidColorBrush { Color = Colors.Blue},
-                ////          StrokeThickness = 1,
-                ////          Data = new GeometryGroup()
-                ////      };
-                ////    mainWindow.MainCanvas.Children.Add(path);
-                ////    var tables = MainWindow.Model.Tables;
-                ////    var count = (int)(mainWindow.ActualWidth / 120);
-                ////    var width = 0;
-                ////    var height = 10;
-                ////    for (var i = 0; i < tables.Count; i++)
-                ////    {
-                ////        if (i % count == 0)
-                ////        {
-                ////            width = 10;
-                ////            height += HeightEl + 20;
-                ////        }
-                ////        else
-                ////        {
-                ////            width += WidthEl + 20;
-                ////        }
 
-                ////        this.AddTable(tables[i].Name, mainWindow, width, height);
-                ////    }
-
-                ////    foreach (var referance in db.Tables)
-                ////    {
-                ////        var name = referance.Name;
-                ////        if (referance.Keys == null)
-                ////        {
-                ////            continue;
-                ////        }
-
-                ////        foreach (var k in referance.Keys)
-                ////        {
-                ////            var refName = k.ReferanceTable;
-                ////            if (!string.IsNullOrEmpty(refName))
-                ////            {
-                ////                var myThumb1 = mainWindow.MainCanvas.Children.Cast<FrameworkElement>().FirstOrDefault(nextElement => nextElement.Name == name) as MoveThumb;
-                ////                var myThumb2 = mainWindow.MainCanvas.Children.Cast<FrameworkElement>().FirstOrDefault(nextElement => nextElement.Name == refName) as MoveThumb;
-                ////                if (myThumb1 != null)
-                ////                {
-                ////                    mainWindow.connectors.Children.Add(myThumb1.LinkTo(myThumb2));
-                ////                    var geometryGroup = path.Data as GeometryGroup;
-                ////                    if (geometryGroup != null)
-                ////                    {
-                ////                        geometryGroup.Children.Add(myThumb1.LinkTo(myThumb2));
-                ////                    }
-                ////                }
-                ////            }
-                ////        }
-                ////    }
-                ////}
-
-              MainWindow.serverWindow.Close();
+                MainWindow.serverWindow.Close();
             }
             else
             {
                 MessageBox.Show("Sorry.Try again.");
             }
         }
-        
+
+        private DatabaseModel GetDataBaseModel(string dataBaseName, string connectionString)
+        {
+            var dataSet = new DataSet("dbDataSet");
+            var mssqlReader = new MsSqlReader(dataBaseName, connectionString);
+            return ModelFiller.GetModel(mssqlReader, dataSet);
+        }
+
         private string CreateConnectionString(ServerModel serverModel, DataBaseModel dataBase)
         {
             string passwordUsersOrIntegrated;
@@ -191,49 +133,104 @@
             return @"Data Source=" + serverModel.Name + @";Initial Catalog=" + dataBase.Name + passwordUsersOrIntegrated;
         }
 
-        //private void AddTable(string name, MainWindow mainWindow, int w, int h)
-        //{
-        //    var table = new MoveThumb
-        //        {
-        //            Title = name,
-        //            Template = (ControlTemplate)mainWindow.Resources["TableTemplate"],
-        //            Name = name
-        //        };
-        //    Canvas.SetLeft(table, w);
-        //    Canvas.SetTop(table, h);
-        //    mainWindow.MainCanvas.Children.Add(table);
-           
-        //    //var blackBrush = new SolidColorBrush { Color = Colors.Black };
-        //    //var whiteSmokeBrush = new SolidColorBrush { Color = Colors.WhiteSmoke };
+        private void InsertInfo(DatabaseModel db, MainWindow mainWindow)
+        {
+            mainWindow.InfoTree.Children.Clear();
+            var tree = new TreeView();
+            var folderUri = mainWindow.GetUriString("Images/folder.png");
+            if (db.Tables != null)
+            {
+                var tableItem = mainWindow.GetTreeViewItem("Tables", folderUri);
+                foreach (var table in db.Tables)
+                {
+                    var tableNameItem = mainWindow.GetTreeViewItem(table.Name, folderUri);
+                    if (table.Columns != null)
+                    {
+                        tableNameItem.Items.Add(mainWindow.GetColumnItem(table.Columns, folderUri));
+                    }
+                    if (table.Keys != null)
+                    {
+                        tableNameItem.Items.Add(mainWindow.GetKeyItem(table.Keys, folderUri));
+                    }
+                    if (table.Trigers != null)
+                    {
+                        tableNameItem.Items.Add(mainWindow.GetTriggerItem(table.Trigers, folderUri));
+                    }
+                    if (table.Indexes != null)
+                    {
+                        tableNameItem.Items.Add(mainWindow.GetIndexItem(table.Indexes, folderUri));
+                   }
+                        tableItem.Items.Add(tableNameItem);
+                }
 
-        //    //var text = new TextBlock
-        //    //{
-        //    //    Text = name
-        //    //};
+                tree.Items.Add(tableItem);
+            }
 
-        //    //var border = new Border
-        //    //     {
-        //    //         BorderBrush = blackBrush,
-        //    //         BorderThickness = new Thickness(1, 1, 1, 1),
-        //    //         CornerRadius = new CornerRadius(5),
-        //    //         Margin = new Thickness(15, 15, 15, 15),
-        //    //         Child = text,
-        //    //         Background = whiteSmokeBrush
-        //    //     };
+            if (db.Views != null)
+            {
+                var viewItem = mainWindow.GetTreeViewItem("Views", folderUri);
+                foreach (var view in db.Views)
+                {
+                    var viewNameItem = mainWindow.GetTreeViewItem(view.Name, folderUri);
+                    if (view.Columns != null)
+                    {
+                        viewNameItem.Items.Add(mainWindow.GetColumnItem(view.Columns, folderUri));
+                    }
+                    if (view.Trigers != null)
+                    {
+                        viewNameItem.Items.Add(mainWindow.GetTriggerItem(view.Trigers, folderUri));
+                    }
+                     if (view.Indexes != null)
+                     {
+                         viewNameItem.Items.Add(mainWindow.GetIndexItem(view.Indexes, folderUri));
+                     }
+                    viewItem.Items.Add(viewNameItem);
+                }
 
-        //    //var contentControl = new ContentControl
-        //    //{
-        //    //    MinWidth = 100,
-        //    //    Height = HeightEl,
-        //    //    MinHeight = 50,
-        //    //    Width = WidthEl,
-        //    //    Template = (ControlTemplate)mainWindow.Resources["DesignerItemTemplate"],
-        //    //    Content = border
-        //    //};
+                tree.Items.Add(viewItem);
+            }
 
-        //    //Canvas.SetLeft(contentControl, w);
-        //    //Canvas.SetTop(contentControl, h);
-        //    //mainWindow.MainCanvas.Children.Add(contentControl);
-        //}
+            if (db.Functions != null)
+            {
+                var functionItem = mainWindow.GetTreeViewItem("Functions", folderUri);
+                foreach (var function in db.Functions)
+                {
+                    var item = mainWindow.GetTreeViewItem(function.Key, folderUri);
+                    foreach (var parametr in function.Value)
+                    {
+                        var value = string.Format(
+                            "{0} ( {1}, {2})", parametr.Parametr, parametr.DataType, parametr.TypeDescription);
+                        item.Items.Add(mainWindow.GetTreeViewItem(value, folderUri));
+                    }
+
+
+                    functionItem.Items.Add(item);
+                }
+
+                tree.Items.Add(functionItem);
+            }
+
+            if (db.Procedures != null)
+            {
+                var procedureItem = mainWindow.GetTreeViewItem("Procedures", folderUri);
+                foreach (var procedure in db.Procedures)
+                {
+                    var item = mainWindow.GetTreeViewItem(procedure.Key, folderUri);
+                    foreach (var parametr in procedure.Value)
+                    {
+                        var value = string.Format(
+                            "{0} ( {1}, {2})", parametr.Parametr, parametr.DataType, parametr.TypeDescription);
+                        item.Items.Add(mainWindow.GetTreeViewItem(value, folderUri));
+                    }
+                    
+                    procedureItem.Items.Add(item);
+                }
+
+                tree.Items.Add(procedureItem);
+            }
+            
+            mainWindow.InfoTree.Children.Add(tree);
+        }
+
     }
 }

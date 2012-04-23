@@ -47,6 +47,10 @@
                     return SortOrder.Ascending;
                 case "1":
                     return SortOrder.Descending;
+                case "FALSE":
+                    return SortOrder.Ascending;
+                case "TRUE":
+                    return SortOrder.Descending;
             }
 
             return null;

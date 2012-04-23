@@ -6,127 +6,58 @@
         xmlns:Table="clr-namespace:Schema.UI.Table"
         xmlns:zoom="clr-namespace:WPFExtensions.Controls;assembly=WPFExtensions"
         xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls" Title="Schema Builder"   Height="617" Width="938" Loaded="Window_Loaded"  WindowState="Maximized" x:Name="mainWindow" >
-    <!--<Window.Resources>-->
-        <!-- MoveThumb Template -->
-        <!--<ControlTemplate x:Key="MoveThumbTemplate" TargetType="{x:Type s:MoveThumb}">
-            <Rectangle Fill="Transparent"/>
-        </ControlTemplate>
-        
-        <ControlTemplate x:Key="TableTemplate">
-            <StackPanel>
-                <Border BorderBrush="Gainsboro" BorderThickness="25,15,25,25"  Margin="5,5,5,25">
-                    <TextBlock FontSize="11"
-                     Margin="1,1,0,0"
-                     Foreground="DimGray"
-                     TextWrapping="Wrap"
-                     x:Name="tplTextBlock"
-                     Text="Lorem ipsum dolor sit amet"/>
-                </Border>
-               
-            </StackPanel>
-        </ControlTemplate>-->
-        <!-- ResizeDecorator Template -->
-        <!--<ControlTemplate x:Key="ResizeDecoratorTemplate" TargetType="{x:Type Control}">
-            <Grid>
-                <s:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 -4 0 0"
-                       VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
-                <s:ResizeThumb Width="3" Cursor="SizeWE" Margin="-4 0 0 0"
-                       VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
-                <s:ResizeThumb Width="3" Cursor="SizeWE" Margin="0 0 -4 0"
-                       VerticalAlignment="Stretch" HorizontalAlignment="Right"/>
-                <s:ResizeThumb Height="3" Cursor="SizeNS" Margin="0 0 0 -4"
-                       VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>
-                <s:ResizeThumb Width="7" Height="7" Cursor="SizeNWSE" Margin="-6 -6 0 0"
-                       VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                <s:ResizeThumb Width="7" Height="7" Cursor="SizeNESW" Margin="0 -6 -6 0"
-                       VerticalAlignment="Top" HorizontalAlignment="Right"/>
-                <s:ResizeThumb Width="7" Height="7" Cursor="SizeNESW" Margin="-6 0 0 -6"
-                       VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                <s:ResizeThumb Width="7" Height="7" Cursor="SizeNWSE" Margin="0 0 -6 -6"
-                       VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
-            </Grid>
-        </ControlTemplate>-->
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+        </Menu>
+        <!-- The bar of buttons docked along the right edge: -->
+        <StackPanel x:Name="buttonBar" Orientation="Horizontal" DockPanel.Dock="Right">
+            <StackPanel.LayoutTransform>
+                <RotateTransform Angle="90"/>
+            </StackPanel.LayoutTransform>
+            <Button x:Name="panePropertiesButton" MouseEnter="panePropertiesButton_MouseEnter">
+                Properties
+            </Button>
+            <Button Name="pane2Button" MouseEnter="pane2Button_MouseEnter">
+                 Info
+            </Button>
+        </StackPanel>
 
+        <Grid x:Name="parentGrid" Grid.IsSharedSizeScope="True">
+            <!-- Layer 0: -->
+            <Grid x:Name="layerMain" MouseEnter="layerMain_MouseEnter" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="21" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-        <!-- Designer Item Template-->
-        <!--<ControlTemplate  x:Key="DesignerItemTemplate" TargetType="ContentControl">
-            <Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}">
-                <s:MoveThumb Template="{StaticResource MoveThumbTemplate}" Cursor="SizeAll"/>-->
-                <!--<Control Template="{StaticResource ResizeDecoratorTemplate}"/>-->
-                <!--<ContentPresenter Content="{TemplateBinding ContentControl.Content}"/>
-            </Grid>
-        </ControlTemplate>-->
-
-    <!--</Window.Resources>-->
-      <Grid x:Name="Stack" ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <Menu Height="21" HorizontalAlignment="Left" >
-                <MenuItem Header="File">
-                    <MenuItem Header="MSSql Server" Click="OpenMsSqlServers">
-                        <MenuItem.ToolTip>
-                            <ToolTip>Click here to add database from MSSql Server</ToolTip>
-                        </MenuItem.ToolTip>
+                <Menu Height="21" HorizontalAlignment="Left" Grid.Row="0" >
+                    <MenuItem Header="File">
+                        <MenuItem Header="MSSql Server" Click="OpenMsSqlServers">
+                            <MenuItem.ToolTip>
+                                <ToolTip>Click here to add database from MSSql Server</ToolTip>
+                            </MenuItem.ToolTip>
+                        </MenuItem>
+                        <MenuItem Header="MySql Server" Click="OpenMySqlServers">
+                            <MenuItem.ToolTip>
+                                <ToolTip>Click here to add database from MySql Server</ToolTip>
+                            </MenuItem.ToolTip>
+                        </MenuItem>
+                        <Separator />
+                        <MenuItem Header="Exit" Click="ExitClick">
+                            <MenuItem.ToolTip>
+                                <ToolTip>Click here to exit</ToolTip>
+                            </MenuItem.ToolTip>
+                        </MenuItem>
                     </MenuItem>
-                    <MenuItem Header="MySql Server" Click="OpenMySqlServers">
-                        <MenuItem.ToolTip>
-                            <ToolTip>Click here to add database from MySql Server</ToolTip>
-                        </MenuItem.ToolTip>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem Header="Exit" Click="ExitClick">
-                        <MenuItem.ToolTip>
-                            <ToolTip>Click here to exit</ToolTip>
-                        </MenuItem.ToolTip>
-                    </MenuItem>
-                </MenuItem>
-            </Menu>
-  
-            <!--<Canvas x:Name="MainCanvas">-->
-
-            <!--<Path Stroke="Black" StrokeThickness="1">
-                <Path.Data>
-                    <GeometryGroup x:Name="connectors"/>
-                </Path.Data>
-            </Path>
-            <s:MoveThumb x:Name="myThumb1" Title="111" Canvas.Left="270" Canvas.Top="63.75" Template="{StaticResource TableTemplate}"/>
-            <s:MoveThumb x:Name="myThumb2"  Title="222" Canvas.Left="270" Canvas.Top="212.5" Template="{StaticResource TableTemplate}"/>
-            <s:MoveThumb x:Name="myThumb3" Canvas.Left="430" Canvas.Top="212.5" Template="{StaticResource TableTemplate}"/>-->
-          
-            <!--TextBox-->
-            <!--<ContentControl Width="130"
-                      Height="130"
-                      Padding="2"
-                      Canvas.Left="380"
-                      Canvas.Top="340"
-                     Template="{StaticResource DesignerItemTemplate}">
-                <Grid>
-                    <Border CornerRadius="5"
-                  IsHitTestVisible="False"
-                  BorderBrush="#E0E0E0"
-                  BorderThickness="0,1,0,0"></Border>
-                 
-                    <Border BorderBrush="Black"
-                  BorderThickness="0,0,0,1"
-                  CornerRadius="5" />
-                    <Border Background="WhiteSmoke" CornerRadius="5" Margin="5,5,5,25" IsHitTestVisible="False"/>
-                    <Border BorderBrush="White" BorderThickness="0,0,1,1" CornerRadius="5" Margin="5,5,5,25"/>
-                    <Border BorderBrush="Black" BorderThickness="1,1,0,0" CornerRadius="5" Margin="5,5,5,25">
-                        <TextBox FontSize="11"
-                     Margin="1,1,0,0"
-                     Foreground="DimGray"
-                     TextWrapping="Wrap"
-                     AcceptsReturn="True"
-                     BorderThickness="0"
-                     Background="Transparent"
-                     Text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit."/>
-                    </Border>
-                </Grid>
-            </ContentControl>
-                </Canvas>-->
-        <Grid Height="500" Width="500" x:Name="tableGrid">
-            <Grid.Resources>
-                <local:ActiveConverter x:Key="activeConverter"/>
-                <DataTemplate DataType="{x:Type Table:SampleVertex}">
-                    <Border  Background="{Binding Path=Active, Converter={StaticResource activeConverter}, NotifyOnTargetUpdated=True}"
+                </Menu>
+                <Grid Grid.Row="1"  Grid.Column="0" x:Name="tableGrid">
+                    <Grid.Resources>
+                        <local:ActiveConverter x:Key="activeConverter"/>
+                        <DataTemplate DataType="{x:Type Table:TableVertex}">
+                            <Border  Background="{Binding Path=Active, Converter={StaticResource activeConverter}, NotifyOnTargetUpdated=True}"
 					BorderBrush="LightGray" 
 					BorderThickness="1,1,1,1"
 					CornerRadius="10,10,10,10"
@@ -134,37 +65,96 @@
 					HorizontalAlignment="Center"
 					VerticalAlignment="Center"
 					Cursor="Hand">
-                        <Border.ContextMenu>
-                            <ContextMenu>
-                            <MenuItem x:Name="Change" Click="MenuItem_Click" Tag="{Binding}">
-                                    <MenuItem.Header>
-                                    <TextBlock HorizontalAlignment="Left"> Change</TextBlock>
-                                    </MenuItem.Header>
-                                </MenuItem>
-                                <MenuItem x:Name="Properties" Click="MenuItem_Click" Tag="{Binding}">
-                                    <MenuItem.Header>
-                                        <TextBlock HorizontalAlignment="Left">Properties</TextBlock>
-                                    </MenuItem.Header>
-                                </MenuItem>
-                            </ContextMenu>
-                        </Border.ContextMenu>
-                        <Border.ToolTip>
-                            <ToolTip>
-                                <TextBlock Text="{Binding Text}" />
-                            </ToolTip>
-                        </Border.ToolTip>
-                        <TextBlock Text="{Binding Text}" TextAlignment="Center" TextWrapping="Wrap" />
-                    </Border>
-                </DataTemplate>
-            </Grid.Resources>
-     
+                                <Border.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem x:Name="Change" Click="MenuItem_Click" Tag="{Binding}">
+                                            <MenuItem.Header>
+                                                <TextBlock HorizontalAlignment="Left"> Change</TextBlock>
+                                            </MenuItem.Header>
+                                        </MenuItem>
+                                        <MenuItem x:Name="Properties" Click="Properties_Click" Tag="{Binding}">
+                                            <MenuItem.Header>
+                                                <TextBlock HorizontalAlignment="Left">Properties</TextBlock>
+                                            </MenuItem.Header>
+                                        </MenuItem>
+                                    </ContextMenu>
+                                </Border.ContextMenu>
+                                <Border.ToolTip>
+                                    <ToolTip>
+                                        <TextBlock Text="{Binding Text}" />
+                                    </ToolTip>
+                                </Border.ToolTip>
+                                <TextBlock Text="{Binding Text}" TextAlignment="Center" TextWrapping="Wrap" />
+                            </Border>
+                        </DataTemplate>
+                    </Grid.Resources>
 
-              <zoom:ZoomControl Name="zoomControl" >
-                <graphsharp:GraphLayout x:Name="graphLayout"
+
+                    <zoom:ZoomControl x:Name="zoomControl" >
+                        <graphsharp:GraphLayout x:Name="graphLayout"
                                     Graph="{Binding Path=Graph}"
                                     LayoutAlgorithmType="{Binding Path=LayoutAlgorithm}"
                                     OverlapRemovalAlgorithmType="FSA" />
-            </zoom:ZoomControl>
+                    </zoom:ZoomControl>
+                </Grid>
+
+            </Grid>
+
+            <!-- Layer 1: -->
+            <Grid x:Name="layerProperties" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition SharedSizeGroup="column1" Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <!-- Column 0 is empty, but column 1 contains a Grid and a GridSplitter: -->
+                <Grid Grid.Column="1" Background="WhiteSmoke"  MouseEnter="pane1_MouseEnter">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="0" Background="DarkGray">
+                         <Button x:Name="panePropertiesPin" Width="26" DockPanel.Dock="Right" Click="panePropertiesPin_Click" Background="White">
+                         <Image x:Name="panePropertiesPinImage" Source="Images\unpin.png"/>
+                        </Button>
+                        <TextBlock Padding="8" TextTrimming="CharacterEllipsis" DockPanel.Dock="Left" Text="Properties" />
+                     </DockPanel>
+                    <DockPanel Grid.Row="1" x:Name="TableName" >
+                        <TextBlock Text="No information" Margin="20,5,5,5"/>
+                    </DockPanel>
+                   <DockPanel Grid.Row="2" x:Name="PropertyTree"  >
+                    </DockPanel>
+                </Grid>
+                <GridSplitter Width="5" Grid.Column="1"  HorizontalAlignment="Left"/>
+            </Grid>
+   
+
+
+        <!-- Layer 2: -->
+        <Grid Name="layer2" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition SharedSizeGroup="column2" Width="auto"/>
+            </Grid.ColumnDefinitions>
+                 <Grid Grid.Column="1" Background="WhiteSmoke" MouseEnter="pane2_MouseEnter">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                    <DockPanel Grid.Row="0" Background="DarkGray">
+                    <Button Name="pane2Pin" Width="26" DockPanel.Dock="Right" Click="pane2Pin_Click" Background="White">
+                        <Image Name="pane2PinImage" Source="Images/unpin.png"/>
+                    </Button>
+                    <TextBlock Padding="8" TextTrimming="CharacterEllipsis" DockPanel.Dock="Left" Text="Info"></TextBlock>
+                </DockPanel>
+<DockPanel Grid.Row="1" x:Name="InfoTree">
+    
+</DockPanel>
+            </Grid>
+            <GridSplitter Width="5" Grid.Column="1" HorizontalAlignment="Left"/>
         </Grid>
-    </Grid>
+        </Grid>
+    </DockPanel>
 </Window>

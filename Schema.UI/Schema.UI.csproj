@@ -95,7 +95,7 @@
     <Compile Include="Converters\ActiveConverter.cs" />
     <Compile Include="Converters\ButtonVisibilityConverter.cs" />
     <Compile Include="Converters\EditBoxConverter.cs" />
-    <Compile Include="Table\SampleVertex.cs" />
+    <Compile Include="Table\TableVertex.cs" />
     <Compile Include="TreeViewList\ServerImageConverter.cs" />
     <Compile Include="TreeViewList\ServersTreeViewModel.cs" />
     <Compile Include="TreeViewList\ServersTreeView.xaml.cs">
@@ -161,7 +161,30 @@
   <ItemGroup>
     <Resource Include="Images\1334425794_windows_users.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\unpin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\pin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\key.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\key1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\index.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\trigger.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
