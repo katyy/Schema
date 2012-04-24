@@ -93,18 +93,7 @@
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
         }
-
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            var menuItem = sender as MenuItem;
-            var vertex = menuItem.Tag as TableVertex;
-            if (vertex != null)
-            {
-                vertex.Change();
-            }
-        }
-
+        
         public void panePropertiesPin_Click(object sender, RoutedEventArgs e)
         {
             if (this.panePropertiesButton.Visibility == Visibility.Collapsed)

@@ -18,7 +18,7 @@
                 Properties
             </Button>
             <Button Name="pane2Button" MouseEnter="pane2Button_MouseEnter">
-                 Info
+                 Information
             </Button>
         </StackPanel>
 
@@ -67,12 +67,7 @@
 					Cursor="Hand">
                                 <Border.ContextMenu>
                                     <ContextMenu>
-                                        <MenuItem x:Name="Change" Click="MenuItem_Click" Tag="{Binding}">
-                                            <MenuItem.Header>
-                                                <TextBlock HorizontalAlignment="Left"> Change</TextBlock>
-                                            </MenuItem.Header>
-                                        </MenuItem>
-                                        <MenuItem x:Name="Properties" Click="Properties_Click" Tag="{Binding}">
+                                          <MenuItem x:Name="Properties" Click="Properties_Click" Tag="{Binding}">
                                             <MenuItem.Header>
                                                 <TextBlock HorizontalAlignment="Left">Properties</TextBlock>
                                             </MenuItem.Header>
@@ -123,6 +118,7 @@
                         <TextBlock Text="No information" Margin="20,5,5,5"/>
                     </DockPanel>
                    <DockPanel Grid.Row="2" x:Name="PropertyTree"  >
+                                               
                     </DockPanel>
                 </Grid>
                 <GridSplitter Width="5" Grid.Column="1"  HorizontalAlignment="Left"/>
@@ -139,7 +135,7 @@
                  <Grid Grid.Column="1" Background="WhiteSmoke" MouseEnter="pane2_MouseEnter">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
+                    
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
@@ -147,11 +143,11 @@
                     <Button Name="pane2Pin" Width="26" DockPanel.Dock="Right" Click="pane2Pin_Click" Background="White">
                         <Image Name="pane2PinImage" Source="Images/unpin.png"/>
                     </Button>
-                    <TextBlock Padding="8" TextTrimming="CharacterEllipsis" DockPanel.Dock="Left" Text="Info"></TextBlock>
+                        <TextBlock Padding="8" TextTrimming="CharacterEllipsis" DockPanel.Dock="Left" Text="Information"></TextBlock>
                 </DockPanel>
 <DockPanel Grid.Row="1" x:Name="InfoTree">
-    
-</DockPanel>
+                        
+                    </DockPanel>
             </Grid>
             <GridSplitter Width="5" Grid.Column="1" HorizontalAlignment="Left"/>
         </Grid>
