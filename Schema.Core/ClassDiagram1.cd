@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Schema.Core.Models.ColumnModel">
+    <Position X="7.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAABAAAAAAAIAABAAAAAQAAAAAAA=</HashCode>
+      <FileName>Models\ColumnModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schema.Core.Models.DatabaseModel">
+    <Position X="2.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAQAAAAAAAAAAQAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DatabaseModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schema.Core.Models.IndexModel">
+    <Position X="2.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAgABAAAQAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Models\IndexModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schema.Core.Models.KeyModel">
+    <Position X="7" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAACAACAAAAAgAAAABIAAQAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\KeyModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schema.Core.Models.TriggerModel">
+    <Position X="4.75" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TriggerModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schema.Core.Models.ViewModel" BaseTypeListCollapsed="true">
+    <Position X="7" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAoAAAA=</HashCode>
+      <FileName>Models\ViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.1" />
+  </Class>
+  <Class Name="Schema.Core.Models.Procedure.ParametrModel">
+    <Position X="4" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAKAAAAAAAIAAAAAAAAAAAAAAAAQAAAAEAA=</HashCode>
+      <FileName>Models\Procedure\ParametrModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schema.Core.Models.Procedure.ProcedureModel">
+    <Position X="2" Y="3" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Models\Procedure\ProcedureModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schema.Core.Models.Table.TableModel" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAACAAAAAQAAAAAAAAAAAAAAAoAAAA=</HashCode>
+      <FileName>Models\Table\TableModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Bottom" Position="0.152" />
+  </Class>
+  <Interface Name="Schema.Core.Models.Table.ITable">
+    <Position X="5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAoAAAA=</HashCode>
+      <FileName>Models\Table\ITable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
