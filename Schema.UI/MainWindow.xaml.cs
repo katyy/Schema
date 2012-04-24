@@ -13,7 +13,7 @@
     using Schema.Core.Models.Table;
     using Schema.UI.Table;
 
-    //  using Schema.UI.MoveResize;
+    using Shema.Server;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -24,15 +24,18 @@
         private ColumnDefinition column2CloneForLayer0;
         private ColumnDefinition column2CloneForLayer1;
 
+        public static List<string> ServerNames;
+
         public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
-           this.CreateGraph();
+            this.CreateGraph();
 
             this.column1CloneForLayer0 = new ColumnDefinition { SharedSizeGroup = "column1" };
             this.column2CloneForLayer0 = new ColumnDefinition { SharedSizeGroup = "column2" };
             this.column2CloneForLayer1 = new ColumnDefinition { SharedSizeGroup = "column2" };
+            ServerNames = ServerGetter.GetMsSqlServerNames();
         }
 
         public static ChooseMsSqlServerWindow serverWindow;
@@ -111,7 +114,7 @@
             this.layerProperties.Visibility = Visibility.Visible;
             Panel.SetZIndex(this.layerProperties, 1);
              Panel.SetZIndex(layer2, 0);
-         if (pane2Button.Visibility == Visibility.Visible)
+         if (this.paneInfoButton.Visibility == Visibility.Visible)
          {
              layer2.Visibility = Visibility.Collapsed;
          }
@@ -124,7 +127,7 @@
             {
                 this.layerProperties.Visibility = Visibility.Collapsed;
             }
-            if (pane2Button.Visibility == Visibility.Visible)
+            if (this.paneInfoButton.Visibility == Visibility.Visible)
             {
                 layer2.Visibility = Visibility.Collapsed;
             }
@@ -138,14 +141,14 @@
                 this.layerMain.ColumnDefinitions.Add(this.column1CloneForLayer0);
                 this.panePropertiesPinImage.Source = new BitmapImage(this.GetUriString("Images/pin.png"));
 
-                if (pane2Button.Visibility == Visibility.Collapsed)
+                if (this.paneInfoButton.Visibility == Visibility.Collapsed)
                 {
                     this.layerProperties.ColumnDefinitions.Add(this.column2CloneForLayer1);
                 }
             }
             if (paneNumber == 2)
             {
-                pane2Button.Visibility = Visibility.Collapsed;
+                this.paneInfoButton.Visibility = Visibility.Collapsed;
                 pane2PinImage.Source = new BitmapImage(this.GetUriString("Images/pin.png"));
                 this.layerMain.ColumnDefinitions.Add(this.column2CloneForLayer0);
                 if (panePropertiesButton.Visibility == Visibility.Collapsed)
@@ -168,7 +171,7 @@
             if (paneNumber == 2)
             {
                 layer2.Visibility = Visibility.Visible;
-                pane2Button.Visibility = Visibility.Visible;
+                this.paneInfoButton.Visibility = Visibility.Visible;
                 pane2PinImage.Source = new BitmapImage(this.GetUriString("Images/unpin.png"));
                 this.layerMain.ColumnDefinitions.Remove(this.column2CloneForLayer0);
                 this.layerProperties.ColumnDefinitions.Remove(this.column2CloneForLayer1);
@@ -298,7 +301,7 @@
             return new Uri("pack://application:,,,/Schema.UI;component/" + imagePath);
         }
 
-        private void pane2_MouseEnter(object sender, MouseEventArgs e)
+        private void paneInfo_MouseEnter(object sender, MouseEventArgs e)
         {
             if (panePropertiesButton.Visibility == Visibility.Visible)
             {
@@ -306,9 +309,9 @@
             }
         }
 
-        private void pane2Pin_Click(object sender, RoutedEventArgs e)
+        private void paneInfoPin_Click(object sender, RoutedEventArgs e)
         {
-            if (pane2Button.Visibility == Visibility.Collapsed)
+            if (this.paneInfoButton.Visibility == Visibility.Collapsed)
             {
                 this.UndockPane(2);
             }
@@ -319,7 +322,7 @@
         }
 
 
-        public void pane2Button_MouseEnter(object sender, RoutedEventArgs e)
+        public void paneInfoButton_MouseEnter(object sender, RoutedEventArgs e)
         {
             layer2.Visibility = Visibility.Visible;
             Panel.SetZIndex(layer2, 1);
@@ -333,7 +336,7 @@
 
         public void pane1_MouseEnter(object sender, RoutedEventArgs e)
         {
-            if (pane2Button.Visibility == Visibility.Visible)
+            if (this.paneInfoButton.Visibility == Visibility.Visible)
             {
                 layer2.Visibility = Visibility.Collapsed;
             }

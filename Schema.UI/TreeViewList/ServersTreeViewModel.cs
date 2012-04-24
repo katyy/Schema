@@ -20,7 +20,9 @@ namespace Schema.UI.TreeViewList
             var key = parent as ServerModel;
             if (parent == null)
             {
-                foreach (var s in ServerGetter.GetMsSqlServerNames())
+                MainWindow.ServerNames = MainWindow.ServerNames ?? ServerGetter.GetMsSqlServerNames();
+
+                foreach (var s in MainWindow.ServerNames)
                 {
                     yield return
                         new ServerModel

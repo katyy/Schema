@@ -7,9 +7,6 @@
         xmlns:zoom="clr-namespace:WPFExtensions.Controls;assembly=WPFExtensions"
         xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls" Title="Schema Builder"   Height="617" Width="938" Loaded="Window_Loaded"  WindowState="Maximized" x:Name="mainWindow" >
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
-        </Menu>
-        <!-- The bar of buttons docked along the right edge: -->
         <StackPanel x:Name="buttonBar" Orientation="Horizontal" DockPanel.Dock="Right">
             <StackPanel.LayoutTransform>
                 <RotateTransform Angle="90"/>
@@ -17,8 +14,8 @@
             <Button x:Name="panePropertiesButton" MouseEnter="panePropertiesButton_MouseEnter">
                 Properties
             </Button>
-            <Button Name="pane2Button" MouseEnter="pane2Button_MouseEnter">
-                 Information
+            <Button x:Name="paneInfoButton" MouseEnter="paneInfoButton_MouseEnter">
+                Information
             </Button>
         </StackPanel>
 
@@ -67,7 +64,7 @@
 					Cursor="Hand">
                                 <Border.ContextMenu>
                                     <ContextMenu>
-                                          <MenuItem x:Name="Properties" Click="Properties_Click" Tag="{Binding}">
+                                        <MenuItem x:Name="Properties" Click="Properties_Click" Tag="{Binding}">
                                             <MenuItem.Header>
                                                 <TextBlock HorizontalAlignment="Left">Properties</TextBlock>
                                             </MenuItem.Header>
@@ -101,7 +98,6 @@
                     <ColumnDefinition/>
                     <ColumnDefinition SharedSizeGroup="column1" Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <!-- Column 0 is empty, but column 1 contains a Grid and a GridSplitter: -->
                 <Grid Grid.Column="1" Background="WhiteSmoke"  MouseEnter="pane1_MouseEnter">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -109,48 +105,46 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <DockPanel Grid.Row="0" Background="DarkGray">
-                         <Button x:Name="panePropertiesPin" Width="26" DockPanel.Dock="Right" Click="panePropertiesPin_Click" Background="White">
-                         <Image x:Name="panePropertiesPinImage" Source="Images\unpin.png"/>
+                        <Button x:Name="panePropertiesPin" Width="26" DockPanel.Dock="Right" Click="panePropertiesPin_Click" Background="White">
+                            <Image x:Name="panePropertiesPinImage" Source="Images\unpin.png"/>
                         </Button>
                         <TextBlock Padding="8" TextTrimming="CharacterEllipsis" DockPanel.Dock="Left" Text="Properties" />
-                     </DockPanel>
+                    </DockPanel>
                     <DockPanel Grid.Row="1" x:Name="TableName" >
                         <TextBlock Text="No information" Margin="20,5,5,5"/>
                     </DockPanel>
-                   <DockPanel Grid.Row="2" x:Name="PropertyTree"  >
-                                               
+                    <DockPanel Grid.Row="2" x:Name="PropertyTree"  >
+
                     </DockPanel>
                 </Grid>
                 <GridSplitter Width="5" Grid.Column="1"  HorizontalAlignment="Left"/>
             </Grid>
-   
 
+            <!-- Layer 2: -->
+            <Grid x:Name="layer2" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition SharedSizeGroup="column2" Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1" Background="WhiteSmoke" MouseEnter="paneInfo_MouseEnter">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
 
-        <!-- Layer 2: -->
-        <Grid Name="layer2" Visibility="Collapsed">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition SharedSizeGroup="column2" Width="auto"/>
-            </Grid.ColumnDefinitions>
-                 <Grid Grid.Column="1" Background="WhiteSmoke" MouseEnter="pane2_MouseEnter">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
                     <DockPanel Grid.Row="0" Background="DarkGray">
-                    <Button Name="pane2Pin" Width="26" DockPanel.Dock="Right" Click="pane2Pin_Click" Background="White">
-                        <Image Name="pane2PinImage" Source="Images/unpin.png"/>
-                    </Button>
+                        <Button x:Name="pane2Pin" Width="26" DockPanel.Dock="Right" Click="paneInfoPin_Click" Background="White">
+                            <Image x:Name="pane2PinImage" Source="Images/unpin.png"/>
+                        </Button>
                         <TextBlock Padding="8" TextTrimming="CharacterEllipsis" DockPanel.Dock="Left" Text="Information"></TextBlock>
-                </DockPanel>
-<DockPanel Grid.Row="1" x:Name="InfoTree">
-                        
                     </DockPanel>
+                    <DockPanel Grid.Row="1" x:Name="InfoTree">
+
+                    </DockPanel>
+                </Grid>
+                <GridSplitter Width="5" Grid.Column="1" HorizontalAlignment="Left"/>
             </Grid>
-            <GridSplitter Width="5" Grid.Column="1" HorizontalAlignment="Left"/>
-        </Grid>
         </Grid>
     </DockPanel>
 </Window>

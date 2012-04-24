@@ -12,12 +12,6 @@
 
     public class ServerGetter
     {
-       //public static Dictionary<string, List<string>> GetServices()
-       // {
-       //     var serverNames = GetMsSqlServerNames();
-       //     return GetDataBases(serverNames);
-       // }
-
        public static List<string> GetMsSqlServerNames()
        {
            var dataTable = SmoApplication.EnumAvailableSqlServers();

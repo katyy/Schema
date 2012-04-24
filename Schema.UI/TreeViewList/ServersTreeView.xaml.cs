@@ -5,7 +5,6 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
-    using System.Windows.Shapes;
 
     using Aga.Controls.Tree;
 
@@ -23,11 +22,7 @@
     /// </summary>
     public partial class ServersTreeView : UserControl
     {
-        public const int WidthEl = 100;
-
-        public const int HeightEl = 70;
-
-        public ServersTreeView()
+       public ServersTreeView()
         {
             InitializeComponent();
             _tree.Model = new ServersTreeViewModel();
@@ -184,6 +179,7 @@
                      {
                          viewNameItem.Items.Add(mainWindow.GetIndexItem(view.Indexes, folderUri));
                      }
+
                     viewItem.Items.Add(viewNameItem);
                 }
 
@@ -202,7 +198,6 @@
                             "{0} ( {1}, {2})", parametr.Parametr, parametr.DataType, parametr.TypeDescription);
                         item.Items.Add(mainWindow.GetTreeViewItem(value, folderUri));
                     }
-
 
                     functionItem.Items.Add(item);
                 }
