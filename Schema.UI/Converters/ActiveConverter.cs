@@ -16,7 +16,7 @@ namespace Schema.UI.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var state = (bool)value;
-            return state ? new SolidColorBrush(Colors.WhiteSmoke) : new SolidColorBrush(Colors.LightSalmon);
+            return state ? new SolidColorBrush(Colors.WhiteSmoke) : new SolidColorBrush(Colors.SkyBlue);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

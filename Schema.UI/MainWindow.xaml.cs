@@ -68,6 +68,10 @@
         {
             var obj1 = new TableVertex("One");
             this._graph.AddVertex(obj1);
+            var obj2=new TableVertex("Two");
+            this._graph.AddVertex(obj2);
+              mainWindow._graph.AddEdge(new Edge<object>(obj1, obj2));
+
         }
 
         private void OpenMySqlServers(object sender, RoutedEventArgs e)
