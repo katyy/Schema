@@ -61,12 +61,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerGetter.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Schema.UI\Schema.UI.csproj">
-      <Project>{26FAA820-ABFC-4AE7-AB8B-30FD8406E6AB}</Project>
-      <Name>Schema.UI</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

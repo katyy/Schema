@@ -5,23 +5,23 @@
       xmlns:local="clr-namespace:Schema.UI.Converters"
         xmlns:Table="clr-namespace:Schema.UI.Table"
         xmlns:zoom="clr-namespace:WPFExtensions.Controls;assembly=WPFExtensions"
-        xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls" Title="Schema Builder"   Height="617" Width="938" Loaded="Window_Loaded"  WindowState="Maximized" x:Name="mainWindow" >
+        xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls" Title="Schema Builder"   Height="617" Width="938" Loaded="WindowLoaded"  WindowState="Maximized" x:Name="mainWindow" >
     <DockPanel>
         <StackPanel x:Name="buttonBar" Orientation="Horizontal" DockPanel.Dock="Right">
             <StackPanel.LayoutTransform>
                 <RotateTransform Angle="90"/>
             </StackPanel.LayoutTransform>
-            <Button x:Name="panePropertiesButton" MouseEnter="panePropertiesButton_MouseEnter">
+            <Button x:Name="panePropertiesButton" MouseEnter="PanePropertiesButtonMouseEnter">
                 Properties
             </Button>
-            <Button x:Name="paneInfoButton" MouseEnter="paneInfoButton_MouseEnter">
+            <Button x:Name="paneInfoButton" MouseEnter="PaneInfoButtonMouseEnter">
                 Information
             </Button>
         </StackPanel>
 
         <Grid x:Name="parentGrid" Grid.IsSharedSizeScope="True">
             <!-- Layer 0: -->
-            <Grid x:Name="layerMain" MouseEnter="layerMain_MouseEnter" >
+            <Grid x:Name="layerMain" MouseEnter="LayerMainMouseEnter" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="21" />
                     <RowDefinition Height="*" />
@@ -64,7 +64,7 @@
 					Cursor="Hand">
                                 <Border.ContextMenu>
                                     <ContextMenu>
-                                        <MenuItem x:Name="Properties" Click="Properties_Click" Tag="{Binding}">
+                                        <MenuItem x:Name="Properties" Click="PropertiesClick" Tag="{Binding}">
                                             <MenuItem.Header>
                                                 <TextBlock HorizontalAlignment="Left">Properties</TextBlock>
                                             </MenuItem.Header>
@@ -98,14 +98,14 @@
                     <ColumnDefinition/>
                     <ColumnDefinition SharedSizeGroup="column1" Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="1" Background="WhiteSmoke"  MouseEnter="pane1_MouseEnter">
+                <Grid Grid.Column="1" Background="WhiteSmoke"  MouseEnter="PanePropertiesMouseEnter">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <DockPanel Grid.Row="0" Background="DarkGray">
-                        <Button x:Name="panePropertiesPin" Width="26" DockPanel.Dock="Right" Click="panePropertiesPin_Click" Background="White">
+                        <Button x:Name="panePropertiesPin" Width="26" DockPanel.Dock="Right" Click="PanePropertiesPinClick" Background="White">
                             <Image x:Name="panePropertiesPinImage" Source="Images\unpin.png"/>
                         </Button>
                         <TextBlock Padding="8" TextTrimming="CharacterEllipsis" DockPanel.Dock="Left" Text="Properties" />
@@ -126,7 +126,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition SharedSizeGroup="column2" Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="1" Background="WhiteSmoke" MouseEnter="paneInfo_MouseEnter">
+                <Grid Grid.Column="1" Background="WhiteSmoke" MouseEnter="PaneInfoMouseEnter">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
 
@@ -134,7 +134,7 @@
                     </Grid.RowDefinitions>
 
                     <DockPanel Grid.Row="0" Background="DarkGray">
-                        <Button x:Name="pane2Pin" Width="26" DockPanel.Dock="Right" Click="paneInfoPin_Click" Background="White">
+                        <Button x:Name="pane2Pin" Width="26" DockPanel.Dock="Right" Click="PaneInfoPinClick" Background="White">
                             <Image x:Name="pane2PinImage" Source="Images/unpin.png"/>
                         </Button>
                         <TextBlock Padding="8" TextTrimming="CharacterEllipsis" DockPanel.Dock="Left" Text="Information"></TextBlock>

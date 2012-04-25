@@ -9,6 +9,7 @@ namespace Schema.UI.Table
     using System.ComponentModel;
 
     using Schema.Core.Models.Table;
+
     public class TableVertex : INotifyPropertyChanged
     {
         private bool active;

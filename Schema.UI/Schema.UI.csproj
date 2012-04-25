@@ -41,33 +41,50 @@
       <HintPath>..\libs\Aga.Controls.dll</HintPath>
     </Reference>
     <Reference Include="GraphSharp">
-      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\GraphSharp.dll</HintPath>
+      <HintPath>..\libs\GraphSharp.dll</HintPath>
     </Reference>
     <Reference Include="GraphSharp.Contracts">
-      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\GraphSharp.Contracts.dll</HintPath>
+      <HintPath>..\libs\GraphSharp.Contracts.dll</HintPath>
     </Reference>
     <Reference Include="GraphSharp.Controls">
-      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\GraphSharp.Controls.dll</HintPath>
+      <HintPath>..\libs\GraphSharp.Controls.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Contracts">
-      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\Microsoft.Contracts.dll</HintPath>
+      <HintPath>..\libs\Microsoft.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Smo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Microsoft.SqlServer.Smo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.SqlEnum, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Microsoft.SqlServer.SqlEnum.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.5.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="QuickGraph">
-      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\QuickGraph.dll</HintPath>
+      <HintPath>..\libs\QuickGraph.dll</HintPath>
     </Reference>
     <Reference Include="RibbonControlsLibrary">
-      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\RibbonControlsLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Shema.Server">
-      <HintPath>..\Shema.Server\bin\Debug\Shema.Server.dll</HintPath>
+      <HintPath>..\libs\RibbonControlsLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Controls.Theming">
-      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\System.Windows.Controls.Theming.dll</HintPath>
+      <HintPath>..\libs\System.Windows.Controls.Theming.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Controls.Theming.ExpressionDark">
-      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\System.Windows.Controls.Theming.ExpressionDark.dll</HintPath>
+      <HintPath>..\libs\System.Windows.Controls.Theming.ExpressionDark.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -81,7 +98,10 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WPFExtensions">
-      <HintPath>..\..\Downloads\GraphSharp-v1.0-sample\Sample\WPFExtensions.dll</HintPath>
+      <HintPath>..\libs\WPFExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="WPFToolkit">
+      <HintPath>..\libs\WPFToolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +115,7 @@
     <Compile Include="Converters\ActiveConverter.cs" />
     <Compile Include="Converters\ButtonVisibilityConverter.cs" />
     <Compile Include="Converters\EditBoxConverter.cs" />
+    <Compile Include="Helpers\CommonHelper.cs" />
     <Compile Include="Table\TableVertex.cs" />
     <Compile Include="TreeViewList\ServerImageConverter.cs" />
     <Compile Include="TreeViewList\ServersTreeViewModel.cs" />
@@ -150,6 +171,10 @@
     <ProjectReference Include="..\Schema.Core\Schema.Core.csproj">
       <Project>{D6E30640-9840-4DAD-8736-8D97A01474ED}</Project>
       <Name>Schema.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shema.Server\Shema.Server.csproj">
+      <Project>{70FC12AF-E26A-405D-A3F4-1446BFEBD7A9}</Project>
+      <Name>Shema.Server</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

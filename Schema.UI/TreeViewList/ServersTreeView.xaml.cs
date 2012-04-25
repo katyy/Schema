@@ -1,5 +1,6 @@
 ﻿namespace Schema.UI.TreeViewList
 {
+    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using System.Windows;
@@ -12,17 +13,20 @@
 
     using Schema.Core.Helpers;
     using Schema.Core.Models;
+    using Schema.Core.Models.Table;
     using Schema.Core.Reader;
     using Schema.UI.Table;
 
     using Shema.Server.Models;
+
+    using CommonHelper = Schema.UI.Helpers.CommonHelper;
 
     /// <summary>
     /// Interaction logic for ServersTreeView.xaml
     /// </summary>
     public partial class ServersTreeView : UserControl
     {
-       public ServersTreeView()
+        public ServersTreeView()
         {
             InitializeComponent();
             _tree.Model = new ServersTreeViewModel();
@@ -56,10 +60,10 @@
             {
                 var db = this.GetDataBaseModel(dataBase.Name, connectionString);
 
-                var mainWindow = MainWindow.serverWindow.Owner as MainWindow;
+                var mainWindow = MainWindow.ServerWindow.Owner as MainWindow;
                 if (mainWindow != null)
                 {
-                    InsertInfo(db, mainWindow);
+                    CommonHelper.InsertInfo(db, mainWindow);
                     mainWindow.graphLayout.Children.Clear();
                     mainWindow._graph.Clear();
                     foreach (var obj1 in db.Tables.Select(table => new TableVertex(table)))
@@ -68,36 +72,39 @@
                     }
 
                     var graphLayout = mainWindow.zoomControl.FindName("graphLayout") as GraphSharp.Controls.GraphLayout;
+                    this.AddReferances(graphLayout, db.Tables, mainWindow);
 
-
-                    foreach (var referance in db.Tables)
-                    {
-                        var name = referance.Name;
-                        if (referance.Keys == null)
-                        {
-                            continue;
-                        }
-
-                        foreach (var k in referance.Keys)
-                        {
-                            var refName = k.ReferanceTable;
-                            if (string.IsNullOrEmpty(refName))
-                            {
-                                continue;
-                            }
-
-                            var el1 = graphLayout.Graph.Vertices.Cast<TableVertex>().FirstOrDefault(s => s.Text == name);
-                            var el2 = graphLayout.Graph.Vertices.Cast<TableVertex>().FirstOrDefault(s => s.Text == refName);
-                            mainWindow._graph.AddEdge(new Edge<object>(el1, el2));
-                        }
-                    }
-                }
-
-                MainWindow.serverWindow.Close();
+               }
+                MainWindow.ServerWindow.Close();
             }
             else
             {
                 MessageBox.Show("Sorry.Try again.");
+            }
+        }
+
+      private void AddReferances(GraphSharp.Controls.GraphLayout graphLayout, List<TableModel> tables, MainWindow mainWindow)
+        {
+            foreach (var referance in tables)
+            {
+                var name = referance.Name;
+                if (referance.Keys == null)
+                {
+                    continue;
+                }
+
+                foreach (var k in referance.Keys)
+                {
+                    var refName = k.ReferanceTable;
+                    if (string.IsNullOrEmpty(refName))
+                    {
+                        continue;
+                    }
+
+                    var el1 = graphLayout.Graph.Vertices.Cast<TableVertex>().FirstOrDefault(s => s.Text == name);
+                    var el2 = graphLayout.Graph.Vertices.Cast<TableVertex>().FirstOrDefault(s => s.Text == refName);
+                    mainWindow._graph.AddEdge(new Edge<object>(el1, el2));
+                }
             }
         }
 
@@ -127,105 +134,5 @@
 
             return @"Data Source=" + serverModel.Name + @";Initial Catalog=" + dataBase.Name + passwordUsersOrIntegrated;
         }
-
-        private void InsertInfo(DatabaseModel db, MainWindow mainWindow)
-        {
-            mainWindow.InfoTree.Children.Clear();
-            var tree = new TreeView();
-            var folderUri = mainWindow.GetUriString("Images/folder.png");
-            if (db.Tables != null)
-            {
-                var tableItem = mainWindow.GetTreeViewItem("Tables", folderUri);
-                foreach (var table in db.Tables)
-                {
-                    var tableNameItem = mainWindow.GetTreeViewItem(table.Name, folderUri);
-                    if (table.Columns != null)
-                    {
-                        tableNameItem.Items.Add(mainWindow.GetColumnItem(table.Columns, folderUri));
-                    }
-                    if (table.Keys != null)
-                    {
-                        tableNameItem.Items.Add(mainWindow.GetKeyItem(table.Keys, folderUri));
-                    }
-                    if (table.Trigers != null)
-                    {
-                        tableNameItem.Items.Add(mainWindow.GetTriggerItem(table.Trigers, folderUri));
-                    }
-                    if (table.Indexes != null)
-                    {
-                        tableNameItem.Items.Add(mainWindow.GetIndexItem(table.Indexes, folderUri));
-                   }
-                        tableItem.Items.Add(tableNameItem);
-                }
-
-                tree.Items.Add(tableItem);
-            }
-
-            if (db.Views != null)
-            {
-                var viewItem = mainWindow.GetTreeViewItem("Views", folderUri);
-                foreach (var view in db.Views)
-                {
-                    var viewNameItem = mainWindow.GetTreeViewItem(view.Name, folderUri);
-                    if (view.Columns != null)
-                    {
-                        viewNameItem.Items.Add(mainWindow.GetColumnItem(view.Columns, folderUri));
-                    }
-                    if (view.Trigers != null)
-                    {
-                        viewNameItem.Items.Add(mainWindow.GetTriggerItem(view.Trigers, folderUri));
-                    }
-                     if (view.Indexes != null)
-                     {
-                         viewNameItem.Items.Add(mainWindow.GetIndexItem(view.Indexes, folderUri));
-                     }
-
-                    viewItem.Items.Add(viewNameItem);
-                }
-
-                tree.Items.Add(viewItem);
-            }
-
-            if (db.Functions != null)
-            {
-                var functionItem = mainWindow.GetTreeViewItem("Functions", folderUri);
-                foreach (var function in db.Functions)
-                {
-                    var item = mainWindow.GetTreeViewItem(function.Key, folderUri);
-                    foreach (var parametr in function.Value)
-                    {
-                        var value = string.Format(
-                            "{0} ( {1}, {2})", parametr.Parametr, parametr.DataType, parametr.TypeDescription);
-                        item.Items.Add(mainWindow.GetTreeViewItem(value, folderUri));
-                    }
-
-                    functionItem.Items.Add(item);
-                }
-
-                tree.Items.Add(functionItem);
-            }
-
-            if (db.Procedures != null)
-            {
-                var procedureItem = mainWindow.GetTreeViewItem("Procedures", folderUri);
-                foreach (var procedure in db.Procedures)
-                {
-                    var item = mainWindow.GetTreeViewItem(procedure.Key, folderUri);
-                    foreach (var parametr in procedure.Value)
-                    {
-                        var value = string.Format(
-                            "{0} ( {1}, {2})", parametr.Parametr, parametr.DataType, parametr.TypeDescription);
-                        item.Items.Add(mainWindow.GetTreeViewItem(value, folderUri));
-                    }
-                    
-                    procedureItem.Items.Add(item);
-                }
-
-                tree.Items.Add(procedureItem);
-            }
-            
-            mainWindow.InfoTree.Children.Add(tree);
-        }
-
-    }
+      }
 }
