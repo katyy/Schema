@@ -26,21 +26,21 @@
            get { return this._graph; }
        }
 
-       public string LayoutAlgorithm
-       {
-           get
-           {
-               return this.layoutAlgorithm;
-           }
+       //public string LayoutAlgorithm
+       //{
+       //    get
+       //    {
+       //        return this.layoutAlgorithm;
+       //    }
 
-           set
-           {
-               if (value != this.layoutAlgorithm)
-               {
-                   this.layoutAlgorithm = value;
-               }
-           }
-       }
+       //    set
+       //    {
+       //        if (value != this.layoutAlgorithm)
+       //        {
+       //            this.layoutAlgorithm = value;
+       //        }
+       //    }
+       //}
 
        public static List<string> ServerNames;
 
@@ -55,7 +55,7 @@
        private ColumnDefinition column2CloneForLayer1;
 
        //"EfficientSugiyama";//{ "Circular", "Tree", "FR", "BoundedFR", "KK", "ISOM", "LinLog", "EfficientSugiyama", "Sugiyama", "CompoundFDP" };
-       private string layoutAlgorithm = "CompoundFDP";
+       //private string layoutAlgorithm = "CompoundFDP";
 
         public MainWindow()
         {
@@ -251,6 +251,17 @@
             if (this.paneInfoButton.Visibility == Visibility.Visible)
             {
                 layer2.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void AlgorithmRadioButtonChecked(object sender, RoutedEventArgs e)
+        {
+            var menuItem = sender as RadioButton;
+            if (menuItem != null && graphLayout != null)
+            {
+                var algorithmName = (string)menuItem.Tag;
+                graphLayout.LayoutAlgorithmType = algorithmName;
+                graphLayout.Relayout();
             }
         }
     }

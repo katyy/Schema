@@ -49,7 +49,55 @@
                             </MenuItem.ToolTip>
                         </MenuItem>
                     </MenuItem>
-                </Menu>
+                    <MenuItem Header="Algorithm" >
+                        <MenuItem  Header="Tree">
+                            <MenuItem.Icon>
+                                <RadioButton Tag="Tree" GroupName="Algorithm" Checked="AlgorithmRadioButtonChecked"   />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem  Header="FR">
+                            <MenuItem.Icon>
+                                <RadioButton Tag="FR" Checked="AlgorithmRadioButtonChecked" GroupName="Algorithm" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem  Header="BoundedFR">
+                            <MenuItem.Icon>
+                                <RadioButton Tag="BoundedFR" Checked="AlgorithmRadioButtonChecked" GroupName="Algorithm" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="KK">
+                            <MenuItem.Icon>
+                                <RadioButton Tag="KK"  Checked="AlgorithmRadioButtonChecked" GroupName="Algorithm" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem  Header="ISOM">
+                            <MenuItem.Icon>
+                                <RadioButton Tag="ISOM" Checked="AlgorithmRadioButtonChecked" GroupName="Algorithm" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem  Header="LinLog">
+                            <MenuItem.Icon>
+                                <RadioButton Tag="LinLog" Checked="AlgorithmRadioButtonChecked" GroupName="Algorithm" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem  Header="EfficientSugiyama">
+                            <MenuItem.Icon>
+                                <RadioButton Tag="EfficientSugiyama" Checked="AlgorithmRadioButtonChecked" GroupName="Algorithm" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem  Header="CompoundFDP">
+                            <MenuItem.Icon>
+                                <RadioButton Tag="CompoundFDP" IsChecked="True" Checked="AlgorithmRadioButtonChecked" GroupName="Algorithm" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                       <MenuItem Header="Circular">
+                            <MenuItem.Icon>
+                                <RadioButton Tag="Circular" Checked="AlgorithmRadioButtonChecked" GroupName="Algorithm" ></RadioButton>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </MenuItem>
+                 
+                 </Menu>
                 <Grid Grid.Row="1"  Grid.Column="0" x:Name="tableGrid">
                     <Grid.Resources>
                         <local:ActiveConverter x:Key="activeConverter"/>
@@ -84,9 +132,10 @@
 
                     <zoom:ZoomControl x:Name="zoomControl" >
                         <graphsharp:GraphLayout x:Name="graphLayout"
-                                    Graph="{Binding Path=Graph}"
-                                    LayoutAlgorithmType="{Binding Path=LayoutAlgorithm}"
+                                    Graph="{Binding Path=Graph}" 
+                                    LayoutAlgorithmType="CompoundFDP"
                                     OverlapRemovalAlgorithmType="FSA" />
+                        <!--LayoutAlgorithmType="{Binding Path=LayoutAlgorithm}"-->
                     </zoom:ZoomControl>
                 </Grid>
 
