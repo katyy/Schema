@@ -1,30 +1,24 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SampleVertex.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Schema.UI.Table
+﻿namespace Schema.UI.Table
 {
     using System.ComponentModel;
 
-    using Schema.Core.Models.Table;
+    using Core.Models.Table;
 
     public class TableVertex : INotifyPropertyChanged
     {
-        private bool active;
+        private bool _active;
 
-        private string text;
+        private string _text;
 
         public TableVertex(string text)
         {
-            this.Text = text;
+            Text = text;
         }
 
         public TableVertex(TableModel model)
         {
-            this.Text = model.Name;
-            this.Model = model;
+            Text = model.Name;
+            Model = model;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -33,13 +27,13 @@ namespace Schema.UI.Table
         {
             get
             {
-                return this.active;
+                return _active;
             }
 
             set
             {
-                this.active = value;
-                this.NotifyChanged("Active");
+                _active = value;
+                NotifyChanged("Active");
             }
         }
         
@@ -47,13 +41,13 @@ namespace Schema.UI.Table
         {
             get
             {
-                return this.text;
+                return _text;
             }
 
             set
             {
-                this.text = value;
-                this.NotifyChanged("Text");
+                _text = value;
+                NotifyChanged("Text");
             }
         }
 
@@ -61,14 +55,14 @@ namespace Schema.UI.Table
 
         public void Change()
         {
-            this.Active = !this.Active;
+            Active = !Active;
         }
         
         protected void NotifyChanged(string propertyName)
         {
-            if (this.PropertyChanged != null)
+            if (PropertyChanged != null)
             {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
      }

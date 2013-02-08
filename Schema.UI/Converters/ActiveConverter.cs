@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ActiveConverter.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Schema.UI.Converters
+﻿namespace Schema.UI.Converters
 {
     using System;
     using System.Globalization;

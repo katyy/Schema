@@ -3,22 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         WindowStartupLocation="CenterScreen"
       xmlns:local="clr-namespace:Schema.UI.Converters"
+        xmlns:pane="clr-namespace:Schema.UI.Controls.Panels"
         xmlns:Table="clr-namespace:Schema.UI.Table"
         xmlns:zoom="clr-namespace:WPFExtensions.Controls;assembly=WPFExtensions"
-        xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls" Title="Schema Builder"   Height="617" Width="938" Loaded="WindowLoaded"  WindowState="Maximized" x:Name="mainWindow" >
+        xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls" Title="Schema Builder"   Height="617" Width="938"  WindowState="Maximized" x:Name="mainWindow" >
     <DockPanel>
-        <StackPanel x:Name="buttonBar" Orientation="Horizontal" DockPanel.Dock="Right">
-            <StackPanel.LayoutTransform>
-                <RotateTransform Angle="90"/>
-            </StackPanel.LayoutTransform>
-            <Button x:Name="panePropertiesButton" MouseEnter="PanePropertiesButtonMouseEnter">
-                Properties
-            </Button>
-            <Button x:Name="paneInfoButton" MouseEnter="PaneInfoButtonMouseEnter">
-                Information
-            </Button>
-        </StackPanel>
-
         <Grid x:Name="parentGrid" Grid.IsSharedSizeScope="True">
             <!-- Layer 0: -->
             <Grid x:Name="layerMain" MouseEnter="LayerMainMouseEnter" >
@@ -62,7 +51,7 @@
                         </MenuItem>
                         <MenuItem  Header="BoundedFR">
                             <MenuItem.Icon>
-                                <RadioButton Tag="BoundedFR" Checked="AlgorithmRadioButtonChecked" GroupName="Algorithm" />
+                                <RadioButton Tag="BoundedFR" Checked="AlgorithmRadioButtonChecked"  GroupName="Algorithm" />
                             </MenuItem.Icon>
                         </MenuItem>
                         <MenuItem Header="KK">
@@ -90,14 +79,15 @@
                                 <RadioButton Tag="CompoundFDP" IsChecked="True" Checked="AlgorithmRadioButtonChecked" GroupName="Algorithm" />
                             </MenuItem.Icon>
                         </MenuItem>
-                       <MenuItem Header="Circular">
+                        <MenuItem Header="Circular">
                             <MenuItem.Icon>
                                 <RadioButton Tag="Circular" Checked="AlgorithmRadioButtonChecked" GroupName="Algorithm" ></RadioButton>
                             </MenuItem.Icon>
                         </MenuItem>
                     </MenuItem>
-                 
-                 </Menu>
+
+                </Menu>
+
                 <Grid Grid.Row="1"  Grid.Column="0" x:Name="tableGrid">
                     <Grid.Resources>
                         <local:ActiveConverter x:Key="activeConverter"/>
@@ -131,7 +121,7 @@
 
 
                     <zoom:ZoomControl x:Name="zoomControl" >
-                        <graphsharp:GraphLayout x:Name="graphLayout"
+                        <graphsharp:GraphLayout x:Name="graphLayout" HighlightAlgorithmType="Simple"
                                     Graph="{Binding Path=Graph}" 
                                     LayoutAlgorithmType="CompoundFDP"
                                     OverlapRemovalAlgorithmType="FSA" />
@@ -140,60 +130,8 @@
                 </Grid>
 
             </Grid>
+            <pane:ucPanel x:Name="panels" ></pane:ucPanel>
 
-            <!-- Layer 1: -->
-            <Grid x:Name="layerProperties" Visibility="Collapsed">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition SharedSizeGroup="column1" Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="1" Background="WhiteSmoke"  MouseEnter="PanePropertiesMouseEnter">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <DockPanel Grid.Row="0" Background="DarkGray">
-                        <Button x:Name="panePropertiesPin" Width="26" DockPanel.Dock="Right" Click="PanePropertiesPinClick" Background="White">
-                            <Image x:Name="panePropertiesPinImage" Source="Images\unpin.png"/>
-                        </Button>
-                        <TextBlock Padding="8" TextTrimming="CharacterEllipsis" DockPanel.Dock="Left" Text="Properties" />
-                    </DockPanel>
-                    <DockPanel Grid.Row="1" x:Name="TableName" >
-                        <TextBlock Text="No information" Margin="20,5,5,5"/>
-                    </DockPanel>
-                    <DockPanel Grid.Row="2" x:Name="PropertyTree"  >
-
-                    </DockPanel>
-                </Grid>
-                <GridSplitter Width="5" Grid.Column="1"  HorizontalAlignment="Left"/>
-            </Grid>
-
-            <!-- Layer 2: -->
-            <Grid x:Name="layer2" Visibility="Collapsed">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition SharedSizeGroup="column2" Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="1" Background="WhiteSmoke" MouseEnter="PaneInfoMouseEnter">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-
-                    <DockPanel Grid.Row="0" Background="DarkGray">
-                        <Button x:Name="pane2Pin" Width="26" DockPanel.Dock="Right" Click="PaneInfoPinClick" Background="White">
-                            <Image x:Name="pane2PinImage" Source="Images/unpin.png"/>
-                        </Button>
-                        <TextBlock Padding="8" TextTrimming="CharacterEllipsis" DockPanel.Dock="Left" Text="Information"></TextBlock>
-                    </DockPanel>
-                    <DockPanel Grid.Row="1" x:Name="InfoTree">
-
-                    </DockPanel>
-                </Grid>
-                <GridSplitter Width="5" Grid.Column="1" HorizontalAlignment="Left"/>
-            </Grid>
         </Grid>
     </DockPanel>
 </Window>

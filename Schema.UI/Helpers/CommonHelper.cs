@@ -1,25 +1,14 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="CommonHelper.cs" company="OM-3">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Schema.UI.Helpers
+﻿namespace Schema.UI.Helpers
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media.Imaging;
 
-    using Schema.Core.Models;
-    using Schema.Core.Models.Table;
+    using Core.Models;
+    using Core.Models.Table;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class CommonHelper
     {
         public static TreeView PropertiesTreeView(TableModel model)
@@ -122,7 +111,7 @@ namespace Schema.UI.Helpers
 
         public static void InsertInfo(DatabaseModel db, MainWindow mainWindow)
         {
-            mainWindow.InfoTree.Children.Clear();
+            mainWindow.panels.InfoTree.Children.Clear();
             var tree = new TreeView();
             var folderUri = GetUriString("Images/folder.png");
             if (db.Tables != null)
@@ -222,7 +211,7 @@ namespace Schema.UI.Helpers
                 tree.Items.Add(procedureItem);
             }
 
-            mainWindow.InfoTree.Children.Add(tree);
+            mainWindow.panels.InfoTree.Children.Add(tree);
         }
 
 

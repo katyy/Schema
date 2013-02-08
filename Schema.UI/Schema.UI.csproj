@@ -112,17 +112,31 @@
     <Compile Include="ChooseMsSqlServerWindow.xaml.cs">
       <DependentUpon>ChooseMsSqlServerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Panels\ucPanel.xaml.cs">
+      <DependentUpon>ucPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\ActiveConverter.cs" />
     <Compile Include="Converters\ButtonVisibilityConverter.cs" />
     <Compile Include="Converters\EditBoxConverter.cs" />
     <Compile Include="Helpers\CommonHelper.cs" />
+    <Compile Include="Controls\Loader\ucLoader.xaml.cs">
+      <DependentUpon>ucLoader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Table\TableVertex.cs" />
-    <Compile Include="TreeViewList\ServerImageConverter.cs" />
-    <Compile Include="TreeViewList\ServersTreeViewModel.cs" />
-    <Compile Include="TreeViewList\ServersTreeView.xaml.cs">
-      <DependentUpon>ServersTreeView.xaml</DependentUpon>
+    <Compile Include="Controls\TreeViewList\ServerImageConverter.cs" />
+    <Compile Include="Controls\TreeViewList\ServersTreeViewModel.cs" />
+    <Compile Include="Controls\TreeViewList\ucServersTreeView.xaml.cs">
+      <DependentUpon>ucServersTreeView.xaml</DependentUpon>
     </Compile>
     <Page Include="ChooseMsSqlServerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Loader\ucLoader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Panels\ucPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -138,7 +152,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="TreeViewList\ServersTreeView.xaml">
+    <Page Include="Controls\TreeViewList\ucServersTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
