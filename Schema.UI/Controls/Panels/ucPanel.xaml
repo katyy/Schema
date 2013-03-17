@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="Schema.UI.Controls.Panels.ucPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" x:Name="panel">
+    <Grid >
+      <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <!--DockPanel.Dock="Bottom"-->
+        <StackPanel x:Name="buttonBar" Grid.Row="1" Grid.Column="1"  Orientation="Horizontal"   Height="20" >
+            <StackPanel.LayoutTransform>
+                <RotateTransform Angle="90"/>
+            </StackPanel.LayoutTransform>
+            <Button x:Name="panePropertiesButton" MouseEnter="PanePropertiesButtonMouseEnter">
+                Properties
+            </Button>
+            <Button x:Name="paneInfoButton" MouseEnter="PaneInfoButtonMouseEnter">
+                Information
+            </Button>
+        </StackPanel>
+        <!-- Layer 1: -->
+        <Grid x:Name="layerProperties" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition SharedSizeGroup="column1" Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1" Background="WhiteSmoke"  MouseEnter="PanePropertiesMouseEnter">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <DockPanel Grid.Row="0" Background="DarkGray">
+                    <Button x:Name="panePropertiesPin" Width="26" DockPanel.Dock="Right" Click="PanePropertiesPinClick" Background="White">
+                        <Image x:Name="panePropertiesPinImage" Source="../../Images/unpin.png"/>
+                    </Button>
+                    <TextBlock Padding="8" TextTrimming="CharacterEllipsis" DockPanel.Dock="Left" Text="Properties" />
+                </DockPanel>
+                <DockPanel Grid.Row="1" x:Name="TableName" >
+                    <TextBlock Text="No information" Margin="20,5,5,5"/>
+                </DockPanel>
+                <DockPanel Grid.Row="2" x:Name="PropertyTree"  >
+
+                </DockPanel>
+            </Grid>
+            <GridSplitter Width="5" Grid.Column="1"  HorizontalAlignment="Left"/>
+        </Grid>
+
+        <!-- Layer 2: -->
+        <Grid x:Name="layer2" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition SharedSizeGroup="column2" Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1" Background="WhiteSmoke" MouseEnter="PaneInfoMouseEnter">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <DockPanel Grid.Row="0" Background="DarkGray">
+                    <Button x:Name="pane2Pin" Width="26" DockPanel.Dock="Right" Click="PaneInfoPinClick" Background="White">
+                        <Image x:Name="pane2PinImage" Source="../../Images/unpin.png"/>
+                    </Button>
+                    <TextBlock Padding="8" TextTrimming="CharacterEllipsis" DockPanel.Dock="Left" Text="Information"></TextBlock>
+                </DockPanel>
+                <DockPanel Grid.Row="1" x:Name="InfoTree">
+
+                </DockPanel>
+            </Grid>
+            <GridSplitter Width="5" Grid.Column="1" HorizontalAlignment="Left"/>
+        </Grid>
+
+    </Grid>
+</UserControl>
