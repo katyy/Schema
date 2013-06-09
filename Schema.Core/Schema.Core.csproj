@@ -71,14 +71,14 @@
     <Compile Include="Names\KeyNames.cs" />
     <Compile Include="Names\ProcedureNames.cs" />
     <Compile Include="Names\TriggerNames.cs" />
-    <Compile Include="Reader\IReader.cs" />
+    <Compile Include="Reader\ISqlReader.cs" />
     <Compile Include="Models\Procedure\ParametrModel.cs" />
     <Compile Include="Models\Table\TableModel.cs" />
     <Compile Include="Models\DatabaseModel.cs" />
     <Compile Include="Models\IndexModel.cs" />
     <Compile Include="Models\Table\ITable.cs" />
-    <Compile Include="Reader\MsSqlReader.cs" />
-    <Compile Include="Reader\MySqlReader.cs" />
+    <Compile Include="Reader\MsSqlSqlReader.cs" />
+    <Compile Include="Reader\MySqlSqlReader.cs" />
     <Compile Include="SqlQueries\ISqlQueries.cs" />
     <Compile Include="SqlQueries\MySqlQueries.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

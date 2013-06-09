@@ -9,9 +9,9 @@
 
     public class ProcedureGetter
     {
-        public static Dictionary<string, List<ParametrModel>> GetProcedure(IReader reader, DataSet dataSet, string query, string dataSetTableName)
+        public static Dictionary<string, List<ParametrModel>> GetProcedure(ISqlReader sqlReader, DataSet dataSet, string query, string dataSetTableName)
         {
-            CommonHelper.SetDataAdapterSettings(reader, query, dataSet, dataSetTableName);
+            CommonHelper.SetDataAdapterSettings(sqlReader, query, dataSet, dataSetTableName);
 
             var dt = dataSet.Tables[dataSetTableName];
             var parametr = new List<ParametrModel>();

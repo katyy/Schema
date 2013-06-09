@@ -10,9 +10,9 @@
 
     public class ColumnGetter<TK> where TK : ColumnModel, new()
     {
-        public static Dictionary<string, List<TK>> GetColumn(IReader reader, DataSet dataSet, string dataSetTableName)
+        public static Dictionary<string, List<TK>> GetColumn(ISqlReader sqlReader, DataSet dataSet, string dataSetTableName)
         {
-            CommonHelper.SetDataAdapterSettings(reader, reader.SqlQueries.SelectColumn, dataSet, dataSetTableName);
+            CommonHelper.SetDataAdapterSettings(sqlReader, sqlReader.SqlQueries.SelectColumn, dataSet, dataSetTableName);
 
             var dt = dataSet.Tables[dataSetTableName];
             var column = new List<TK>();

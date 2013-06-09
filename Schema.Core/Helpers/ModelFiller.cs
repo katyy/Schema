@@ -12,23 +12,23 @@
 
     public class ModelFiller
     {
-        public static DatabaseModel GetModel(IReader reader, DataSet dataSet)
+        public static DatabaseModel GetModel(ISqlReader sqlReader, DataSet dataSet)
         {
-            var columnModels = ColumnGetter<ColumnModel>.GetColumn(reader, dataSet, TableNames.Tables);
+            var columnModels = ColumnGetter<ColumnModel>.GetColumn(sqlReader, dataSet, TableNames.Tables);
 
-            var keyModel = KeyGetter.GetKeys(reader, dataSet, TableNames.Keys);
+            var keyModel = KeyGetter.GetKeys(sqlReader, dataSet, TableNames.Keys);
 
-            var trigers = TriggerGetter.GetTriggers(reader, dataSet, TableNames.Triggers);
+            var trigers = TriggerGetter.GetTriggers(sqlReader, dataSet, TableNames.Triggers);
 
-            var indexes = IndexGetter.GetIndexes(reader, dataSet, TableNames.Indexes);
+            var indexes = IndexGetter.GetIndexes(sqlReader, dataSet, TableNames.Indexes);
 
             var procedures = ProcedureGetter.GetProcedure(
-                reader, dataSet, reader.SqlQueries.SelectProcedure, TableNames.Procedures);
+                sqlReader, dataSet, sqlReader.SqlQueries.SelectProcedure, TableNames.Procedures);
 
             var functions = ProcedureGetter.GetProcedure(
-                reader, dataSet, reader.SqlQueries.SelectFunction, TableNames.Functions);
+                sqlReader, dataSet, sqlReader.SqlQueries.SelectFunction, TableNames.Functions);
 
-            var views = ViewGetter.GetView(reader, dataSet, TableNames.Views);
+            var views = ViewGetter.GetView(sqlReader, dataSet, TableNames.Views);
 
             var tables = GetTable<TableModel>(columnModels, indexes, trigers);
             tables = InsertKey(keyModel, tables);

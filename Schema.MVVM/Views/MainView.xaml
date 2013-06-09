@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="Schema.MVVM.Views.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <!--<Grid Width="300" Height="300" Background="LightBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <ContentControl Name="GraphModel" Margin="10" />
+    </Grid>
+</UserControl>-->
+    <DockPanel LastChildFill="true" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid x:Name="parentGrid" Grid.IsSharedSizeScope="True">
+         <ContentControl Name="MenuModel" />
+        </Grid>
+
+    </DockPanel>
+</UserControl>

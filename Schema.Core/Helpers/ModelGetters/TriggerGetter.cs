@@ -9,14 +9,14 @@
 
     public class TriggerGetter
     {
-        public static Dictionary<string, List<TriggerModel>> GetTriggers(IReader reader, DataSet dataSet, string dataSetTableName)
+        public static Dictionary<string, List<TriggerModel>> GetTriggers(ISqlReader sqlReader, DataSet dataSet, string dataSetTableName)
         {
-            if (string.IsNullOrEmpty(reader.SqlQueries.SelectTrigger))
+            if (string.IsNullOrEmpty(sqlReader.SqlQueries.SelectTrigger))
             {
                 return new Dictionary<string, List<TriggerModel>>() ;
             }
 
-            CommonHelper.SetDataAdapterSettings(reader, reader.SqlQueries.SelectTrigger, dataSet, dataSetTableName);
+            CommonHelper.SetDataAdapterSettings(sqlReader, sqlReader.SqlQueries.SelectTrigger, dataSet, dataSetTableName);
 
             var dt = dataSet.Tables[dataSetTableName];
 

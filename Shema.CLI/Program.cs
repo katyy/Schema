@@ -19,7 +19,7 @@ namespace Shema.CLI
             //var db = ModelFiller.GetModel(mssqlReader, dataSet);
 
             const string MySqlDbName = @"blog";
-            var mySqlReader = new MySqlReader { DbName = MySqlDbName };
+            var mySqlReader = new MySqlSqlReader { DbName = MySqlDbName };
             var db = ModelFiller.GetModel(mySqlReader, dataSet);
 
            

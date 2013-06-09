@@ -9,14 +9,14 @@
 
     public class KeyGetter
     {
-        public static Dictionary<string, List<KeyModel>> GetKeys(IReader reader, DataSet dataSet, string tableName)
+        public static Dictionary<string, List<KeyModel>> GetKeys(ISqlReader sqlReader, DataSet dataSet, string tableName)
         {
-            var foriegenKey = GetForigenKey(reader, dataSet, tableName);
+            var foriegenKey = GetForigenKey(sqlReader, dataSet, tableName);
 
             var primaryKey = new Dictionary<string, List<KeyModel>> ();
-            if (!string.IsNullOrEmpty(reader.SqlQueries.SelectPk))
+            if (!string.IsNullOrEmpty(sqlReader.SqlQueries.SelectPk))
             {
-               primaryKey = GetPK(reader, dataSet, TableNames.ForigenKey);
+               primaryKey = GetPK(sqlReader, dataSet, TableNames.ForigenKey);
             }
 
                foreach (var pk in primaryKey)
@@ -39,9 +39,9 @@
             return foriegenKey;
         }
 
-        public static Dictionary<string, List<KeyModel>> GetForigenKey(IReader reader, DataSet dataSet, string dataSetTableName)
+        public static Dictionary<string, List<KeyModel>> GetForigenKey(ISqlReader sqlReader, DataSet dataSet, string dataSetTableName)
         {
-            CommonHelper.SetDataAdapterSettings(reader, reader.SqlQueries.SelectFk, dataSet, dataSetTableName);
+            CommonHelper.SetDataAdapterSettings(sqlReader, sqlReader.SqlQueries.SelectFk, dataSet, dataSetTableName);
 
             var dt = dataSet.Tables[dataSetTableName];
 
@@ -74,9 +74,9 @@
             return keyDictionary;
         }
 
-        public static Dictionary<string, List<KeyModel>> GetPK(IReader reader, DataSet dataSet, string dataSetTableName)
+        public static Dictionary<string, List<KeyModel>> GetPK(ISqlReader sqlReader, DataSet dataSet, string dataSetTableName)
         {
-            CommonHelper.SetDataAdapterSettings(reader, reader.SqlQueries.SelectPk, dataSet, dataSetTableName);
+            CommonHelper.SetDataAdapterSettings(sqlReader, sqlReader.SqlQueries.SelectPk, dataSet, dataSetTableName);
 
             var dt = dataSet.Tables[dataSetTableName];
 

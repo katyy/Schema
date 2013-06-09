@@ -9,11 +9,11 @@
 
     public class ViewGetter 
     {
-        public static List<ViewModel> GetView(IReader reader, DataSet dataSet, string tableName)
+        public static List<ViewModel> GetView(ISqlReader sqlReader, DataSet dataSet, string tableName)
         {
-            var viewColumn = ColumnGetter<ColumnModel>.GetColumn(reader, dataSet, TableNames.Views);
-            var viewTriggers = TriggerGetter.GetTriggers(reader, dataSet, TableNames.ViewTriggers);
-            var viewIndexes = IndexGetter.GetIndexes(reader, dataSet, TableNames.ViewIndexes);
+            var viewColumn = ColumnGetter<ColumnModel>.GetColumn(sqlReader, dataSet, TableNames.Views);
+            var viewTriggers = TriggerGetter.GetTriggers(sqlReader, dataSet, TableNames.ViewTriggers);
+            var viewIndexes = IndexGetter.GetIndexes(sqlReader, dataSet, TableNames.ViewIndexes);
 
             return ModelFiller.GetTable<ViewModel>(viewColumn, viewIndexes, viewTriggers);
            }

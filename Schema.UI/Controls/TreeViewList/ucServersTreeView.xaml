@@ -79,7 +79,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
-                                     <TextBlock   Width="{Binding ElementName=User, Path=ActualWidth}" Text="{Binding Path=UserName, Mode=TwoWay}"  Style="{StaticResource GridBlockStyle}" />
+                                    <TextBlock   Width="{Binding ElementName=User, Path=ActualWidth}" Text="{Binding Path=UserName, Mode=TwoWay}"  Style="{StaticResource GridBlockStyle}" />
                                     <TextBox  Text="{Binding Path=UserName, Mode=TwoWay}" Style="{StaticResource GridEditStyle}"  />
                                 </Grid>
                             </DataTemplate>

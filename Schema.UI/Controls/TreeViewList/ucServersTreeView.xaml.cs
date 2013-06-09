@@ -126,7 +126,7 @@ namespace Schema.UI.Controls.TreeViewList
         private DatabaseModel GetDataBaseModel(string dataBaseName, string connectionString)
         {
             var dataSet = new DataSet("dbDataSet");
-            var mssqlReader = new MsSqlReader(dataBaseName, connectionString);
+            var mssqlReader = new MsSqlSqlReader(dataBaseName, connectionString);
             return ModelFiller.GetModel(mssqlReader, dataSet);
         }
 

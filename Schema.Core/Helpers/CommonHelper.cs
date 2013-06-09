@@ -6,12 +6,12 @@
 
    public class CommonHelper
     {
-        public static void SetDataAdapterSettings(IReader reader, string query, DataSet dataSet, string dataSetTableName)
+        public static void SetDataAdapterSettings(ISqlReader sqlReader, string query, DataSet dataSet, string dataSetTableName)
         {
-            using (var dataAdapter = reader.DataAdapter)
+            using (var dataAdapter = sqlReader.DataAdapter)
             {
-                dataAdapter.SelectCommand = reader.Command;
-                dataAdapter.SelectCommand.Connection = reader.Conection;
+                dataAdapter.SelectCommand = sqlReader.Command;
+                dataAdapter.SelectCommand.Connection = sqlReader.Conection;
                 dataAdapter.SelectCommand.CommandText = query;
                 dataAdapter.Fill(dataSet, dataSetTableName);
             }

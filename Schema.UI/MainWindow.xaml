@@ -74,6 +74,12 @@
                                 <RadioButton Tag="EfficientSugiyama" Checked="AlgorithmRadioButtonChecked" GroupName="Algorithm" />
                             </MenuItem.Icon>
                         </MenuItem>
+                        <MenuItem  Header="Sugiyama">
+                            <MenuItem.Icon>
+                                <RadioButton Tag="Sugiyama" Checked="AlgorithmRadioButtonChecked" GroupName="Algorithm" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+
                         <MenuItem  Header="CompoundFDP">
                             <MenuItem.Icon>
                                 <RadioButton Tag="CompoundFDP" IsChecked="True" Checked="AlgorithmRadioButtonChecked" GroupName="Algorithm" />
@@ -124,7 +130,8 @@
                         <graphsharp:GraphLayout x:Name="graphLayout" HighlightAlgorithmType="Simple"
                                     Graph="{Binding Path=Graph}" 
                                     LayoutAlgorithmType="CompoundFDP"
-                                    OverlapRemovalAlgorithmType="FSA" />
+                                    OverlapRemovalAlgorithmType="FSA"
+                                                />
                         <!--LayoutAlgorithmType="{Binding Path=LayoutAlgorithm}"-->
                     </zoom:ZoomControl>
                 </Grid>

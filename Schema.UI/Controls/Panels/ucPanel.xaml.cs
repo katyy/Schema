@@ -22,15 +22,15 @@ namespace Schema.UI.Controls.Panels
         }
 
         public void PanePropertiesPinClick(object sender, RoutedEventArgs e)
-        {
-            var test = panel.Parent as MainWindow;
+         {
+            var mainWindow = Window.GetWindow(panel) as MainWindow;
             if (panePropertiesButton.Visibility == Visibility.Collapsed)
             {
-                UndockPane(1,test);
+                UndockPane(1,mainWindow);
             }
             else
             {
-                DockPane(1,test);
+                DockPane(1,mainWindow);
             }
         }
 
@@ -125,14 +125,14 @@ namespace Schema.UI.Controls.Panels
 
         private void PaneInfoPinClick(object sender, RoutedEventArgs e)
         {
-            var test = sender as MainWindow;
+            var mainWindow = Window.GetWindow(panel) as MainWindow;
             if (this.paneInfoButton.Visibility == Visibility.Collapsed)
             {
-                this.UndockPane(2,test);
+                this.UndockPane(2,mainWindow);
             }
             else
             {
-                this.DockPane(2,test);
+                this.DockPane(2,mainWindow);
             }
         }
 

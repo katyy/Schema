@@ -10,14 +10,14 @@
 
     public class IndexGetter
     {
-        public static Dictionary<string, List<IndexModel>> GetIndexes(IReader reader, DataSet dataSet, string dataSetTableName)
+        public static Dictionary<string, List<IndexModel>> GetIndexes(ISqlReader sqlReader, DataSet dataSet, string dataSetTableName)
         {
-            if (string.IsNullOrEmpty(reader.SqlQueries.SelectIndex))
+            if (string.IsNullOrEmpty(sqlReader.SqlQueries.SelectIndex))
             {
                 return new Dictionary<string, List<IndexModel>>();
             }
 
-            CommonHelper.SetDataAdapterSettings(reader, reader.SqlQueries.SelectIndex, dataSet, dataSetTableName);
+            CommonHelper.SetDataAdapterSettings(sqlReader, sqlReader.SqlQueries.SelectIndex, dataSet, dataSetTableName);
 
             var dt = dataSet.Tables[dataSetTableName];
 
